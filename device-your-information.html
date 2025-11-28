@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GusOfcXD 404</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f3460;
+            --secondary: #e94560;
+            --dark: #16213e;
+            --light: #f5f5f5;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #fecfef 75%, #fecfef 100%);
+            background-size: 400% 400%;
+            animation: bgMove 20s ease infinite;
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: floatUp 15s infinite;
+        }
+
+        @keyframes floatUp {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #fff, #e94560);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(233, 69, 96, 0.5);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 20px rgba(233, 69, 96, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(233, 69, 96, 0.8)); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4caf50;
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: cardSlide 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes cardSlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .info-value {
+            font-weight: 600;
+            text-align: right;
+            max-width: 50%;
+            word-break: break-word;
+        }
+
+        .progress-container {
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .battery-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .battery-icon {
+            width: 60px;
+            height: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            position: relative;
+            padding: 2px;
+        }
+
+        .battery-icon::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .battery-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: all 0.5s ease;
+        }
+
+        .battery-text {
+            flex: 1;
+        }
+
+        .map-section {
+            grid-column: 1 / -1;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--glass-border);
+            animation: cardSlide 0.8s ease forwards;
+            animation-delay: 0.7s;
+            opacity: 0;
+        }
+
+        .map-container {
+            height: 450px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            z-index: 10;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            gap: 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            min-width: 300px;
+            padding: 15px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(400px);
+            animation: slideInNotif 0.3s forwards;
+        }
+
+        @keyframes slideInNotif {
+            to { transform: translateX(0); }
+        }
+
+        .notification.hiding {
+            animation: slideOutNotif 0.3s forwards;
+        }
+
+        @keyframes slideOutNotif {
+            to { transform: translateX(400px); }
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+
+        .notification.success .notification-icon { color: #4caf50; }
+        .notification.error .notification-icon { color: #f44336; }
+        .notification.info .notification-icon { color: #2196f3; }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .map-section {
+                grid-column: 1;
+            }
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            border-radius: inherit;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            filter: blur(10px);
+        }
+
+        .glow-effect:hover::before {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-microchip"></i> semok device information</h1>
+            <p class="subtitle">Welcome Puqi, below is your device information</p>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span id="systemStatus">GusOfcXD 404</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="stats-overview">
+            <div class="stat-card glow-effect">
+                <div class="stat-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <div class="stat-value" id="performanceScore">--</div>
+                <div class="stat-label">Performance Score</div>
+            </div>
+            <div class="stat-card glow-effect">
+                <div class="stat-icon"><i class="fas fa-memory"></i></div>
+                <div class="stat-value" id="memoryUsage">--</div>
+                <div class="stat-label">Memory Usage</div>
+            </div>
+            <div class="stat-card glow-effect">
+                <div class="stat-icon"><i class="fas fa-battery-full"></i></div>
+                <div class="stat-value" id="batteryPercent">--</div>
+                <div class="stat-label">Battery Level</div>
+            </div>
+            <div class="stat-card glow-effect">
+                <div class="stat-icon"><i class="fas fa-wifi"></i></div>
+                <div class="stat-value" id="connectionSpeed">--</div>
+                <div class="stat-label">Connection</div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="card-title">Network & IP Information</div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-globe"></i> IP Address
+                        </span>
+                        <span class="info-value" id="ipAddress">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-isp"></i> ISP Provider
+                        </span>
+                        <span class="info-value" id="ispProvider">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-signal"></i> Connection Type
+                        </span>
+                        <span class="info-value" id="connectionType">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-download"></i> Downlink Speed
+                        </span>
+                        <span class="info-value" id="downlinkSpeed">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-upload"></i> Uplink Speed
+                        </span>
+                        <span class="info-value" id="uplinkSpeed">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-clock"></i> RTT (Latency)
+                        </span>
+                        <span class="info-value" id="rtt">Detecting</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="card-title">Geographic Location</div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-flag"></i> Country
+                        </span>
+                        <span class="info-value" id="country">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-map"></i> Region/State
+                        </span>
+                        <span class="info-value" id="region">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-city"></i> City/District
+                        </span>
+                        <span class="info-value" id="city">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-mail-bulk"></i> Postal Code
+                        </span>
+                        <span class="info-value" id="postalCode">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-compass"></i> Coordinates
+                        </span>
+                        <span class="info-value" id="coordinates">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-globe-asia"></i> Timezone
+                        </span>
+                        <span class="info-value" id="timezone">Detecting</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="card-title">System & Hardware</div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-laptop"></i> Platform
+                        </span>
+                        <span class="info-value" id="platform">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-browser"></i> Browser
+                        </span>
+                        <span class="info-value" id="browser">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-microchip"></i> CPU Cores
+                        </span>
+                        <span class="info-value" id="cpuCores">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-memory"></i> Total RAM
+                        </span>
+                        <span class="info-value" id="totalMemory">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-hdd"></i> Storage
+                        </span>
+                        <span class="info-value" id="storage">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-mobile-alt"></i> Device Type
+                        </span>
+                        <span class="info-value" id="deviceType">Detecting</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                    <div class="card-title">Battery & Power Management</div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-battery-full"></i> Battery Level
+                        </span>
+                        <span class="info-value" id="batteryLevel">Detectin</span>
+                    </div>
+                    <div class="battery-container">
+                        <div class="battery-icon">
+                            <div class="battery-fill" id="batteryFill"></div>
+                        </div>
+                        <div class="battery-text">
+                            <div id="batteryStatus">Status: Detecting</div>
+                            <div id="batteryTime" style="font-size: 0.9rem; opacity: 0.8;">Time: Detecting</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-plug"></i> Charging State
+                        </span>
+                        <span class="info-value" id="chargingState">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-bolt"></i> Power Save Mode
+                        </span>
+                        <span class="info-value" id="powerSaveMode">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-info-circle"></i> Battery Health
+                        </span>
+                        <span class="info-value">Not Available</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <div class="card-title">Display & Graphics</div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-expand"></i> Screen Resolution
+                        </span>
+                        <span class="info-value" id="screenResolution">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-mobile-alt"></i> Device Pixel Ratio
+                        </span>
+                        <span class="info-value" id="pixelRatio">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-palette"></i> Color Depth
+                        </span>
+                        <span class="info-value" id="colorDepth">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-adjust"></i> Orientation
+                        </span>
+                        <span class="info-value" id="orientation">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-sun"></i> Brightness
+                        </span>
+                        <span class="info-value" id="brightness">Detecting</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="card-title">Advanced Features</div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-language"></i> Language
+                        </span>
+                        <span class="info-value" id="language">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-cookie"></i> Cookies Enabled
+                        </span>
+                        <span class="info-value" id="cookiesEnabled">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-map-pin"></i> Geolocation
+                        </span>
+                        <span class="info-value" id="geolocation">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-camera"></i> Camera Access
+                        </span>
+                        <span class="info-value" id="cameraAccess">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-microphone"></i> Microphone Access
+                        </span>
+                        <span class="info-value" id="microphoneAccess">Detecting</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-bell"></i> Notifications
+                        </span>
+                        <span class="info-value" id="notifications">Detecting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-section">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-map"></i>
+                </div>
+                <div class="card-title">Live Location Map</div>
+            </div>
+            <div class="map-container">
+                <div class="loading" id="mapLoading">
+                    <div class="spinner"></div>
+                    <p>Loading map</p>
+                </div>
+                <iframe id="map" style="display:none;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                <div class="map-overlay" id="mapOverlay" style="display:none;">
+                    <div><i class="fas fa-map-marker-alt"></i> Your Location</div>
+                    <div id="locationCoords" style="margin-top: 5px; font-size: 0.9rem;">--</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Advanced Device Intelligence Dashboard | Real-time Monitoring System</p>
+        <p style="margin-top: 10px; opacity: 0.7;">Last Updated: <span id="lastUpdate">--</span></p>
+    </footer>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            let icon = 'fa-info-circle';
+            if (type === 'success') icon = 'fa-check-circle';
+            if (type === 'error') icon = 'fa-exclamation-circle';
+            
+            notification.innerHTML = `
+                <i class="fas ${icon} notification-icon"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('hiding');
+                setTimeout(() => {
+                    container.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        async function getLocationInfo() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                
+                document.getElementById('ipAddress').textContent = data.ip;
+                document.getElementById('ispProvider').textContent = data.org;
+                
+                document.getElementById('country').textContent = data.country_name || 'Unknown';
+                document.getElementById('region').textContent = data.region || 'Unknown';
+                document.getElementById('city').textContent = data.city || 'Unknown';
+                document.getElementById('postalCode').textContent = data.postal || 'Unknown';
+                document.getElementById('coordinates').textContent = `${data.latitude.toFixed(4)}, ${data.longitude.toFixed(4)}`;
+                document.getElementById('timezone').textContent = data.timezone || 'Unknown';
+                
+                loadMap(data.latitude, data.longitude);
+                
+                document.getElementById('locationCoords').textContent = `${data.latitude.toFixed(4)}, ${data.longitude.toFixed(4)}`;
+                
+                showNotification('Location data loaded successfully', 'success');
+            } catch (error) {
+                console.error('Error getting location:', error);
+                showNotification('Failed to load location data', 'error');
+                getBrowserLocation();
+            }
+        }
+
+        function getBrowserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const { latitude, longitude } = position.coords;
+                        document.getElementById('coordinates').textContent = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                        loadMap(latitude, longitude);
+                        document.getElementById('locationCoords').textContent = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                        showNotification('Browser location loaded', 'info');
+                    },
+                    error => {
+                        console.error('Geolocation error:', error);
+                        document.getElementById('mapLoading').innerHTML = '<p>Location unavailable</p>';
+                    }
+                );
+            }
+        }
+
+        function loadMap(lat, lng) {
+            const mapFrame = document.getElementById('map');
+            const mapLoading = document.getElementById('mapLoading');
+            const mapOverlay = document.getElementById('mapOverlay');
+            
+            mapFrame.src = `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+            
+            mapFrame.onload = function() {
+                mapLoading.style.display = 'none';
+                mapFrame.style.display = 'block';
+                mapOverlay.style.display = 'block';
+            };
+        }
+
+        function getSystemInfo() {
+            document.getElementById('platform').textContent = navigator.platform || 'Unknown';
+            
+            const userAgent = navigator.userAgent;
+            let browserName = 'Unknown';
+            if (userAgent.indexOf('Firefox') > -1) browserName = 'Mozilla Firefox';
+            else if (userAgent.indexOf('Opera') > -1 || userAgent.indexOf('OPR') > -1) browserName = 'Opera';
+            else if (userAgent.indexOf('Trident') > -1) browserName = 'Internet Explorer';
+            else if (userAgent.indexOf('Edge') > -1) browserName = 'Microsoft Edge';
+            else if (userAgent.indexOf('Chrome') > -1) browserName = 'Google Chrome';
+            else if (userAgent.indexOf('Safari') > -1) browserName = 'Safari';
+            
+            document.getElementById('browser').textContent = browserName;
+            
+            document.getElementById('cpuCores').textContent = navigator.hardwareConcurrency || 'Unknown';
+            document.getElementById('totalMemory').textContent = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Unknown';
+            
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            document.getElementById('deviceType').textContent = isMobile ? 'Mobile' : 'Desktop';
+            
+            if (navigator.storage && navigator.storage.estimate) {
+                navigator.storage.estimate().then(estimate => {
+                    const storageGB = (estimate.quota / (1024 ** 3)).toFixed(2);
+                    document.getElementById('storage').textContent = `~${storageGB} GB`;
+                });
+            }
+            
+            document.getElementById('screenResolution').textContent = `${screen.width} x ${screen.height}`;
+            document.getElementById('pixelRatio').textContent = window.devicePixelRatio || 'Unknown';
+            document.getElementById('colorDepth').textContent = `${screen.colorDepth}-bit`;
+            document.getElementById('orientation').textContent = screen.orientation ? screen.orientation.type : 'Unknown';
+            
+            document.getElementById('language').textContent = navigator.language || 'Unknown';
+            document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Enabled' : 'Disabled';
+            
+            document.getElementById('geolocation').textContent = 'geolocation' in navigator ? 'Available' : 'Not Available';
+            document.getElementById('cameraAccess').textContent = 'mediaDevices' in navigator ? 'Available' : 'Not Available';
+            document.getElementById('microphoneAccess').textContent = 'mediaDevices' in navigator ? 'Available' : 'Not Available';
+            document.getElementById('notifications').textContent = 'Notification' in window ? 'Available' : 'Not Available';
+        }
+
+        function getNetworkInfo() {
+            if (navigator.connection) {
+                const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                
+                document.getElementById('connectionType').textContent = connection.effectiveType || 'Unknown';
+                document.getElementById('downlinkSpeed').textContent = connection.downlink ? `${connection.downlink} Mbps` : 'Unknown';
+                document.getElementById('uplinkSpeed').textContent = connection.uplink ? `${connection.uplink} Mbps` : 'Unknown';
+                document.getElementById('rtt').textContent = connection.rtt ? `${connection.rtt} ms` : 'Unknown';
+                
+                document.getElementById('connectionSpeed').textContent = connection.effectiveType || 'Unknown';
+            } else {
+                document.getElementById('connectionType').textContent = 'Not Available';
+                document.getElementById('downlinkSpeed').textContent = 'Not Available';
+                document.getElementById('uplinkSpeed').textContent = 'Not Available';
+                document.getElementById('rtt').textContent = 'Not Available';
+                document.getElementById('connectionSpeed').textContent = 'Unknown';
+            }
+        }
+
+        function getBatteryInfo() {
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(battery => {
+                    function updateBatteryInfo() {
+                        const level = Math.round(battery.level * 100);
+                        document.getElementById('batteryLevel').textContent = `${level}%`;
+                        document.getElementById('batteryPercent').textContent = `${level}%`;
+                        
+                        const batteryFill = document.getElementById('batteryFill');
+                        batteryFill.style.width = `${level}%`;
+                        
+                        if (level > 60) {
+                            batteryFill.style.background = '#4caf50';
+                        } else if (level > 30) {
+                            batteryFill.style.background = '#ff9800';
+                        } else {
+                            batteryFill.style.background = '#f44336';
+                        }
+                        
+                        const charging = battery.charging;
+                        document.getElementById('chargingState').textContent = charging ? 'Charging' : 'Discharging';
+                        document.getElementById('batteryStatus').textContent = `Status: ${charging ? 'Charging' : 'Discharging'}`;
+                        
+                        if (charging && battery.chargingTime !== Infinity) {
+                            const hours = Math.floor(battery.chargingTime / 3600);
+                            const minutes = Math.floor((battery.chargingTime % 3600) / 60);
+                            document.getElementById('batteryTime').textContent = `Full in: ${hours}h ${minutes}m`;
+                        } else if (!charging && battery.dischargingTime !== Infinity) {
+                            const hours = Math.floor(battery.dischargingTime / 3600);
+                            const minutes = Math.floor((battery.dischargingTime % 3600) / 60);
+                            document.getElementById('batteryTime').textContent = `Empty in: ${hours}h ${minutes}m`;
+                        } else {
+                            document.getElementById('batteryTime').textContent = 'Calculating';
+                        }
+                    }
+                    
+                    updateBatteryInfo();
+                    
+                    battery.addEventListener('levelchange', updateBatteryInfo);
+                    battery.addEventListener('chargingchange', updateBatteryInfo);
+                });
+            } else {
+                document.getElementById('batteryLevel').textContent = 'Not Available';
+                document.getElementById('batteryPercent').textContent = '--';
+                document.getElementById('chargingState').textContent = 'Not Available';
+                document.getElementById('batteryStatus').textContent = 'Status: Not Available';
+                document.getElementById('batteryTime').textContent = 'Time: Not Available';
+            }
+            
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(battery => {
+                    document.getElementById('powerSaveMode').textContent = 'Not Detectable';
+                });
+            }
+        }
+
+        function calculatePerformance() {
+            let score = 0;
+            
+            const cores = navigator.hardwareConcurrency || 4;
+            score += Math.min(cores * 10, 40);
+            
+            const memory = navigator.deviceMemory || 4;
+            score += Math.min(memory * 10, 30);
+            
+            if (navigator.connection) {
+                const connection = navigator.connection;
+                if (connection.effectiveType === '4g') score += 20;
+                else if (connection.effectiveType === '3g') score += 15;
+                else if (connection.effectiveType === '2g') score += 10;
+                else score += 5;
+            } else {
+                score += 15;
+            }
+            
+            if ('getBattery' in navigator) {
+                score += 10;
+            }
+            
+            document.getElementById('performanceScore').textContent = Math.min(score, 100);
+        }
+
+        function updateMemoryUsage() {
+            if (performance.memory) {
+                const used = (performance.memory.usedJSHeapSize / (1024 ** 2)).toFixed(2);
+                const total = (performance.memory.totalJSHeapSize / (1024 ** 2)).toFixed(2);
+                const percentage = ((used / total) * 100).toFixed(1);
+                document.getElementById('memoryUsage').textContent = `${percentage}%`;
+            } else {
+                document.getElementById('memoryUsage').textContent = 'N/A';
+            }
+        }
+
+        function updateLastUpdateTime() {
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = now.toLocaleString();
+        }
+
+        function monitorOnlineStatus() {
+            const statusElement = document.getElementById('systemStatus');
+            const statusDot = document.querySelector('.status-dot');
+            
+            function updateStatus() {
+                if (navigator.onLine) {
+                    statusElement.textContent = 'System Online';
+                    statusDot.style.background = '#4caf50';
+                    showNotification('Connection restored', 'success');
+                } else {
+                    statusElement.textContent = 'System Offline';
+                    statusDot.style.background = '#f44336';
+                    showNotification('Connection lost', 'error');
+                }
+            }
+            
+            window.addEventListener('online', updateStatus);
+            window.addEventListener('offline', updateStatus);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            getLocationInfo();
+            getSystemInfo();
+            getNetworkInfo();
+            getBatteryInfo();
+            calculatePerformance();
+            updateMemoryUsage();
+            updateLastUpdateTime();
+            monitorOnlineStatus();
+            
+            setInterval(updateMemoryUsage, 5000);
+            
+            setInterval(updateLastUpdateTime, 60000);
+            
+            showNotification('Dashboard initialized successfully', 'success');
+        });
+
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                document.getElementById('orientation').textContent = screen.orientation ? screen.orientation.type : 'Unknown';
+                showNotification('Screen orientation changed', 'info');
+            }, 100);
+        });
+    </script>
+</body>
+</html>
