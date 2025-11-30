@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GusOfcXD 404</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            min-height: 100vh;
+            background: url('https://files.catbox.moe/2b2wz3.jpg') center/cover fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 18px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            animation: slideDown 0.7s ease-out;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.7em;
+            text-shadow: 2px 3px 6px rgba(0,0,0,0.6);
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 1.15em;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 28px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 820px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.11);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 31px rgba(0, 0, 0, 0.27);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .input-section h2 {
+            color: #fff;
+            margin-bottom: 22px;
+            font-size: 1.65em;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 7px;
+            font-weight: 500;
+            font-size: 0.96em;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: none;
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.88);
+            font-size: 15px;
+            transition: all 0.28s ease;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.22);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 98px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(142deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 11px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.28s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 23px rgba(102, 126, 234, 0.38);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .links-section h2 {
+            color: #fff;
+            margin-bottom: 23px;
+            font-size: 1.65em;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .links-container {
+            max-height: 580px;
+            overflow-y: auto;
+            padding-right: 12px;
+        }
+
+        .links-container::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .links-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+
+        .links-container::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.42);
+            border-radius: 8px;
+        }
+
+        .link-item {
+            background: rgba(255, 255, 255, 0.13);
+            border-radius: 14px;
+            padding: 19px;
+            margin-bottom: 14px;
+            transition: all 0.27s ease;
+            animation: slideIn 0.5s ease-out;
+            position: relative;
+        }
+
+        .link-item:hover {
+            transform: translateX(4px);
+            background: rgba(255, 255, 255, 0.17);
+        }
+
+        .link-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 11px;
+        }
+
+        .link-title {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.08em;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            flex: 1;
+        }
+
+        .link-badge {
+            background: rgba(102, 126, 234, 0.3);
+            color: #fff;
+            padding: 3px 9px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .link-description {
+            color: rgba(255, 255, 255, 0.82);
+            margin-bottom: 12px;
+            line-height: 1.48;
+            font-size: 0.96em;
+        }
+
+        .link-actions {
+            display: flex;
+            gap: 9px;
+            align-items: center;
+        }
+
+        .btn-open {
+            padding: 9px 21px;
+            background: linear-gradient(138deg, #00d2ff 0%, #3a7bd5 100%);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.27s ease;
+            font-weight: 500;
+            font-size: 0.94em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-open:hover {
+            transform: scale(1.04);
+            box-shadow: 0 4px 14px rgba(58, 123, 213, 0.36);
+        }
+
+        .btn-delete {
+            padding: 9px 14px;
+            background: linear-gradient(138deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.27s ease;
+            font-size: 0.88em;
+        }
+
+        .btn-delete:hover {
+            transform: scale(1.04);
+            box-shadow: 0 4px 14px rgba(245, 87, 108, 0.36);
+        }
+
+        .notification {
+            position: fixed;
+            top: -220px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 22px 32px;
+            border-radius: 16px;
+            box-shadow: 0 11px 38px rgba(0,0,0,0.32);
+            z-index: 1000;
+            transition: top 0.48s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .notification.show {
+            top: 25px;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 9px;
+            font-weight: 600;
+            font-size: 1.08em;
+        }
+
+        .notification-body {
+            font-size: 0.93em;
+            line-height: 1.42;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.58);
+            padding: 45px 20px;
+        }
+
+        .empty-state i {
+            font-size: 3.8em;
+            margin-bottom: 18px;
+            opacity: 0.48;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 22px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 1.9em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.88em;
+            opacity: 0.82;
+            margin-top: 3px;
+        }
+
+        .link-type-icon {
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 5px;
+            font-size: 0.88em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-link"></i>ayo, template link mu sekarng juga</h1>
+            <p class="subtitle">Simpan dan bagikan semua link Anda di sini</p>
+        </header>
+
+        <div class="main-content">
+            <section class="card input-section">
+                <h2><i class="fas fa-plus-circle"></i> Tambah Link</h2>
+                <form id="linkForm">
+                    <div class="form-group">
+                        <label for="linkInput">
+                            <i class="fas fa-link"></i> Link (Website, Telegram, WhatsApp, dll)
+                        </label>
+                        <input type="text" id="linkInput" placeholder="https://example.com atau t.me/channel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descInput">
+                            <i class="fas fa-comment"></i> Deskripsi
+                        </label>
+                        <textarea id="descInput" placeholder="Jelaskan tentang link ini..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-save"></i> Simpan Link
+                    </button>
+                </form>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalLinks">0</div>
+                        <div class="stat-label">Total Link</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="myLinks">0</div>
+                        <div class="stat-label">Link Saya</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card links-section">
+                <h2><i class="fas fa-list"></i> Semua Link</h2>
+                <div class="links-container" id="linksContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Belum ada link</p>
+                        <p>Tambahkan link pertama Anda!</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <i class="fas fa-bell"></i>
+            <span>Link Baru!</span>
+        </div>
+        <div class="notification-body" id="notificationBody">
+            Seseorang baru saja menambahkan link. Lihat sekarang!
+        </div>
+    </div>
+
+    <audio id="notificationSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+
+    <script>
+        let links = JSON.parse(localStorage.getItem('groupLinks')) || [];
+        let userId = localStorage.getItem('userId') || 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('userId', userId);
+
+        const linkForm = document.getElementById('linkForm');
+        const linkInput = document.getElementById('linkInput');
+        const descInput = document.getElementById('descInput');
+        const linksContainer = document.getElementById('linksContainer');
+        const notification = document.getElementById('notification');
+        const notificationBody = document.getElementById('notificationBody');
+        const notificationSound = document.getElementById('notificationSound');
+        const totalLinksEl = document.getElementById('totalLinks');
+        const myLinksEl = document.getElementById('myLinks');
+
+        function getLinkType(url) {
+            const lowerUrl = url.toLowerCase();
+            if (lowerUrl.includes('t.me/') || lowerUrl.includes('telegram')) {
+                return { icon: 'fab fa-telegram', type: 'Telegram', color: '#0088cc' };
+            } else if (lowerUrl.includes('wa.me/') || lowerUrl.includes('whatsapp') || lowerUrl.includes('api.whatsapp')) {
+                return { icon: 'fab fa-whatsapp', type: 'WhatsApp', color: '#25d366' };
+            } else if (lowerUrl.includes('facebook') || lowerUrl.includes('fb.com')) {
+                return { icon: 'fab fa-facebook', type: 'Facebook', color: '#1877f2' };
+            } else if (lowerUrl.includes('instagram') || lowerUrl.includes('ig.com')) {
+                return { icon: 'fab fa-instagram', type: 'Instagram', color: '#e4405f' };
+            } else if (lowerUrl.includes('youtube') || lowerUrl.includes('youtu.be')) {
+                return { icon: 'fab fa-youtube', type: 'YouTube', color: '#ff0000' };
+            } else if (lowerUrl.includes('twitter') || lowerUrl.includes('x.com')) {
+                return { icon: 'fab fa-twitter', type: 'Twitter', color: '#1da1f2' };
+            } else if (lowerUrl.includes('discord')) {
+                return { icon: 'fab fa-discord', type: 'Discord', color: '#7289da' };
+            } else if (lowerUrl.includes('tiktok')) {
+                return { icon: 'fab fa-tiktok', type: 'TikTok', color: '#000000' };
+            } else {
+                return { icon: 'fas fa-globe', type: 'Website', color: '#667eea' };
+            }
+        }
+
+        function formatLinkDisplay(url) {
+            const lowerUrl = url.toLowerCase();
+            if (lowerUrl.includes('t.me/')) {
+                return url.replace(/^https?:\/\//, '');
+            } else if (lowerUrl.includes('wa.me/')) {
+                return url.replace(/^https?:\/\//, '');
+            } else if (lowerUrl.includes('telegram.me/')) {
+                return url.replace(/^https?:\/\//, '');
+            }
+            try {
+                const domain = new URL(url.startsWith('http') ? url : 'https://' + url).hostname;
+                return domain;
+            } catch {
+                return url.replace(/^https?:\/\//, '');
+            }
+        }
+
+        function displayLinks() {
+            if (links.length === 0) {
+                linksContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Belum ada link</p>
+                        <p>Tambahkan link pertama Anda!</p>
+                    </div>
+                `;
+            } else {
+                linksContainer.innerHTML = links.map((link, index) => {
+                    const linkType = getLinkType(link.url);
+                    const isMyLink = link.userId === userId;
+                    return `
+                        <div class="link-item">
+                            <div class="link-header">
+                                <div class="link-title">
+                                    <span class="link-type-icon" style="background: ${linkType.color}20; color: ${linkType.color}">
+                                        <i class="${linkType.icon}"></i>
+                                    </span>
+                                    ${formatLinkDisplay(link.url)}
+                                    <span class="link-badge">${linkType.type}</span>
+                                </div>
+                            </div>
+                            <div class="link-description">${link.description}</div>
+                            <div class="link-actions">
+                                <button class="btn-open" onclick="openLink('${link.url}')">
+                                    <i class="fas fa-external-link-alt"></i> Buka
+                                </button>
+                                ${isMyLink ? `<button class="btn-delete" onclick="deleteLink(${index})">
+                                    <i class="fas fa-trash"></i>
+                                </button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            updateStats();
+        }
+
+        linkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let finalUrl = linkInput.value.trim();
+            if (!finalUrl.startsWith('http') && !finalUrl.startsWith('t.me/') && !finalUrl.startsWith('wa.me/')) {
+                finalUrl = 'https://' + finalUrl;
+            }
+            
+            const newLink = {
+                url: finalUrl,
+                description: descInput.value,
+                timestamp: new Date().toISOString(),
+                userId: userId
+            };
+            
+            links.unshift(newLink);
+            localStorage.setItem('groupLinks', JSON.stringify(links));
+            
+            showNotification();
+            
+            linkInput.value = '';
+            descInput.value = '';
+            
+            displayLinks();
+        });
+
+        function openLink(url) {
+            let finalUrl = url;
+            if (!url.startsWith('http') && !url.startsWith('t.me/') && !url.startsWith('wa.me/')) {
+                finalUrl = 'https://' + url;
+            }
+            window.open(finalUrl, '_blank');
+        }
+
+        function deleteLink(index) {
+            if (confirm('Hapus link ini?')) {
+                links.splice(index, 1);
+                localStorage.setItem('groupLinks', JSON.stringify(links));
+                displayLinks();
+            }
+        }
+
+        function showNotification() {
+            const randomNames = ['Iksannnn', 'Andika', 'Rizky', 'Fajar', 'Budi', 'Siti', 'Dewi', 'Ahmad', 'Rina', 'Doni'];
+            const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
+            
+            notificationBody.innerHTML = `<strong>${randomName}</strong> baru saja menambahkan link! <br>Cek sekarang juga!`;
+            
+            notification.classList.add('show');
+            notificationSound.play().catch(e => {});
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4800);
+        }
+
+        function updateStats() {
+            totalLinksEl.textContent = links.length;
+            myLinksEl.textContent = links.filter(link => link.userId === userId).length;
+        }
+
+        displayLinks();
+
+        setInterval(() => {
+            const storedLinks = JSON.parse(localStorage.getItem('groupLinks')) || [];
+            if (storedLinks.length !== links.length) {
+                links = storedLinks;
+                displayLinks();
+                showNotification();
+            }
+        }, 28000);
+    </script>
+</body>
+</html>
