@@ -59,6 +59,19 @@
             font-size: 1.15em;
         }
 
+        .public-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
         .main-content {
             display: grid;
             grid-template-columns: 380px 1fr;
@@ -162,6 +175,26 @@
             display: flex;
             align-items: center;
             gap: 11px;
+            justify-content: space-between;
+        }
+
+        .refresh-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(180deg);
         }
 
         .links-container {
@@ -226,6 +259,15 @@
             margin-left: 8px;
         }
 
+        .link-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8em;
+            margin-bottom: 8px;
+        }
+
         .link-description {
             color: rgba(255, 255, 255, 0.82);
             margin-bottom: 12px;
@@ -259,20 +301,19 @@
             box-shadow: 0 4px 14px rgba(58, 123, 213, 0.36);
         }
 
-        .btn-delete {
+        .btn-copy {
             padding: 9px 14px;
-            background: linear-gradient(138deg, #f093fb 0%, #f5576c 100%);
+            background: rgba(255, 255, 255, 0.15);
             color: white;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 9px;
             cursor: pointer;
             transition: all 0.27s ease;
             font-size: 0.88em;
         }
 
-        .btn-delete:hover {
-            transform: scale(1.04);
-            box-shadow: 0 4px 14px rgba(245, 87, 108, 0.36);
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .notification {
@@ -390,13 +431,51 @@
             border-radius: 5px;
             font-size: 0.88em;
         }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-link"></i>ayo, template link mu sekarng juga</h1>
-            <p class="subtitle">Simpan dan bagikan semua link Anda di sini</p>
+            <h1><i class="fas fa-link"></i> Link Hub</h1>
+            <p class="subtitle">Simpan dan bagikan link ke semua orang</p>
+            <div class="public-badge">
+                <i class="fas fa-globe"></i>
+                <span>GusOfcXD 404</span>
+            </div>
         </header>
 
         <div class="main-content">
@@ -416,7 +495,7 @@
                         <textarea id="descInput" placeholder="Jelaskan tentang link ini..." required></textarea>
                     </div>
                     <button type="submit" class="btn-submit">
-                        <i class="fas fa-save"></i> Simpan Link
+                        <i class="fas fa-paper-plane"></i> Bagikan ke Semua
                     </button>
                 </form>
                 
@@ -426,19 +505,25 @@
                         <div class="stat-label">Total Link</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" id="myLinks">0</div>
-                        <div class="stat-label">Link Saya</div>
+                        <div class="stat-number" id="todayLinks">0</div>
+                        <div class="stat-label">Hari Ini</div>
                     </div>
                 </div>
             </section>
 
             <section class="card links-section">
-                <h2><i class="fas fa-list"></i> Semua Link</h2>
+                <h2>
+                    <span><i class="fas fa-list"></i> Semua Link Publik</span>
+                    <button class="refresh-btn" onclick="refreshLinks()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </h2>
                 <div class="links-container" id="linksContainer">
                     <div class="empty-state">
                         <i class="fas fa-inbox"></i>
-                        <p>Belum ada link</p>
-                        <p>Tambahkan link pertama Anda!</p>
+                        <p>Belum ada link publik</p>
+                        <p> Jadilah yang pertama berbagi!</p>
                     </div>
                 </div>
             </section>
@@ -448,11 +533,15 @@
     <div class="notification" id="notification">
         <div class="notification-header">
             <i class="fas fa-bell"></i>
-            <span>Link Baru!</span>
+            <span>Link Baru Ditambahkan!</span>
         </div>
         <div class="notification-body" id="notificationBody">
-            Seseorang baru saja menambahkan link. Lihat sekarang!
+            Seseorang baru saja berbagi link. Lihat sekarang!
         </div>
+    </div>
+
+    <div class="copy-notification" id="copyNotification">
+        <i class="fas fa-check"></i> Link disalin!
     </div>
 
     <audio id="notificationSound" preload="auto">
@@ -460,19 +549,27 @@
     </audio>
 
     <script>
-        let links = JSON.parse(localStorage.getItem('groupLinks')) || [];
-        let userId = localStorage.getItem('userId') || 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('userId', userId);
+        let links = [];
+        let todayLinksCount = 0;
+        const today = new Date().toDateString();
+        const STORAGE_KEY = 'publicGroupLinks';
+        const LAST_SYNC_KEY = 'lastSyncTime';
 
-        const linkForm = document.getElementById('linkForm');
-        const linkInput = document.getElementById('linkInput');
-        const descInput = document.getElementById('descInput');
-        const linksContainer = document.getElementById('linksContainer');
-        const notification = document.getElementById('notification');
-        const notificationBody = document.getElementById('notificationBody');
-        const notificationSound = document.getElementById('notificationSound');
-        const totalLinksEl = document.getElementById('totalLinks');
-        const myLinksEl = document.getElementById('myLinks');
+        function initializeStorage() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                links = JSON.parse(stored);
+            }
+            
+            const lastSync = localStorage.getItem(LAST_SYNC_KEY);
+            if (lastSync === today) {
+                todayLinksCount = parseInt(localStorage.getItem('todayLinksCount') || '0');
+            } else {
+                todayLinksCount = 0;
+                localStorage.setItem('todayLinksCount', '0');
+                localStorage.setItem(LAST_SYNC_KEY, today);
+            }
+        }
 
         function getLinkType(url) {
             const lowerUrl = url.toLowerCase();
@@ -514,19 +611,33 @@
             }
         }
 
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 1) return 'Baru saja';
+            if (minutes < 60) return `${minutes} menit lalu`;
+            if (hours < 24) return `${hours} jam lalu`;
+            if (days < 7) return `${days} hari lalu`;
+            return date.toLocaleDateString('id-ID');
+        }
+
         function displayLinks() {
             if (links.length === 0) {
                 linksContainer.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-inbox"></i>
-                        <p>Belum ada link</p>
-                        <p>Tambahkan link pertama Anda!</p>
+                        <p>Belum ada link publik</p>
+                        <p>Jadilah yang pertama berbagi!</p>
                     </div>
                 `;
             } else {
                 linksContainer.innerHTML = links.map((link, index) => {
                     const linkType = getLinkType(link.url);
-                    const isMyLink = link.userId === userId;
                     return `
                         <div class="link-item">
                             <div class="link-header">
@@ -538,14 +649,22 @@
                                     <span class="link-badge">${linkType.type}</span>
                                 </div>
                             </div>
+                            <div class="link-meta">
+                                <i class="fas fa-clock"></i>
+                                <span>${formatTime(link.timestamp)}</span>
+                                <span class="live-indicator">
+                                    <i class="fas fa-circle"></i>
+                                    Publik
+                                </span>
+                            </div>
                             <div class="link-description">${link.description}</div>
                             <div class="link-actions">
                                 <button class="btn-open" onclick="openLink('${link.url}')">
                                     <i class="fas fa-external-link-alt"></i> Buka
                                 </button>
-                                ${isMyLink ? `<button class="btn-delete" onclick="deleteLink(${index})">
-                                    <i class="fas fa-trash"></i>
-                                </button>` : ''}
+                                <button class="btn-copy" onclick="copyLink('${link.url}')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
                             </div>
                         </div>
                     `;
@@ -553,6 +672,29 @@
             }
             updateStats();
         }
+
+        function refreshLinks() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                const newLinks = JSON.parse(stored);
+                if (newLinks.length !== links.length) {
+                    links = newLinks;
+                    displayLinks();
+                    showNotification('Link diperbarui!');
+                }
+            }
+        }
+
+        const linkForm = document.getElementById('linkForm');
+        const linkInput = document.getElementById('linkInput');
+        const descInput = document.getElementById('descInput');
+        const linksContainer = document.getElementById('linksContainer');
+        const notification = document.getElementById('notification');
+        const notificationBody = document.getElementById('notificationBody');
+        const notificationSound = document.getElementById('notificationSound');
+        const totalLinksEl = document.getElementById('totalLinks');
+        const todayLinksEl = document.getElementById('todayLinks');
+        const copyNotification = document.getElementById('copyNotification');
 
         linkForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -566,11 +708,14 @@
                 url: finalUrl,
                 description: descInput.value,
                 timestamp: new Date().toISOString(),
-                userId: userId
+                author: 'Anonymous'
             };
             
             links.unshift(newLink);
-            localStorage.setItem('groupLinks', JSON.stringify(links));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+            
+            todayLinksCount++;
+            localStorage.setItem('todayLinksCount', todayLinksCount.toString());
             
             showNotification();
             
@@ -588,19 +733,24 @@
             window.open(finalUrl, '_blank');
         }
 
-        function deleteLink(index) {
-            if (confirm('Hapus link ini?')) {
-                links.splice(index, 1);
-                localStorage.setItem('groupLinks', JSON.stringify(links));
-                displayLinks();
-            }
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                copyNotification.classList.add('show');
+                setTimeout(() => {
+                    copyNotification.classList.remove('show');
+                }, 2000);
+            });
         }
 
-        function showNotification() {
+        function showNotification(customMessage) {
             const randomNames = ['Iksannnn', 'Andika', 'Rizky', 'Fajar', 'Budi', 'Siti', 'Dewi', 'Ahmad', 'Rina', 'Doni'];
             const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
             
-            notificationBody.innerHTML = `<strong>${randomName}</strong> baru saja menambahkan link! <br>Cek sekarang juga!`;
+            if (customMessage) {
+                notificationBody.innerHTML = customMessage;
+            } else {
+                notificationBody.innerHTML = `<strong>${randomName}</strong> baru saja berbagi link! <br>Cek sekarang juga!`;
+            }
             
             notification.classList.add('show');
             notificationSound.play().catch(e => {});
@@ -612,19 +762,21 @@
 
         function updateStats() {
             totalLinksEl.textContent = links.length;
-            myLinksEl.textContent = links.filter(link => link.userId === userId).length;
+            todayLinksEl.textContent = todayLinksCount;
         }
 
+        initializeStorage();
         displayLinks();
 
         setInterval(() => {
-            const storedLinks = JSON.parse(localStorage.getItem('groupLinks')) || [];
-            if (storedLinks.length !== links.length) {
-                links = storedLinks;
-                displayLinks();
-                showNotification();
+            refreshLinks();
+        }, 15000);
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === STORAGE_KEY) {
+                refreshLinks();
             }
-        }, 28000);
+        });
     </script>
 </body>
 </html>
