@@ -18,7 +18,36 @@
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
-            padding-bottom: 100px; /* Space for prayer times */
+            padding-bottom: 100px;
+            cursor: none;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease, background-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: #764ba2;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.2s ease;
+        }
+
+        .custom-cursor.active {
+            transform: scale(2);
+            background-color: rgba(102, 126, 234, 0.3);
         }
 
         .background-container {
@@ -36,7 +65,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 2s ease-in-out;
+            transition: opacity 3s ease-in-out;
             filter: brightness(0.4) saturate(1.2);
         }
 
@@ -52,6 +81,40 @@
             height: 100%;
             background: radial-gradient(circle at center, rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.8));
             z-index: -1;
+        }
+
+        .floating-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
         .profile-section {
@@ -86,12 +149,42 @@
             height: 70px;
             border-radius: 50%;
             border: 4px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.4s ease, border-color 0.4s ease;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .profile-image:hover {
             transform: scale(1.08);
             border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .profile-image:hover::before {
+            opacity: 1;
         }
 
         .profile-info {
@@ -104,6 +197,15 @@
             font-size: 26px;
             font-weight: 700;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-name:hover {
+            transform: translateX(5px);
         }
 
         .verified-badge {
@@ -117,11 +219,13 @@
             color: white;
             font-size: 14px;
             box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.3);
-            transition: box-shadow 0.4s ease;
+            transition: all 0.4s ease;
+            cursor: pointer;
         }
 
         .verified-badge:hover {
             box-shadow: 0 0 0 6px rgba(29, 155, 240, 0.1);
+            transform: rotate(360deg) scale(1.1);
         }
 
         .main-content {
@@ -142,9 +246,42 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
             padding: 50px 40px;
             text-align: center;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, background 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .card:hover::before {
+            animation: shimmer 0.5s ease;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+                opacity: 0;
+            }
         }
 
         .card:nth-child(1) { animation-delay: 0.1s; }
@@ -152,7 +289,6 @@
         .card:nth-child(3) { animation-delay: 0.3s; }
         .card:nth-child(4) { animation-delay: 0.4s; }
         .card:nth-child(5) { animation-delay: 0.5s; }
-        .card:nth-child(6) { animation-delay: 0.6s; }
 
         @keyframes fadeInUp {
             to {
@@ -166,9 +302,10 @@
         }
 
         .card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-12px) scale(1.02);
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(102, 126, 234, 0.5);
         }
 
         .card-icon {
@@ -179,12 +316,32 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
-            transition: transform 0.4s ease, filter 0.4s ease;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .card-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
         }
 
         .card:hover .card-icon {
-            transform: scale(1.15);
+            transform: scale(1.15) rotate(5deg);
             filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.6));
+        }
+
+        .card:hover .card-icon::after {
+            opacity: 0.5;
         }
 
         .card h2 {
@@ -192,12 +349,22 @@
             font-weight: 700;
             margin-bottom: 15px;
             letter-spacing: -0.5px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover h2 {
+            transform: translateY(-3px);
         }
 
         .card p {
             font-size: 17px;
             margin-bottom: 30px;
             color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+
+        .card:hover p {
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .card a {
@@ -213,6 +380,23 @@
             font-size: 16px;
             transition: all 0.4s ease;
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .card a:hover::before {
+            left: 100%;
         }
 
         .card a:hover {
@@ -322,11 +506,12 @@
             justify-content: center;
             gap: 8px;
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .notification-expand:hover {
             background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
         }
 
         .notification-expand-text {
@@ -338,6 +523,11 @@
         .notification-expand-icon {
             font-size: 12px;
             color: #0086e6;
+            transition: transform 0.3s ease;
+        }
+
+        .notification-expand:hover .notification-expand-icon {
+            transform: translateX(3px);
         }
 
         .sound-indicator {
@@ -356,14 +546,18 @@
             cursor: pointer;
             z-index: 100;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .sound-indicator.show {
             opacity: 1;
         }
 
-        /* Prayer Times Styles */
+        .sound-indicator:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
         .prayer-times {
             position: fixed;
             bottom: 0;
@@ -401,6 +595,16 @@
         .prayer-location i {
             color: #667eea;
             font-size: 18px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
         }
 
         .prayer-location span {
@@ -448,6 +652,7 @@
             font-size: 18px;
             font-weight: 700;
             color: #764ba2;
+            font-variant-numeric: tabular-nums;
         }
 
         .prayer-alert {
@@ -474,6 +679,19 @@
 
         .prayer-alert i {
             font-size: 16px;
+            animation: ring 1s infinite;
+        }
+
+        @keyframes ring {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(10deg);
+            }
+            75% {
+                transform: rotate(-10deg);
+            }
         }
 
         .prayer-alert span {
@@ -509,10 +727,24 @@
                 width: 100%;
                 justify-content: space-around;
             }
+
+            .custom-cursor,
+            .cursor-follower {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
         }
     </style>
 </head>
 <body>
+
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="floating-particles" id="particles"></div>
 
     <div class="background-container">
         <img src="https://files.catbox.moe/rzv2c5.jpg" class="background-image active" alt="Background 1">
@@ -618,7 +850,6 @@
         <i class="fas fa-volume-up"></i>
     </div>
 
-    <!-- Prayer Times Section -->
     <div class="prayer-times" id="prayer-times">
         <div class="prayer-location">
             <i class="fas fa-map-marker-alt"></i>
@@ -653,6 +884,47 @@
     </audio>
 
     <script>
+        const cursor = document.querySelector('.custom-cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX + 'px';
+                follower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('active');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('active');
+        });
+
+        const links = document.querySelectorAll('a, button, .card, .verified-badge');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.classList.add('active');
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.classList.remove('active');
+            });
+        });
+
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
         const images = document.querySelectorAll('.background-image');
         let currentImageIndex = 0;
 
@@ -662,7 +934,7 @@
             images[currentImageIndex].classList.add('active');
         }
 
-        setInterval(showNextImage, 2500);
+        setInterval(showNextImage, 3000);
 
         document.addEventListener('DOMContentLoaded', function() {
             const notification = document.getElementById('notification');
@@ -695,9 +967,7 @@
             });
         });
 
-        // Prayer Times Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Mock prayer times for Makassar (in a real app, you'd fetch this from an API)
             const prayerTimes = {
                 Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
                 Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
@@ -708,7 +978,6 @@
 
             const prayerNames = Object.keys(prayerTimes);
             let currentPrayerIndex = 0;
-            let countdownInterval;
 
             function getCurrentTime() {
                 const now = new Date();
@@ -731,7 +1000,6 @@
                 const currentMinutes = now.getHours() * 60 + now.getMinutes();
                 const currentSeconds = now.getSeconds();
                 
-                // Find current prayer
                 for (let i = 0; i < prayerNames.length; i++) {
                     const prayerTime = prayerTimes[prayerNames[i]];
                     const prayerMinutes = timeToMinutes(prayerTime.time);
@@ -747,20 +1015,17 @@
                 const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
                 const nextPrayerTime = prayerTimes[nextPrayerName].time;
                 
-                // Update UI
                 document.getElementById('current-prayer-name').textContent = currentPrayerName;
                 document.getElementById('current-prayer-time').textContent = currentPrayerTime;
                 document.getElementById('next-prayer-name').textContent = nextPrayerName;
                 document.getElementById('next-prayer-time').textContent = nextPrayerTime;
                 
-                // Calculate countdown to next prayer
                 const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
                 let countdownMinutes;
                 
                 if (nextPrayerMinutes > currentMinutes) {
                     countdownMinutes = nextPrayerMinutes - currentMinutes;
                 } else {
-                    // Next prayer is tomorrow
                     countdownMinutes = (24 * 60) - currentMinutes + nextPrayerMinutes;
                 }
                 
@@ -772,7 +1037,6 @@
                 const countdownStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                 document.getElementById('countdown-time').textContent = countdownStr;
                 
-                // Check if it's prayer time (within 2 minutes)
                 const prayerMinutes = timeToMinutes(currentPrayerTime);
                 const timeDiff = Math.abs(currentMinutes - prayerMinutes);
                 
@@ -782,25 +1046,10 @@
                 } else {
                     document.getElementById('prayer-alert').style.display = 'none';
                 }
-                
-                // Update status text
-                let statusText = '';
-                if (timeDiff < 2) {
-                    statusText = `Azan ${currentPrayerName} sudah dimulai!`;
-                } else if (timeDiff < 10) {
-                    statusText = `Otw ${currentPrayerName}`;
-                } else {
-                    statusText = `Menuju ${nextPrayerName}`;
-                }
-                
-                // You could update a status element here if needed
             }
 
-            // Initial calculation
             calculateCountdown();
-            
-            // Update countdown every second
-            countdownInterval = setInterval(calculateCountdown, 1000);
+            setInterval(calculateCountdown, 1000);
         });
     </script>
 
