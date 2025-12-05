@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -20,6 +18,7 @@
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
+            padding-bottom: 100px; /* Space for prayer times */
         }
 
         .background-container {
@@ -153,6 +152,7 @@
         .card:nth-child(3) { animation-delay: 0.3s; }
         .card:nth-child(4) { animation-delay: 0.4s; }
         .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
 
         @keyframes fadeInUp {
             to {
@@ -362,6 +362,154 @@
         .sound-indicator.show {
             opacity: 1;
         }
+
+        /* Prayer Times Styles */
+        .prayer-times {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .prayer-location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prayer-location i {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .prayer-location span {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .prayer-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .current-prayer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .current-prayer-name {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .current-prayer-time {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .prayer-countdown {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .countdown-time {
+            font-size: 18px;
+            font-weight: 700;
+            color: #764ba2;
+        }
+
+        .prayer-alert {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+        }
+
+        .prayer-alert i {
+            font-size: 16px;
+        }
+
+        .prayer-alert span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .next-prayer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .next-prayer-name {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .next-prayer-time {
+            font-size: 18px;
+            font-weight: 700;
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .prayer-times {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .prayer-status {
+                width: 100%;
+                justify-content: space-around;
+            }
+        }
     </style>
 </head>
 <body>
@@ -432,6 +580,18 @@
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
+
+        <div class="card">
+            <div class="card-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h2>XavAi</h2>
+            <p>Click ini untuk ke halaman bots ai GusOfcXD 404</p>
+            <a href="https://xavai.vercel.app/" target="_blank">
+                <span>Buka XavAi</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
     </main>
 
     <div class="notification-container">
@@ -456,6 +616,36 @@
 
     <div class="sound-indicator" id="sound-indicator">
         <i class="fas fa-volume-up"></i>
+    </div>
+
+    <!-- Prayer Times Section -->
+    <div class="prayer-times" id="prayer-times">
+        <div class="prayer-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Makassar</span>
+        </div>
+        
+        <div class="prayer-status">
+            <div class="current-prayer">
+                <div class="current-prayer-name" id="current-prayer-name">Subuh</div>
+                <div class="current-prayer-time" id="current-prayer-time">04:45</div>
+            </div>
+            
+            <div class="prayer-countdown">
+                <div class="countdown-label">Waktu tersisa</div>
+                <div class="countdown-time" id="countdown-time">01:23:45</div>
+            </div>
+            
+            <div class="next-prayer">
+                <div class="next-prayer-name" id="next-prayer-name">Dzuhur</div>
+                <div class="next-prayer-time" id="next-prayer-time">12:15</div>
+            </div>
+            
+            <div class="prayer-alert" id="prayer-alert" style="display: none;">
+                <i class="fas fa-bell"></i>
+                <span id="prayer-alert-text">Azan sudah dimulai!</span>
+            </div>
+        </div>
     </div>
 
     <audio id="notification-sound" preload="auto">
@@ -503,6 +693,114 @@
                 notificationSound.play();
                 this.classList.remove('show');
             });
+        });
+
+        // Prayer Times Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mock prayer times for Makassar (in a real app, you'd fetch this from an API)
+            const prayerTimes = {
+                Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
+                Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
+                Ashar: { time: '15:30', nextPrayer: 'Maghrib' },
+                Maghrib: { time: '18:15', nextPrayer: 'Isya' },
+                Isya: { time: '19:30', nextPrayer: 'Subuh' }
+            };
+
+            const prayerNames = Object.keys(prayerTimes);
+            let currentPrayerIndex = 0;
+            let countdownInterval;
+
+            function getCurrentTime() {
+                const now = new Date();
+                return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            }
+
+            function timeToMinutes(timeStr) {
+                const [hours, minutes] = timeStr.split(':').map(Number);
+                return hours * 60 + minutes;
+            }
+
+            function minutesToTime(minutes) {
+                const hours = Math.floor(minutes / 60);
+                const mins = minutes % 60;
+                return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+            }
+
+            function calculateCountdown() {
+                const now = new Date();
+                const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                const currentSeconds = now.getSeconds();
+                
+                // Find current prayer
+                for (let i = 0; i < prayerNames.length; i++) {
+                    const prayerTime = prayerTimes[prayerNames[i]];
+                    const prayerMinutes = timeToMinutes(prayerTime.time);
+                    
+                    if (currentMinutes < prayerMinutes || (i === prayerNames.length - 1 && currentMinutes >= prayerMinutes)) {
+                        currentPrayerIndex = i;
+                        break;
+                    }
+                }
+                
+                const currentPrayerName = prayerNames[currentPrayerIndex];
+                const currentPrayerTime = prayerTimes[currentPrayerName].time;
+                const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
+                const nextPrayerTime = prayerTimes[nextPrayerName].time;
+                
+                // Update UI
+                document.getElementById('current-prayer-name').textContent = currentPrayerName;
+                document.getElementById('current-prayer-time').textContent = currentPrayerTime;
+                document.getElementById('next-prayer-name').textContent = nextPrayerName;
+                document.getElementById('next-prayer-time').textContent = nextPrayerTime;
+                
+                // Calculate countdown to next prayer
+                const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
+                let countdownMinutes;
+                
+                if (nextPrayerMinutes > currentMinutes) {
+                    countdownMinutes = nextPrayerMinutes - currentMinutes;
+                } else {
+                    // Next prayer is tomorrow
+                    countdownMinutes = (24 * 60) - currentMinutes + nextPrayerMinutes;
+                }
+                
+                const totalSeconds = countdownMinutes * 60 - currentSeconds;
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                const countdownStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                document.getElementById('countdown-time').textContent = countdownStr;
+                
+                // Check if it's prayer time (within 2 minutes)
+                const prayerMinutes = timeToMinutes(currentPrayerTime);
+                const timeDiff = Math.abs(currentMinutes - prayerMinutes);
+                
+                if (timeDiff < 2) {
+                    document.getElementById('prayer-alert').style.display = 'flex';
+                    document.getElementById('prayer-alert-text').textContent = `Waktu ${currentPrayerName} telah tiba!`;
+                } else {
+                    document.getElementById('prayer-alert').style.display = 'none';
+                }
+                
+                // Update status text
+                let statusText = '';
+                if (timeDiff < 2) {
+                    statusText = `Azan ${currentPrayerName} sudah dimulai!`;
+                } else if (timeDiff < 10) {
+                    statusText = `Otw ${currentPrayerName}`;
+                } else {
+                    statusText = `Menuju ${nextPrayerName}`;
+                }
+                
+                // You could update a status element here if needed
+            }
+
+            // Initial calculation
+            calculateCountdown();
+            
+            // Update countdown every second
+            countdownInterval = setInterval(calculateCountdown, 1000);
         });
     </script>
 
