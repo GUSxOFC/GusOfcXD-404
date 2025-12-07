@@ -695,7 +695,7 @@
                 if (!currentUser) return;
                 userDisplayName.textContent = currentUser.username;
                 userBalanceEl.textContent = `Rp ${currentUser.balance.toLocaleString('id-ID')}`;
-                totalReferralEl.textContent = currentUser.referralCount;
+                totalReferralEl.textContent = currentUser.referralCount.toLocaleString('id-ID');
                 securityCodeDisplay.textContent = currentUser.securityCode;
             };
 
@@ -754,7 +754,6 @@
                 showNotification('Anda telah berhasil logout.', 'success');
             };
 
-            // --- NEW REFERRAL LOGIC (ON CLICK) ---
             const urlParams = new URLSearchParams(window.location.search);
             const referralCodeFromUrl = urlParams.get('ref');
             const awardedRefThisSession = sessionStorage.getItem('awardedRef');
@@ -766,7 +765,6 @@
                     addTransaction.call(referrerUser, 'referral', REFERRAL_BONUS, `Bonus dari klik link.`);
                     saveUserToStorage(referrerUser);
                     sessionStorage.setItem('awardedRef', referralCodeFromUrl);
-                    
                     showNotification(`Anda telah memberikan bonus Rp ${REFERRAL_BONUS.toLocaleString('id-ID')} kepada ${referrerUser.username}!`, 'success');
                 }
             }
@@ -774,6 +772,28 @@
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const username = usernameInput.value;
+                const password = document.getElementById('password').value;
+
+                // --- ADMIN ACCOUNT LOGIC ---
+                if (username === 'admin' && password === '555') {
+                    let adminUser = getUserFromStorage('admin');
+                    if (!adminUser) {
+                        adminUser = {
+                            username: 'admin',
+                            balance: 5000000, // 5 Juta
+                            referralCode: generateReferralCode(),
+                            securityCode: generateSecurityCode(),
+                            referralCount: 500000, // 500k
+                            history: []
+                        };
+                        saveUserToStorage(adminUser);
+                    }
+                    login(adminUser);
+                    showNotification('Login Admin berhasil! Selamat datang.', 'success');
+                    return; // Stop further execution
+                }
+
+                // --- NORMAL USER LOGIC ---
                 let user = getUserFromStorage(username);
 
                 if (!user) {
