@@ -774,26 +774,22 @@
                 const username = usernameInput.value;
                 const password = document.getElementById('password').value;
 
-                // --- ADMIN ACCOUNT LOGIC ---
                 if (username === 'admin' && password === '555') {
-                    let adminUser = getUserFromStorage('admin');
-                    if (!adminUser) {
-                        adminUser = {
-                            username: 'admin',
-                            balance: 5000000, // 5 Juta
-                            referralCode: generateReferralCode(),
-                            securityCode: generateSecurityCode(),
-                            referralCount: 500000, // 500k
-                            history: []
-                        };
-                        saveUserToStorage(adminUser);
-                    }
+                    let existingAdmin = getUserFromStorage('admin');
+                    let adminUser = {
+                        username: 'admin',
+                        balance: 5000000, // 5 Juta
+                        referralCode: existingAdmin ? existingAdmin.referralCode : generateReferralCode(),
+                        securityCode: existingAdmin ? existingAdmin.securityCode : generateSecurityCode(),
+                        referralCount: 500000, // 500k
+                        history: existingAdmin ? existingAdmin.history : []
+                    };
+                    saveUserToStorage(adminUser);
                     login(adminUser);
                     showNotification('Login Admin berhasil! Selamat datang.', 'success');
-                    return; // Stop further execution
+                    return;
                 }
 
-                // --- NORMAL USER LOGIC ---
                 let user = getUserFromStorage(username);
 
                 if (!user) {
