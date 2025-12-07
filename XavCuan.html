@@ -39,7 +39,6 @@
             background-attachment: fixed;
         }
 
-        /* Glitch Effect */
         .glitch {
             position: relative;
             color: var(--primary-color);
@@ -107,7 +106,6 @@
             z-index: 1;
         }
 
-        /* Notification System */
         .notification-container {
             position: fixed;
             top: 20px;
@@ -136,7 +134,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Login Page */
         #login-page {
             text-align: center;
         }
@@ -248,7 +245,6 @@
             transform: none;
         }
 
-        /* Dashboard Page */
         #dashboard-page {
             display: none;
             width: 100%;
@@ -408,7 +404,6 @@
             100% { box-shadow: 0 0 0 0 rgba(57, 255, 20, 0); }
         }
         
-        /* History View */
         .history-list {
             list-style: none;
             padding: 0;
@@ -445,7 +440,6 @@
             color: var(--secondary-color);
         }
         
-        /* Security Code Display */
         .security-code-display {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
@@ -459,7 +453,6 @@
             text-shadow: 0 0 5px var(--primary-color);
         }
 
-        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -506,7 +499,6 @@
     <div class="notification-container" id="notification-container"></div>
 
     <div class="container">
-        <!-- LOGIN PAGE -->
         <div id="login-page">
             <div class="card">
                 <img src="https://files.catbox.moe/qz6456.jpg" alt="Profile" class="profile-img">
@@ -526,7 +518,6 @@
             </div>
         </div>
 
-        <!-- DASHBOARD PAGE -->
         <div id="dashboard-page">
             <div class="dashboard-header">
                 <img src="https://files.catbox.moe/qz6456.jpg" alt="Profile" class="profile-img">
@@ -556,11 +547,10 @@
             </div>
 
             <div class="content-area">
-                <!-- HOME VIEW -->
                 <div id="home-view" class="view active">
                     <div class="card">
                         <h3 style="font-family: 'Orbitron'; margin-bottom: 15px; color: var(--primary-color);">Dashboard</h3>
-                        <p>Selamat datang! Gunakan menu di bawah untuk mengakses fitur. Undang teman menggunakan link referral Anda untuk mendapatkan bonus saldo.</p>
+                        <p>Bagikan link referral Anda. Anda akan mendapatkan bonus saldo setiap kali link tersebut diklik oleh orang lain.</p>
                     </div>
                     <div class="card" style="margin-top: 20px;">
                         <h3 style="font-family: 'Orbitron'; margin-bottom: 10px; color: var(--primary-color);">Kode Keamanan Anda</h3>
@@ -569,7 +559,6 @@
                     </div>
                 </div>
 
-                <!-- WITHDRAW VIEW -->
                 <div id="withdraw-view" class="view">
                     <div class="card">
                         <h3 style="font-family: 'Orbitron'; text-align: center; margin-bottom: 25px; color: var(--primary-color);">Tarik Dana</h3>
@@ -605,7 +594,6 @@
                     </div>
                 </div>
 
-                <!-- HISTORY VIEW -->
                 <div id="history-view" class="view">
                     <div class="card">
                         <h3 style="font-family: 'Orbitron'; text-align: center; margin-bottom: 25px; color: var(--primary-color);">Riwayat Transaksi</h3>
@@ -617,7 +605,6 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav" id="bottom-nav" style="display: none;">
         <button class="nav-btn active" id="nav-home">
             <i class="fas fa-home"></i>
@@ -767,20 +754,29 @@
                 showNotification('Anda telah berhasil logout.', 'success');
             };
 
+            // --- NEW REFERRAL LOGIC (ON CLICK) ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralCodeFromUrl = urlParams.get('ref');
+            const awardedRefThisSession = sessionStorage.getItem('awardedRef');
+
+            if (referralCodeFromUrl && awardedRefThisSession !== referralCodeFromUrl) {
+                const referrerUser = findUserByReferralCode(referralCodeFromUrl);
+                if (referrerUser) {
+                    referrerUser.balance += REFERRAL_BONUS;
+                    addTransaction.call(referrerUser, 'referral', REFERRAL_BONUS, `Bonus dari klik link.`);
+                    saveUserToStorage(referrerUser);
+                    sessionStorage.setItem('awardedRef', referralCodeFromUrl);
+                    
+                    showNotification(`Anda telah memberikan bonus Rp ${REFERRAL_BONUS.toLocaleString('id-ID')} kepada ${referrerUser.username}!`, 'success');
+                }
+            }
+
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const username = usernameInput.value;
                 let user = getUserFromStorage(username);
-                let isNewUser = false;
 
                 if (!user) {
-                    isNewUser = true;
-                    const referralCodeFromUrl = new URLSearchParams(window.location.search).get('ref');
-                    let referrerUser = null;
-                    if (referralCodeFromUrl) {
-                        referrerUser = findUserByReferralCode(referralCodeFromUrl);
-                    }
-
                     user = {
                         username,
                         balance: 0,
@@ -789,22 +785,10 @@
                         referralCount: 0,
                         history: []
                     };
-                    
-                    if (referrerUser) {
-                        referrerUser.balance += REFERRAL_BONUS;
-                        referrerUser.referralCount += 1;
-                        addTransaction.call(referrerUser, 'referral', REFERRAL_BONUS, `Bonus referral dari ${username}`);
-                        saveUserToStorage(referrerUser);
-                        showNotification(`Pendaftaran berhasil! Anda menggunakan kode referral ${referrerUser.username}.`, 'success');
-                    }
-                    
                     saveUserToStorage(user);
                 }
                 
                 login(user);
-                if (isNewUser && !referrerUser) {
-                     showNotification(`Akun baru berhasil dibuat! Selamat datang, ${user.username}.`, 'success');
-                }
             });
 
             logoutBtn.addEventListener('click', logout);
@@ -816,7 +800,7 @@
                 refLinkDisplay.style.display = 'block';
                 createRefBtn.textContent = 'Link Anda';
                 createRefBtn.disabled = true;
-                showNotification('Link referral berhasil dibuat! Bagikan link ini kepada teman Anda.', 'success');
+                showNotification('Link referral berhasil dibuat! Setiap klik akan memberikan Anda bonus.', 'success');
             });
 
             navHome.addEventListener('click', () => showView(homeView, navHome));
