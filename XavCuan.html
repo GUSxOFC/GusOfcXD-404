@@ -17,6 +17,8 @@
             --text-color: #f0f0f0;
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.18);
+            --success-color: #4caf50;
+            --error-color: #f44336;
         }
 
         * {
@@ -78,6 +80,35 @@
             max-width: 450px;
             padding: 20px;
             margin-top: 20px;
+        }
+        
+        /* Notification System */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+        }
+        .notification {
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.5s ease-out;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .notification.success { background-color: var(--success-color); }
+        .notification.error { background-color: var(--error-color); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Login Page */
@@ -155,6 +186,13 @@
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 5px var(--primary-color);
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
         }
 
         .btn {
@@ -447,6 +485,8 @@
 </head>
 <body>
 
+    <div class="notification-container" id="notification-container"></div>
+
     <div class="bg-animation">
         <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
@@ -540,6 +580,7 @@
                             <div class="input-group">
                                 <label for="security-code">Masukan Kode Keamanan</label>
                                 <input type="text" id="security-code" placeholder="6 Digit Kode" maxlength="6" required>
+                                <p id="withdraw-error" class="error-message"></p>
                             </div>
                             <button type="submit" class="btn">Ajukan Penarikan</button>
                         </form>
@@ -607,6 +648,8 @@
             const amountButtons = document.querySelectorAll('.amount-btn');
             const processingMessage = document.getElementById('processing-message');
             const historyList = document.getElementById('history-list');
+            const withdrawError = document.getElementById('withdraw-error');
+            const notificationContainer = document.getElementById('notification-container');
 
             // --- STATE MANAGEMENT ---
             let currentUser = null;
@@ -614,12 +657,19 @@
             const REFERRAL_BONUS = 5000;
 
             // --- FUNCTIONS ---
-            const generateReferralCode = () => {
-                return Math.random().toString(36).substring(2, 10).toUpperCase();
-            };
+            const generateReferralCode = () => Math.random().toString(36).substring(2, 10).toUpperCase();
+            const generateSecurityCode = () => Math.floor(100000 + Math.random() * 900000);
 
-            const generateSecurityCode = () => {
-                return Math.floor(100000 + Math.random() * 900000);
+            const showNotification = (message, type) => {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+                notification.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span>`;
+                notificationContainer.appendChild(notification);
+                setTimeout(() => {
+                    notification.style.animation = 'slideIn 0.5s ease-out reverse';
+                    setTimeout(() => notification.remove(), 500);
+                }, 3000);
             };
 
             const saveUserToStorage = (user) => {
@@ -653,12 +703,7 @@
             };
 
             const addTransaction = (type, amount, details) => {
-                const transaction = {
-                    type,
-                    amount,
-                    details,
-                    date: new Date().toLocaleString('id-ID')
-                };
+                const transaction = { type, amount, details, date: new Date().toLocaleString('id-ID') };
                 currentUser.history.push(transaction);
                 saveUserToStorage(currentUser);
                 renderHistory();
@@ -673,11 +718,9 @@
                 currentUser.history.slice().reverse().forEach(trans => {
                     const li = document.createElement('li');
                     li.className = 'history-item';
-                    
                     let iconClass = 'fas fa-question';
                     if (trans.type === 'withdraw') iconClass = 'fas fa-arrow-up success';
                     if (trans.type === 'referral') iconClass = 'fas fa-user-plus success';
-
                     li.innerHTML = `
                         <div class="icon ${iconClass.split(' ')[1]}"><i class="${iconClass}"></i></div>
                         <div class="details">
@@ -693,13 +736,9 @@
             const showView = (viewToShow, navButtonToActivate) => {
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                
                 viewToShow.classList.add('active');
                 navButtonToActivate.classList.add('active');
-
-                if (viewToShow === historyView) {
-                    renderHistory();
-                }
+                if (viewToShow === historyView) renderHistory();
             };
 
             const login = (user) => {
@@ -710,6 +749,7 @@
                 dashboardPage.style.display = 'block';
                 bottomNav.style.display = 'flex';
                 loginForm.reset();
+                showNotification(`Login berhasil! Selamat datang, ${user.username}.`, 'success');
             };
 
             const logout = () => {
@@ -718,17 +758,18 @@
                 dashboardPage.style.display = 'none';
                 bottomNav.style.display = 'none';
                 loginPage.style.display = 'block';
+                showNotification('Anda telah berhasil logout.', 'success');
             };
 
             // --- EVENT LISTENERS ---
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const username = usernameInput.value;
-                const password = document.getElementById('password').value;
-
                 let user = getUserFromStorage(username);
+                let isNewUser = false;
 
                 if (!user) {
+                    isNewUser = true;
                     const referralCodeFromUrl = new URLSearchParams(window.location.search).get('ref');
                     let referrerUser = null;
                     if (referralCodeFromUrl) {
@@ -736,7 +777,7 @@
                     }
 
                     user = {
-                        username: username,
+                        username,
                         balance: 0,
                         referralCode: generateReferralCode(),
                         securityCode: generateSecurityCode(),
@@ -749,13 +790,16 @@
                         referrerUser.referralCount += 1;
                         addTransaction.call(referrerUser, 'referral', REFERRAL_BONUS, `Bonus referral dari ${username}`);
                         saveUserToStorage(referrerUser);
-                        alert(`Selamat! Anda mendaftar dengan kode referral ${referrerUser.username}. Mereka mendapat bonus!`);
+                        showNotification(`Selamat! Anda mendaftar dengan kode referral ${referrerUser.username}.`, 'success');
                     }
                     
                     saveUserToStorage(user);
                 }
                 
                 login(user);
+                if (isNewUser && !referrerUser) {
+                     showNotification(`Akun baru berhasil dibuat! Selamat datang, ${user.username}.`, 'success');
+                }
             });
 
             logoutBtn.addEventListener('click', logout);
@@ -767,6 +811,7 @@
                 refLinkDisplay.style.display = 'block';
                 createRefBtn.textContent = 'Link Anda';
                 createRefBtn.disabled = true;
+                showNotification('Link referral berhasil dibuat! Bagikan link ini kepada teman Anda.', 'success');
             });
 
             navHome.addEventListener('click', () => showView(homeView, navHome));
@@ -783,37 +828,45 @@
 
             withdrawForm.addEventListener('submit', (e) => {
                 e.preventDefault();
+                withdrawError.style.display = 'none'; // Reset error message
+
                 const enteredSecurityCode = document.getElementById('security-code').value;
 
                 if (enteredSecurityCode !== currentUser.securityCode.toString()) {
-                    alert('Kode keamanan salah! Silakan cek kode Anda di halaman Home.');
+                    withdrawError.textContent = 'Kode keamanan salah! Silakan cek kode Anda di halaman Home.';
+                    withdrawError.style.display = 'block';
                     return;
                 }
 
-                if (selectedAmount > 0) {
-                    if (currentUser.balance >= selectedAmount) {
-                        currentUser.balance -= selectedAmount;
-                        addTransaction('withdraw', selectedAmount, `Penarikan Dana ke ${document.getElementById('dana-number').value}`);
-                        updateDashboard();
-                        saveUserToStorage(currentUser);
-                        
-                        withdrawForm.style.display = 'none';
-                        processingMessage.style.display = 'block';
-                        
-                        setTimeout(() => {
-                            withdrawForm.style.display = 'block';
-                            processingMessage.style.display = 'none';
-                            withdrawForm.reset();
-                            amountButtons.forEach(b => b.classList.remove('selected'));
-                            selectedAmount = 0;
-                            alert('Penarikan berhasil (simulasi). Saldo Anda telah dikurangi.');
-                        }, 3000);
-                    } else {
-                        alert('Saldo Anda tidak mencukupi.');
-                    }
-                } else {
-                    alert('Silakan pilih jumlah penarikan terlebih dahulu.');
+                if (selectedAmount === 0) {
+                    withdrawError.textContent = 'Silakan pilih jumlah penarikan terlebih dahulu.';
+                    withdrawError.style.display = 'block';
+                    return;
                 }
+
+                if (currentUser.balance < selectedAmount) {
+                    withdrawError.textContent = 'Saldo Anda tidak mencukupi untuk melakukan penarikan ini.';
+                    withdrawError.style.display = 'block';
+                    return;
+                }
+
+                // Success case
+                currentUser.balance -= selectedAmount;
+                addTransaction('withdraw', selectedAmount, `Penarikan Dana ke ${document.getElementById('dana-number').value}`);
+                updateDashboard();
+                saveUserToStorage(currentUser);
+                
+                withdrawForm.style.display = 'none';
+                processingMessage.style.display = 'block';
+                
+                setTimeout(() => {
+                    withdrawForm.style.display = 'block';
+                    processingMessage.style.display = 'none';
+                    withdrawForm.reset();
+                    amountButtons.forEach(b => b.classList.remove('selected'));
+                    selectedAmount = 0;
+                    showNotification('Penarikan dana berhasil! Permintaan Anda sedang diproses.', 'success');
+                }, 3000);
             });
 
             // --- INITIALIZATION ---
