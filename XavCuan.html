@@ -33,7 +33,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 80px; /* Space for bottom nav */
+            padding-bottom: 80px;
             overflow-x: hidden;
             position: relative;
         }
@@ -95,6 +95,7 @@
             padding: 40px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
         .card:hover {
             transform: translateY(-5px);
@@ -208,6 +209,21 @@
             font-size: 1.5rem;
         }
 
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+            margin-left: auto;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .logout-btn:hover {
+            color: #ff4d4d;
+            transform: rotate(10deg) scale(1.1);
+        }
+
         .stats-container {
             display: flex;
             justify-content: space-around;
@@ -248,12 +264,12 @@
             margin-top: 5px;
         }
 
-        .referral-section {
+        .referral-section, .security-section {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        #ref-link-display {
+        #ref-link-display, #security-code-display-box {
             margin-top: 20px;
             padding: 15px;
             background: rgba(0, 0, 0, 0.3);
@@ -372,6 +388,19 @@
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
         }
+        
+        /* Security Code Display */
+        .security-code-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 5px;
+            color: var(--primary-color);
+            background: rgba(0,0,0,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 10px;
+        }
 
         /* Bottom Navigation */
         .bottom-nav {
@@ -428,14 +457,14 @@
             <div class="card">
                 <img src="https://files.catbox.moe/qz6456.jpg" alt="Profile" class="profile-img">
                 <h1>GusOfcXD 404</h1>
-                <p class="subtitle">Anda harus login untuk melanjutkan</p>
+                <p class="subtitle">Masuk ke akun Anda</p>
                 <form id="login-form">
                     <div class="input-group">
-                        <label for="username">Buat Username</label>
+                        <label for="username">Username</label>
                         <input type="text" id="username" placeholder="Masukkan Username" required>
                     </div>
                     <div class="input-group">
-                        <label for="password">Buat Password</label>
+                        <label for="password">Password</label>
                         <input type="password" id="password" placeholder="Masukkan Password" required>
                     </div>
                     <button type="submit" class="btn">Login</button>
@@ -448,6 +477,7 @@
             <div class="dashboard-header">
                 <img src="https://files.catbox.moe/qz6456.jpg" alt="Profile" class="profile-img">
                 <h2>Selamat Datang, <span id="user-display-name"></span></h2>
+                <button id="logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
             </div>
 
             <div class="stats-container">
@@ -478,6 +508,11 @@
                         <h3 style="font-family: 'Orbitron'; margin-bottom: 15px;">Dashboard</h3>
                         <p>Selamat datang! Gunakan menu di bawah untuk mengakses fitur. Undang teman menggunakan link referral Anda untuk mendapatkan bonus saldo.</p>
                     </div>
+                    <div class="card">
+                        <h3 style="font-family: 'Orbitron'; margin-bottom: 10px;">Kode Keamanan Anda</h3>
+                        <p style="font-size: 0.9rem; color: #aaa;">Simpan kode ini baik-baik. Diperlukan untuk penarikan dana.</p>
+                        <div id="security-code-display" class="security-code-display"></div>
+                    </div>
                 </div>
 
                 <!-- WITHDRAW VIEW -->
@@ -501,6 +536,10 @@
                                 <button type="button" class="amount-btn" data-amount="50000">50.000</button>
                                 <button type="button" class="amount-btn" data-amount="78000">78.000</button>
                                 <button type="button" class="amount-btn" data-amount="100000" style="grid-column: 1 / -1;">100.000</button>
+                            </div>
+                            <div class="input-group">
+                                <label for="security-code">Masukan Kode Keamanan</label>
+                                <input type="text" id="security-code" placeholder="6 Digit Kode" maxlength="6" required>
                             </div>
                             <button type="submit" class="btn">Ajukan Penarikan</button>
                         </form>
@@ -550,10 +589,12 @@
             const userDisplayName = document.getElementById('user-display-name');
             const userBalanceEl = document.getElementById('user-balance');
             const totalReferralEl = document.getElementById('total-referral');
+            const securityCodeDisplay = document.getElementById('security-code-display');
             const bottomNav = document.getElementById('bottom-nav');
             const createRefBtn = document.getElementById('create-ref-btn');
             const refLinkDisplay = document.getElementById('ref-link-display');
             const refLinkText = document.getElementById('ref-link-text');
+            const logoutBtn = document.getElementById('logout-btn');
             
             const navHome = document.getElementById('nav-home');
             const navWithdraw = document.getElementById('nav-withdraw');
@@ -570,11 +611,15 @@
             // --- STATE MANAGEMENT ---
             let currentUser = null;
             let selectedAmount = 0;
-            const REFERRAL_BONUS = 5000; // Bonus saldo untuk setiap referral
+            const REFERRAL_BONUS = 5000;
 
             // --- FUNCTIONS ---
             const generateReferralCode = () => {
                 return Math.random().toString(36).substring(2, 10).toUpperCase();
+            };
+
+            const generateSecurityCode = () => {
+                return Math.floor(100000 + Math.random() * 900000);
             };
 
             const saveUserToStorage = (user) => {
@@ -586,11 +631,25 @@
                 return userData ? JSON.parse(userData) : null;
             };
 
+            const findUserByReferralCode = (code) => {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key !== 'loglevel' && key !== 'currentUser') {
+                        const user = JSON.parse(localStorage.getItem(key));
+                        if (user.referralCode === code) {
+                            return user;
+                        }
+                    }
+                }
+                return null;
+            };
+            
             const updateDashboard = () => {
                 if (!currentUser) return;
                 userDisplayName.textContent = currentUser.username;
                 userBalanceEl.textContent = `Rp ${currentUser.balance.toLocaleString('id-ID')}`;
                 totalReferralEl.textContent = currentUser.referralCount;
+                securityCodeDisplay.textContent = currentUser.securityCode;
             };
 
             const addTransaction = (type, amount, details) => {
@@ -602,11 +661,11 @@
                 };
                 currentUser.history.push(transaction);
                 saveUserToStorage(currentUser);
-                renderHistory(); // Re-render history if on the history page
+                renderHistory();
             };
 
             const renderHistory = () => {
-                historyList.innerHTML = ''; // Clear existing list
+                historyList.innerHTML = '';
                 if (currentUser.history.length === 0) {
                     historyList.innerHTML = '<p style="text-align: center; color: #aaa;">Belum ada riwayat transaksi.</p>';
                     return;
@@ -643,36 +702,44 @@
                 }
             };
 
+            const login = (user) => {
+                currentUser = user;
+                localStorage.setItem('currentUser', currentUser.username);
+                updateDashboard();
+                loginPage.style.display = 'none';
+                dashboardPage.style.display = 'block';
+                bottomNav.style.display = 'flex';
+                loginForm.reset();
+            };
+
+            const logout = () => {
+                localStorage.removeItem('currentUser');
+                currentUser = null;
+                dashboardPage.style.display = 'none';
+                bottomNav.style.display = 'none';
+                loginPage.style.display = 'block';
+            };
+
             // --- EVENT LISTENERS ---
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const username = usernameInput.value;
-                const password = document.getElementById('password').value; // Password not used in this demo
+                const password = document.getElementById('password').value;
 
                 let user = getUserFromStorage(username);
 
                 if (!user) {
-                    // New user registration
                     const referralCodeFromUrl = new URLSearchParams(window.location.search).get('ref');
                     let referrerUser = null;
                     if (referralCodeFromUrl) {
-                        // Find referrer by code
-                        for (let i = 0; i < localStorage.length; i++) {
-                            const key = localStorage.key(i);
-                            if (key !== 'loglevel') { // Avoid other potential localStorage keys
-                                const checkUser = JSON.parse(localStorage.getItem(key));
-                                if (checkUser.referralCode === referralCodeFromUrl) {
-                                    referrerUser = checkUser;
-                                    break;
-                                }
-                            }
-                        }
+                        referrerUser = findUserByReferralCode(referralCodeFromUrl);
                     }
 
                     user = {
-                        username,
+                        username: username,
                         balance: 0,
                         referralCode: generateReferralCode(),
+                        securityCode: generateSecurityCode(),
                         referralCount: 0,
                         history: []
                     };
@@ -687,13 +754,11 @@
                     
                     saveUserToStorage(user);
                 }
-
-                currentUser = user;
-                updateDashboard();
-                loginPage.style.display = 'none';
-                dashboardPage.style.display = 'block';
-                bottomNav.style.display = 'flex';
+                
+                login(user);
             });
+
+            logoutBtn.addEventListener('click', logout);
 
             createRefBtn.addEventListener('click', () => {
                 const baseUrl = window.location.origin + window.location.pathname;
@@ -718,6 +783,13 @@
 
             withdrawForm.addEventListener('submit', (e) => {
                 e.preventDefault();
+                const enteredSecurityCode = document.getElementById('security-code').value;
+
+                if (enteredSecurityCode !== currentUser.securityCode.toString()) {
+                    alert('Kode keamanan salah! Silakan cek kode Anda di halaman Home.');
+                    return;
+                }
+
                 if (selectedAmount > 0) {
                     if (currentUser.balance >= selectedAmount) {
                         currentUser.balance -= selectedAmount;
@@ -744,6 +816,16 @@
                 }
             });
 
+            // --- INITIALIZATION ---
+            const savedUsername = localStorage.getItem('currentUser');
+            if (savedUsername) {
+                const user = getUserFromStorage(savedUsername);
+                if (user) {
+                    login(user);
+                } else {
+                    localStorage.removeItem('currentUser');
+                }
+            }
         });
     </script>
 </body>
