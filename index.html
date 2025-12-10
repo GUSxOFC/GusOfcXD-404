@@ -252,15 +252,6 @@
             color: #667eea;
         }
 
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -354,6 +345,86 @@
 
         .resend-link:hover {
             text-decoration: underline;
+        }
+
+        /* SMS Notification */
+        .sms-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            max-width: 350px;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .sms-notification.show {
+            transform: translateX(0);
+        }
+
+        .sms-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sms-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .sms-info {
+            flex: 1;
+        }
+
+        .sms-sender {
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+        }
+
+        .sms-number {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sms-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sms-content {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+        }
+
+        .sms-code {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            margin: 10px 0;
+            color: #667eea;
+            letter-spacing: 2px;
         }
 
         /* Main App Container */
@@ -824,6 +895,29 @@
             content: "\f6a6"; /* volume-mute icon */
         }
 
+        /* Error Message */
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .custom-cursor,
@@ -841,6 +935,12 @@
 
             .social-links {
                 flex-direction: column;
+            }
+
+            .sms-notification {
+                right: 10px;
+                left: 10px;
+                max-width: none;
             }
         }
     </style>
@@ -861,6 +961,25 @@
     <div class="overlay"></div>
     <div class="floating-particles" id="particles"></div>
 
+    <!-- SMS Notification -->
+    <div class="sms-notification" id="sms-notification">
+        <div class="sms-header">
+            <div class="sms-icon">
+                <i class="fas fa-sms"></i>
+            </div>
+            <div class="sms-info">
+                <div class="sms-sender">God Of Force</div>
+                <div class="sms-number">+62816124</div>
+            </div>
+            <div class="sms-time" id="sms-time">Baru saja</div>
+        </div>
+        <div class="sms-content">
+            <p>Kode verifikasi Anda:</p>
+            <div class="sms-code" id="sms-code">1234</div>
+            <p>Masukkan kode ini untuk melanjutkan login. Jangan bagikan kode ini kepada siapa pun.</p>
+        </div>
+    </div>
+
     <!-- Login Container -->
     <div class="login-container" id="login-container">
         <div class="login-card">
@@ -870,6 +989,8 @@
             </div>
             
             <form class="login-form" id="login-form">
+                <div class="error-message" id="login-error"></div>
+                
                 <div class="form-group">
                     <i class="fas fa-user form-icon"></i>
                     <input type="text" class="form-input" id="name-input" placeholder="Masukan nama anda" required>
@@ -892,6 +1013,7 @@
             </form>
             
             <div class="verification-container" id="verification-container">
+                <div class="error-message" id="verification-error"></div>
                 <p style="text-align: center; margin-bottom: 20px;">Masukan code yang sudah di kirim ke SMS anda</p>
                 
                 <div class="code-inputs">
@@ -1115,17 +1237,77 @@
         const verifyBtn = document.getElementById('verify-btn');
         const resendLink = document.getElementById('resend-link');
         const codeInputs = document.querySelectorAll('.code-input');
+        const smsNotification = document.getElementById('sms-notification');
+        const smsCode = document.getElementById('sms-code');
+        const loginError = document.getElementById('login-error');
+        const verificationError = document.getElementById('verification-error');
+
+        // Generate random 4-digit code
+        function generateCode() {
+            return Math.floor(1000 + Math.random() * 9000).toString();
+        }
+
+        let currentCode = '';
+
+        // Validate phone number
+        function validatePhone(phone) {
+            const phoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,11}$/;
+            return phoneRegex.test(phone);
+        }
+
+        // Show error message
+        function showError(element, message) {
+            element.textContent = message;
+            element.classList.add('show');
+            setTimeout(() => {
+                element.classList.remove('show');
+            }, 3000);
+        }
 
         // Simulate sending verification code
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
+            const name = document.getElementById('name-input').value.trim();
+            const password = document.getElementById('password-input').value;
+            const phone = document.getElementById('phone-input').value.trim();
+            
+            // Validate inputs
+            if (name.length < 3) {
+                showError(loginError, 'Nama minimal 3 karakter');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError(loginError, 'Password minimal 6 karakter');
+                return;
+            }
+            
+            if (!validatePhone(phone)) {
+                showError(loginError, 'Nomor telepon tidak valid');
+                return;
+            }
+            
             // Disable button and show loading state
             sendCodeBtn.disabled = true;
             sendCodeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengirim...</span>';
             
+            // Generate and show code
+            currentCode = generateCode();
+            smsCode.textContent = currentCode;
+            
             // Simulate API call
             setTimeout(() => {
+                // Show SMS notification
+                smsNotification.classList.add('show');
+                
+                // Update SMS time
+                const now = new Date();
+                document.getElementById('sms-time').textContent = now.toLocaleTimeString('id-ID', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
                 // Show verification form
                 loginContainer.classList.add('verification');
                 
@@ -1135,6 +1317,11 @@
                 
                 // Focus on first code input
                 document.getElementById('code-1').focus();
+                
+                // Hide SMS notification after 5 seconds
+                setTimeout(() => {
+                    smsNotification.classList.remove('show');
+                }, 5000);
             }, 1500);
         });
 
@@ -1151,11 +1338,23 @@
                     codeInputs[index - 1].focus();
                 }
             });
+            
+            // Only allow numbers
+            input.addEventListener('keypress', (e) => {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
         });
 
         // Verify code
         verifyBtn.addEventListener('click', () => {
-            const code = Array.from(codeInputs).map(input => input.value).join('');
+            const enteredCode = Array.from(codeInputs).map(input => input.value).join('');
+            
+            if (enteredCode.length !== 4) {
+                showError(verificationError, 'Masukkan 4 digit kode');
+                return;
+            }
             
             // Disable button and show loading state
             verifyBtn.disabled = true;
@@ -1163,8 +1362,7 @@
             
             // Simulate API call
             setTimeout(() => {
-                // For demo purposes, accept any 4-digit code
-                if (code.length === 4) {
+                if (enteredCode === currentCode) {
                     // Hide login and show app
                     loginContainer.classList.add('hidden');
                     setTimeout(() => {
@@ -1172,16 +1370,13 @@
                     }, 500);
                 } else {
                     // Show error
+                    showError(verificationError, 'Kode verifikasi salah');
                     verifyBtn.disabled = false;
                     verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Verifikasi</span>';
                     
-                    // Shake inputs
-                    codeInputs.forEach(input => {
-                        input.style.animation = 'shake 0.5s';
-                        setTimeout(() => {
-                            input.style.animation = '';
-                        }, 500);
-                    });
+                    // Clear inputs
+                    codeInputs.forEach(input => input.value = '');
+                    document.getElementById('code-1').focus();
                 }
             }, 1500);
         });
@@ -1194,27 +1389,32 @@
             resendLink.style.pointerEvents = 'none';
             resendLink.textContent = 'Mengirim ulang...';
             
+            // Generate new code
+            currentCode = generateCode();
+            smsCode.textContent = currentCode;
+            
+            // Show SMS notification
+            smsNotification.classList.add('show');
+            
+            // Update SMS time
+            const now = new Date();
+            document.getElementById('sms-time').textContent = now.toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
             // Simulate API call
             setTimeout(() => {
                 // Enable link
                 resendLink.style.pointerEvents = 'auto';
                 resendLink.textContent = 'Kirim ulang';
                 
-                // Show notification
-                showNotification('Code telah dikirim ulang');
+                // Hide SMS notification after 5 seconds
+                setTimeout(() => {
+                    smsNotification.classList.remove('show');
+                }, 5000);
             }, 1500);
         });
-
-        // Add shake animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                20%, 40%, 60%, 80% { transform: translateX(5px); }
-            }
-        `;
-        document.head.appendChild(style);
 
         // Dropdown Menu
         const menuButton = document.getElementById('menu-button');
@@ -1280,12 +1480,6 @@
             const currentPrayerTime = prayerTimes[currentPrayerName].time;
             const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
             const nextPrayerTime = prayerTimes[nextPrayerName].time;
-            
-            // Update UI
-            document.getElementById('current-prayer-name').textContent = currentPrayerName;
-            document.getElementById('current-prayer-time').textContent = currentPrayerTime;
-            document.getElementById('next-prayer-name').textContent = nextPrayerName;
-            document.getElementById('next-prayer-time').textContent = nextPrayerTime;
             
             // Calculate countdown to next prayer
             const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
@@ -1403,48 +1597,6 @@
                 loginContainer.classList.remove('verification');
             }, 500);
         });
-
-        // Notification function
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.style.position = 'fixed';
-            notification.style.top = '20px';
-            notification.style.left = '50%';
-            notification.style.transform = 'translateX(-50%)';
-            notification.style.background = 'rgba(0, 0, 0, 0.8)';
-            notification.style.color = 'white';
-            notification.style.padding = '15px 20px';
-            notification.style.borderRadius = '10px';
-            notification.style.zIndex = '1000';
-            notification.style.animation = 'slideDown 0.5s ease-out';
-            notification.textContent = message;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideUp 0.5s ease-out';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 500);
-            }, 3000);
-        }
-
-        // Add slideUp animation
-        const slideUpStyle = document.createElement('style');
-        slideUpStyle.textContent = `
-            @keyframes slideUp {
-                from {
-                    transform: translate(-50%, 0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translate(-50%, -100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(slideUpStyle);
     </script>
 
 </body>
