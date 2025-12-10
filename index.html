@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God Of Force - Login</title>
+    <title>God Of Force</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
@@ -18,107 +18,142 @@
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
-            cursor: none;
+            min-height: 100vh;
         }
 
-        /* Custom Cursor */
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #667eea;
-            border-radius: 50%;
+        .quantum-field {
             position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            background: linear-gradient(45deg, #0a0a0a, #1a0033, #000428, #004e92);
+            background-size: 400% 400%;
+            animation: quantumShift 15s ease infinite;
+        }
+
+        @keyframes quantumShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .aurora-layer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.4;
+            background: linear-gradient(0deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: auroraFlow 8s linear infinite;
+        }
+
+        .aurora-layer:nth-child(2) {
+            animation-delay: -2s;
+            background: linear-gradient(0deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+        }
+
+        .aurora-layer:nth-child(3) {
+            animation-delay: -4s;
+            background: linear-gradient(0deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+        }
+
+        @keyframes auroraFlow {
+            0% { transform: translateY(100%) rotate(0deg); }
+            100% { transform: translateY(-100%) rotate(360deg); }
+        }
+
+        .plasma-orb {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.8), transparent, rgba(118, 75, 162, 0.8));
+            filter: blur(60px);
+            animation: plasmaFloat 20s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        .plasma-orb:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            animation-delay: -5s;
+            left: auto;
+            right: 10%;
+        }
+
+        .plasma-orb:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            animation-delay: -10s;
+            top: auto;
+            bottom: 20%;
+        }
+
+        @keyframes plasmaFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -50px) scale(1.2); }
+            50% { transform: translate(-50px, 100px) scale(0.8); }
+            75% { transform: translate(-100px, -30px) scale(1.1); }
+        }
+
+        .holographic-cursor {
+            width: 30px;
+            height: 30px;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-clip: padding-box;
+            animation: holographicRotate 2s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.8));
+        }
+
+        .holographic-cursor::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            border-radius: 50%;
+            z-index: -1;
+            animation: holographicRotate 2s linear infinite reverse;
+        }
+
+        @keyframes holographicRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .magnetic-field {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 1px solid rgba(102, 126, 234, 0.3);
             pointer-events: none;
             z-index: 9999;
-            transition: transform 0.1s ease, background-color 0.3s ease;
-            mix-blend-mode: difference;
+            animation: magneticPulse 1.5s ease-out;
         }
 
-        .cursor-follower {
-            width: 8px;
-            height: 8px;
-            background: #764ba2;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.2s ease;
-        }
-
-        .custom-cursor.active {
-            transform: scale(2);
-            background-color: rgba(102, 126, 234, 0.3);
-        }
-
-        /* Background Effects */
-        .background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-
-        .background-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 3s ease-in-out;
-            filter: brightness(0.4) saturate(1.2);
-        }
-
-        .background-image.active {
-            opacity: 1;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.8));
-            z-index: -1;
-        }
-
-        .floating-particles {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            from {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
+        @keyframes magneticPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
                 opacity: 1;
             }
-            90% {
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-100vh) translateX(100px);
+            100% {
+                transform: translate(-50%, -50%) scale(3);
                 opacity: 0;
             }
         }
 
-        /* Login Container */
         .login-container {
             display: flex;
             justify-content: center;
@@ -126,159 +161,217 @@
             min-height: 100vh;
             padding: 20px;
             transition: opacity 0.5s ease, transform 0.5s ease;
+            position: relative;
+            z-index: 10;
         }
 
         .login-container.hidden {
             opacity: 0;
             transform: scale(0.9);
             pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.95);
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            padding: 50px;
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            max-width: 480px;
+            box-shadow: 
+                0 0 50px rgba(102, 126, 234, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.05);
             position: relative;
             overflow: hidden;
-            animation: slideUp 0.8s ease-out;
+            animation: morphCard 8s ease-in-out infinite;
+            transition: all 0.4s ease;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        @keyframes morphCard {
+            0%, 100% { border-radius: 30px; }
+            25% { border-radius: 40px 30px 40px 30px; }
+            50% { border-radius: 30px 40px 30px 40px; }
+            75% { border-radius: 35px 35px 35px 35px; }
         }
 
         .login-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s;
-            opacity: 0;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+            border-radius: inherit;
+            z-index: -1;
+            animation: borderFlow 3s linear infinite;
         }
 
-        .login-card:hover::before {
-            animation: shimmer 0.5s ease;
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
 
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%) translateY(-100%) rotate(45deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100%) translateY(100%) rotate(45deg);
-                opacity: 0;
-            }
+        .login-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(102, 126, 234, 0.5),
+                inset 0 0 50px rgba(255, 255, 255, 0.1);
+        }
+
+        .liquid-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(102, 126, 234, 0.1));
+            animation: liquidWave 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes liquidWave {
+            0%, 100% { transform: translateY(100%); }
+            50% { transform: translateY(80%); }
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
         }
 
         .login-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .login-subtitle {
-            font-size: 16px;
+            font-size: 18px;
             color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             position: relative;
+            z-index: 2;
         }
 
         .form-input {
             width: 100%;
-            padding: 15px 15px 15px 45px;
+            padding: 18px 18px 18px 50px;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             color: #ffffff;
             font-size: 16px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
         .form-input:focus {
             outline: none;
             border-color: #667eea;
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.4),
+                inset 0 0 10px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
         }
 
         .form-input::placeholder {
             color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus::placeholder {
+            transform: translateY(-20px);
+            opacity: 0;
         }
 
         .form-icon {
             position: absolute;
-            left: 15px;
+            left: 18px;
             top: 50%;
             transform: translateY(-50%);
             color: rgba(255, 255, 255, 0.5);
-            font-size: 18px;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            z-index: 3;
         }
 
         .form-group:focus-within .form-icon {
             color: #667eea;
+            transform: translateY(-50%) scale(1.2);
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 15px 30px;
+            gap: 12px;
+            padding: 18px 35px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none;
             cursor: pointer;
             width: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
             background: linear-gradient(135deg, #764ba2, #667eea);
         }
 
         .btn:active {
-            transform: translateY(0);
+            transform: translateY(-2px) scale(1.02);
         }
 
         .btn:disabled {
@@ -305,64 +398,71 @@
 
         .code-inputs {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
         }
 
         .code-input {
             width: 50px;
-            height: 50px;
+            height: 55px;
             text-align: center;
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 26px;
+            font-weight: 800;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             color: #ffffff;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
         .code-input:focus {
             outline: none;
             border-color: #667eea;
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+            transform: scale(1.1);
         }
 
         .resend-text {
             text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
+            margin-top: 20px;
+            font-size: 15px;
             color: rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 2;
         }
 
         .resend-link {
             color: #667eea;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
+            transition: all 0.3s ease;
         }
 
         .resend-link:hover {
             text-decoration: underline;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
         }
 
-        /* SMS Notification */
         .sms-notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(10, 10, 10, 0.95);
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(20, 20, 40, 0.95));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            max-width: 350px;
+            border-radius: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 25px;
+            max-width: 380px;
             z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateX(500px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
         .sms-notification.show {
@@ -372,22 +472,28 @@
         .sms-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .sms-icon {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 18px;
+            font-size: 20px;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .sms-info {
@@ -395,8 +501,8 @@
         }
 
         .sms-sender {
-            font-weight: 600;
-            font-size: 16px;
+            font-weight: 700;
+            font-size: 18px;
             color: white;
         }
 
@@ -412,22 +518,30 @@
 
         .sms-content {
             color: rgba(255, 255, 255, 0.9);
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .sms-code {
             display: inline-block;
-            background: rgba(102, 126, 234, 0.2);
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 18px;
-            margin: 10px 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 22px;
+            margin: 12px 0;
             color: #667eea;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            text-align: center;
+            width: 100%;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            animation: codeGlow 2s ease-in-out infinite;
         }
 
-        /* Main App Container */
+        @keyframes codeGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(102, 126, 234, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
+        }
+
         .app-container {
             opacity: 0;
             transform: scale(0.9);
@@ -444,113 +558,226 @@
             pointer-events: all;
         }
 
-        /* Header */
         .app-header {
-            background: rgba(255, 255, 255, 0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 25px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
             z-index: 100;
+            animation: headerSlideDown 0.8s ease-out;
+        }
+
+        @keyframes headerSlideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .app-title {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: textShimmer 3s ease-in-out infinite;
         }
 
         .menu-button {
-            background: none;
-            border: none;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 2px solid rgba(102, 126, 234, 0.3);
             color: white;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
             position: relative;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s ease;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .menu-button:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
         }
 
-        /* Dropdown Menu */
         .dropdown-menu {
             position: absolute;
             top: 100%;
             right: 0;
-            background: rgba(10, 10, 10, 0.95);
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(20, 20, 40, 0.95));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 200px;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            width: 220px;
             overflow: hidden;
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-20px) scale(0.9);
             pointer-events: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 101;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .dropdown-menu.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
             pointer-events: all;
         }
 
         .dropdown-item {
-            padding: 12px 15px;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             color: white;
             text-decoration: none;
-            transition: background 0.2s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .dropdown-item:hover::before {
+            left: 100%;
         }
 
         .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
         }
 
         .dropdown-item i {
             width: 20px;
             text-align: center;
+            font-size: 18px;
         }
 
-        /* Main Content */
         .app-content {
             flex: 1;
-            padding: 20px;
+            padding: 100px 25px 25px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
 
-        /* Prayer Times */
-        .prayer-card {
-            background: rgba(255, 255, 255, 0.05);
+        .portal-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .portal-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 20px;
+            border: 2px solid transparent;
             padding: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderFlow 3s linear infinite;
+        }
+
+        .portal-item:hover::before {
+            opacity: 1;
+        }
+
+        .portal-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .portal-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .portal-item:hover .portal-icon {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .portal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .portal-description {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .prayer-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 25px;
+            border: 2px solid transparent;
+            padding: 30px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
@@ -559,45 +786,43 @@
         .prayer-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s;
-            opacity: 0;
-        }
-
-        .prayer-card:hover::before {
-            animation: shimmer 0.5s ease;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+            border-radius: inherit;
+            z-index: -1;
+            animation: borderFlow 3s linear infinite;
         }
 
         .prayer-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .prayer-title {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .prayer-title i {
             color: #667eea;
+            font-size: 24px;
+            animation: iconPulse 2s ease-in-out infinite;
         }
 
         .prayer-location {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .prayer-location i {
@@ -606,24 +831,26 @@
 
         .prayer-times-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .prayer-time-item {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 15px;
+            padding: 18px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
 
         .prayer-time-item.active {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
-            border: 1px solid rgba(102, 126, 234, 0.5);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
         }
 
         .prayer-time-item.active::before {
@@ -634,53 +861,58 @@
             width: 100%;
             height: 3px;
             background: linear-gradient(90deg, #667eea, #764ba2);
+            animation: slideBar 2s linear infinite;
+        }
+
+        @keyframes slideBar {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .prayer-name {
-            font-size: 14px;
+            font-size: 15px;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .prayer-time {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 22px;
+            font-weight: 800;
             color: white;
         }
 
         .prayer-time-item.active .prayer-time {
             color: #667eea;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
         }
 
         .prayer-alert {
             display: none;
             align-items: center;
-            gap: 10px;
-            padding: 15px;
+            gap: 12px;
+            padding: 20px;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
-            border-radius: 12px;
-            margin-top: 15px;
-            animation: pulse 2s infinite;
+            border-radius: 15px;
+            margin-top: 20px;
+            animation: alertPulse 2s infinite;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes alertPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(102, 126, 234, 0);
+            }
         }
 
         .prayer-alert.active {
             display: flex;
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
-            }
-        }
-
         .prayer-alert i {
-            font-size: 20px;
+            font-size: 24px;
             color: #667eea;
             animation: ring 1s infinite;
         }
@@ -690,50 +922,65 @@
                 transform: rotate(0deg);
             }
             25% {
-                transform: rotate(10deg);
+                transform: rotate(15deg);
             }
             75% {
-                transform: rotate(-10deg);
+                transform: rotate(-15deg);
             }
         }
 
         .prayer-alert-text {
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 18px;
         }
 
         .countdown {
             margin-top: 5px;
-            font-size: 14px;
+            font-size: 15px;
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Social Media */
         .social-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 25px;
+            border-radius: 25px;
+            border: 2px solid transparent;
+            padding: 30px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
         }
 
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+            border-radius: inherit;
+            z-index: -1;
+            animation: borderFlow 3s linear infinite;
+        }
+
         .social-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .social-title i {
             color: #667eea;
+            font-size: 24px;
+            animation: iconPulse 2s ease-in-out infinite;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
         .social-link {
@@ -741,29 +988,46 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 15px;
+            gap: 12px;
+            padding: 20px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            border-radius: 15px;
             color: white;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
         }
 
         .social-link:hover {
             background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
         .social-link.telegram {
-            border-left: 3px solid #0088cc;
+            border-left: 4px solid #0088cc;
         }
 
         .social-link.tiktok {
-            border-left: 3px solid #ff0050;
+            border-left: 4px solid #ff0050;
         }
 
-        /* Info Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -788,14 +1052,14 @@
         }
 
         .modal-content {
-            background: rgba(10, 10, 10, 0.95);
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(20, 20, 40, 0.95));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 30px;
+            border-radius: 25px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 35px;
             width: 90%;
-            max-width: 500px;
+            max-width: 550px;
             max-height: 80vh;
             overflow-y: auto;
             transform: scale(0.9);
@@ -810,123 +1074,143 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: textShimmer 3s ease-in-out infinite;
         }
 
         .modal-close {
-            background: none;
-            border: none;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 2px solid rgba(102, 126, 234, 0.3);
             color: white;
             font-size: 24px;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s ease;
+            border-radius: 15px;
+            transition: all 0.3s ease;
         }
 
         .modal-close:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+            transform: rotate(90deg);
         }
 
         .modal-body {
             color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .modal-body h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 20px 0 10px;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 25px 0 15px;
             color: white;
         }
 
         .modal-body p {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .modal-body ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
+            padding-left: 25px;
+            margin-bottom: 18px;
         }
 
         .modal-body li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
-        /* Sound Control */
-        .sound-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .sound-control:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.1);
-        }
-
-        .sound-control.muted i::before {
-            content: "\f6a6"; /* volume-mute icon */
-        }
-
-        /* Error Message */
         .error-message {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
+            border: 2px solid rgba(255, 0, 0, 0.3);
             color: #ff6b6b;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 15px;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 18px;
             display: none;
+            animation: errorShake 0.5s;
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
         }
 
         .error-message.show {
             display: block;
-            animation: shake 0.5s;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        .success-message {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            color: #51cf66;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 18px;
+            display: none;
+            animation: successSlide 0.5s;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .custom-cursor,
-            .cursor-follower {
-                display: none;
+        @keyframes successSlide {
+            from {
+                transform: translateY(-15px);
+                opacity: 0;
             }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-            body {
-                cursor: auto;
+        .success-message.show {
+            display: block;
+        }
+
+        .particle-explosion {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .particle-burst {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            border-radius: 50%;
+            animation: burst 1s ease-out forwards;
+        }
+
+        @keyframes burst {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .holographic-cursor {
+                display: none;
             }
 
             .prayer-times-grid {
@@ -938,30 +1222,39 @@
             }
 
             .sms-notification {
-                right: 10px;
-                left: 10px;
+                right: 15px;
+                left: 15px;
                 max-width: none;
+            }
+
+            .code-inputs {
+                gap: 10px;
+            }
+
+            .code-input {
+                width: 45px;
+                height: 50px;
+                font-size: 22px;
+            }
+
+            .portal-list {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="cursor-follower"></div>
+    <div class="quantum-field"></div>
+    <div class="aurora-layer"></div>
+    <div class="aurora-layer"></div>
+    <div class="aurora-layer"></div>
+    <div class="plasma-orb" style="top: 20%; left: 10%;"></div>
+    <div class="plasma-orb"></div>
+    <div class="plasma-orb"></div>
 
-    <!-- Background Effects -->
-    <div class="background-container">
-        <img src="https://files.catbox.moe/rzv2c5.jpg" class="background-image active" alt="Background 1">
-        <img src="https://files.catbox.moe/lxht20.jpg" class="background-image" alt="Background 2">
-        <img src="https://files.catbox.moe/4zjiw5.jpg" class="background-image" alt="Background 3">
-        <img src="https://files.catbox.moe/q2l6xu.jpg" class="background-image" alt="Background 4">
-    </div>
-    <div class="overlay"></div>
-    <div class="floating-particles" id="particles"></div>
+    <div class="holographic-cursor"></div>
 
-    <!-- SMS Notification -->
     <div class="sms-notification" id="sms-notification">
         <div class="sms-header">
             <div class="sms-icon">
@@ -975,14 +1268,14 @@
         </div>
         <div class="sms-content">
             <p>Kode verifikasi Anda:</p>
-            <div class="sms-code" id="sms-code">1234</div>
-            <p>Masukkan kode ini untuk melanjutkan login. Jangan bagikan kode ini kepada siapa pun.</p>
+            <div class="sms-code" id="sms-code"></div>
+            <p>Masukkan kode ini untuk melanjutkan login. Kode berlaku selama 5 menit. Jangan bagikan kode ini kepada siapa pun.</p>
         </div>
     </div>
 
-    <!-- Login Container -->
     <div class="login-container" id="login-container">
         <div class="login-card">
+            <div class="liquid-fill"></div>
             <div class="login-header">
                 <h1 class="login-title">God Of Force</h1>
                 <p class="login-subtitle">Hi selamat datang di website saya</p>
@@ -990,6 +1283,7 @@
             
             <form class="login-form" id="login-form">
                 <div class="error-message" id="login-error"></div>
+                <div class="success-message" id="login-success"></div>
                 
                 <div class="form-group">
                     <i class="fas fa-user form-icon"></i>
@@ -1014,13 +1308,16 @@
             
             <div class="verification-container" id="verification-container">
                 <div class="error-message" id="verification-error"></div>
-                <p style="text-align: center; margin-bottom: 20px;">Masukan code yang sudah di kirim ke SMS anda</p>
+                <div class="success-message" id="verification-success"></div>
+                <p style="text-align: center; margin-bottom: 25px;">Masukan kode OTP yang sudah dikirim ke SMS anda</p>
                 
                 <div class="code-inputs">
                     <input type="text" class="code-input" maxlength="1" id="code-1">
                     <input type="text" class="code-input" maxlength="1" id="code-2">
                     <input type="text" class="code-input" maxlength="1" id="code-3">
                     <input type="text" class="code-input" maxlength="1" id="code-4">
+                    <input type="text" class="code-input" maxlength="1" id="code-5">
+                    <input type="text" class="code-input" maxlength="1" id="code-6">
                 </div>
                 
                 <button type="button" class="btn" id="verify-btn">
@@ -1033,7 +1330,6 @@
         </div>
     </div>
 
-    <!-- App Container -->
     <div class="app-container" id="app-container">
         <header class="app-header">
             <h1 class="app-title">God Of Force</h1>
@@ -1059,7 +1355,48 @@
         </header>
 
         <main class="app-content">
-            <!-- Prayer Times Card -->
+            <div class="portal-list">
+                <div class="portal-item" onclick="window.open('trackip.html', '_blank')">
+                    <div class="portal-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="portal-title">Track IP</h3>
+                    <p class="portal-description">Melacak informasi lokasi berdasarkan alamat IP dengan akurasi tinggi</p>
+                </div>
+
+                <div class="portal-item" onclick="window.open('ipqt.html', '_blank')">
+                    <div class="portal-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="portal-title">IQC</h3>
+                    <p class="portal-description">Informasi lengkap dan detail tentang perangkat iPhone</p>
+                </div>
+
+                <div class="portal-item" onclick="window.open('device-your-information.html', '_blank')">
+                    <div class="portal-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="portal-title">Device Info</h3>
+                    <p class="portal-description">Menampilkan informasi detail tentang perangkat yang sedang digunakan</p>
+                </div>
+
+                <div class="portal-item" onclick="window.open('delrepostori.html', '_blank')">
+                    <div class="portal-icon">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                    <h3 class="portal-title">Del Repository</h3>
+                    <p class="portal-description">Akses langsung ke repositori GitHub untuk pengembangan</p>
+                </div>
+
+                <div class="portal-item" onclick="window.open('https://xavai.vercel.app/', '_blank')">
+                    <div class="portal-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="portal-title">XavAi</h3>
+                    <p class="portal-description">Bot AI canggih untuk berbagai kebutuhan digital Anda</p>
+                </div>
+            </div>
+
             <div class="prayer-card" id="prayer-card">
                 <div class="prayer-header">
                     <h2 class="prayer-title">
@@ -1104,7 +1441,6 @@
                 </div>
             </div>
 
-            <!-- Social Media Card -->
             <div class="social-card">
                 <h2 class="social-title">
                     <i class="fas fa-share-alt"></i>
@@ -1125,7 +1461,6 @@
         </main>
     </div>
 
-    <!-- Info Modal -->
     <div class="modal" id="info-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1162,73 +1497,73 @@
         </div>
     </div>
 
-    <!-- Sound Control -->
-    <div class="sound-control" id="sound-control">
-        <i class="fas fa-volume-up"></i>
-    </div>
-
-    <!-- Audio for Adzan -->
     <audio id="adzan-audio" preload="auto">
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjGH0fPTgjMGHm7A7+OZURE" type="audio/wav">
     </audio>
 
     <script>
-        // Custom Cursor
-        const cursor = document.querySelector('.custom-cursor');
-        const follower = document.querySelector('.cursor-follower');
+        const cursor = document.querySelector('.holographic-cursor');
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                follower.style.left = e.clientX + 'px';
-                follower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-
-        document.addEventListener('mousedown', () => {
-            cursor.classList.add('active');
-        });
-
-        document.addEventListener('mouseup', () => {
-            cursor.classList.remove('active');
-        });
-
-        const links = document.querySelectorAll('a, button, .card, .verified-badge, .menu-button, .dropdown-item, .modal-close, .sound-control');
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                cursor.classList.add('active');
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 15 + 'px';
+                cursor.style.top = e.clientY - 15 + 'px';
             });
-            link.addEventListener('mouseleave', () => {
-                cursor.classList.remove('active');
-            });
-        });
 
-        // Floating Particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 20 + 's';
-            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
+            const interactiveElements = document.querySelectorAll('a, button, .portal-item, .menu-button, .dropdown-item, .modal-close, .form-input, .code-input');
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(1.5)';
+                });
+                element.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                });
+            });
+        } else {
+            cursor.style.display = 'none';
         }
 
-        // Background Image Rotation
-        const images = document.querySelectorAll('.background-image');
-        let currentImageIndex = 0;
+        function createParticleExplosion(x, y) {
+            const explosion = document.createElement('div');
+            explosion.className = 'particle-explosion';
+            explosion.style.left = x + 'px';
+            explosion.style.top = y + 'px';
 
-        function showNextImage() {
-            images[currentImageIndex].classList.remove('active');
-            currentImageIndex = (currentImageIndex + 1) % images.length;
-            images[currentImageIndex].classList.add('active');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle-burst';
+                
+                const angle = (Math.PI * 2 * i) / 20;
+                const velocity = 50 + Math.random() * 50;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+                
+                explosion.appendChild(particle);
+            }
+
+            document.body.appendChild(explosion);
+            setTimeout(() => explosion.remove(), 1000);
         }
 
-        setInterval(showNextImage, 5000);
+        function createMagneticField(x, y) {
+            const field = document.createElement('div');
+            field.className = 'magnetic-field';
+            field.style.left = x + 'px';
+            field.style.top = y + 'px';
+            document.body.appendChild(field);
+            setTimeout(() => field.remove(), 1500);
+        }
 
-        // Login System
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth > 768) {
+                createParticleExplosion(e.clientX, e.clientY);
+                createMagneticField(e.clientX, e.clientY);
+            }
+        });
+
         const loginContainer = document.getElementById('login-container');
         const appContainer = document.getElementById('app-container');
         const loginForm = document.getElementById('login-form');
@@ -1240,22 +1575,21 @@
         const smsNotification = document.getElementById('sms-notification');
         const smsCode = document.getElementById('sms-code');
         const loginError = document.getElementById('login-error');
+        const loginSuccess = document.getElementById('login-success');
         const verificationError = document.getElementById('verification-error');
+        const verificationSuccess = document.getElementById('verification-success');
 
-        // Generate random 4-digit code
         function generateCode() {
-            return Math.floor(1000 + Math.random() * 9000).toString();
+            return Math.floor(100000 + Math.random() * 900000).toString();
         }
 
         let currentCode = '';
 
-        // Validate phone number
         function validatePhone(phone) {
             const phoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,11}$/;
             return phoneRegex.test(phone);
         }
 
-        // Show error message
         function showError(element, message) {
             element.textContent = message;
             element.classList.add('show');
@@ -1264,15 +1598,21 @@
             }, 3000);
         }
 
-        // Simulate sending verification code
-        loginForm.addEventListener('submit', (e) => {
+        function showSuccess(element, message) {
+            element.textContent = message;
+            element.classList.add('show');
+            setTimeout(() => {
+                element.classList.remove('show');
+            }, 3000);
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const name = document.getElementById('name-input').value.trim();
             const password = document.getElementById('password-input').value;
             const phone = document.getElementById('phone-input').value.trim();
             
-            // Validate inputs
             if (name.length < 3) {
                 showError(loginError, 'Nama minimal 3 karakter');
                 return;
@@ -1288,44 +1628,36 @@
                 return;
             }
             
-            // Disable button and show loading state
             sendCodeBtn.disabled = true;
             sendCodeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengirim...</span>';
             
-            // Generate and show code
             currentCode = generateCode();
-            smsCode.textContent = currentCode;
             
-            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            showSuccess(loginSuccess, 'Kode berhasil dikirim ke SMS');
+            
+            smsCode.textContent = currentCode;
+            smsNotification.classList.add('show');
+            
+            const now = new Date();
+            document.getElementById('sms-time').textContent = now.toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            loginContainer.classList.add('verification');
+            
+            sendCodeBtn.disabled = false;
+            sendCodeBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Kirim Code</span>';
+            
+            document.getElementById('code-1').focus();
+            
             setTimeout(() => {
-                // Show SMS notification
-                smsNotification.classList.add('show');
-                
-                // Update SMS time
-                const now = new Date();
-                document.getElementById('sms-time').textContent = now.toLocaleTimeString('id-ID', { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                });
-                
-                // Show verification form
-                loginContainer.classList.add('verification');
-                
-                // Reset button
-                sendCodeBtn.disabled = false;
-                sendCodeBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Kirim Code</span>';
-                
-                // Focus on first code input
-                document.getElementById('code-1').focus();
-                
-                // Hide SMS notification after 5 seconds
-                setTimeout(() => {
-                    smsNotification.classList.remove('show');
-                }, 5000);
-            }, 1500);
+                smsNotification.classList.remove('show');
+            }, 5000);
         });
 
-        // Auto-focus next input when typing
         codeInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
                 if (e.target.value.length === 1 && index < codeInputs.length - 1) {
@@ -1339,7 +1671,6 @@
                 }
             });
             
-            // Only allow numbers
             input.addEventListener('keypress', (e) => {
                 if (!/[0-9]/.test(e.key)) {
                     e.preventDefault();
@@ -1347,76 +1678,65 @@
             });
         });
 
-        // Verify code
-        verifyBtn.addEventListener('click', () => {
+        verifyBtn.addEventListener('click', async () => {
             const enteredCode = Array.from(codeInputs).map(input => input.value).join('');
             
-            if (enteredCode.length !== 4) {
-                showError(verificationError, 'Masukkan 4 digit kode');
+            if (enteredCode.length !== 6) {
+                showError(verificationError, 'Masukkan 6 digit kode');
                 return;
             }
             
-            // Disable button and show loading state
             verifyBtn.disabled = true;
             verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Memverifikasi...</span>';
             
-            // Simulate API call
-            setTimeout(() => {
-                if (enteredCode === currentCode) {
-                    // Hide login and show app
-                    loginContainer.classList.add('hidden');
-                    setTimeout(() => {
-                        appContainer.classList.add('active');
-                    }, 500);
-                } else {
-                    // Show error
-                    showError(verificationError, 'Kode verifikasi salah');
-                    verifyBtn.disabled = false;
-                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Verifikasi</span>';
-                    
-                    // Clear inputs
-                    codeInputs.forEach(input => input.value = '');
-                    document.getElementById('code-1').focus();
-                }
-            }, 1500);
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            if (enteredCode === currentCode) {
+                showSuccess(verificationSuccess, 'Verifikasi berhasil!');
+                
+                loginContainer.classList.add('hidden');
+                setTimeout(() => {
+                    appContainer.classList.add('active');
+                }, 500);
+            } else {
+                showError(verificationError, 'Kode verifikasi salah');
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Verifikasi</span>';
+                
+                codeInputs.forEach(input => input.value = '');
+                document.getElementById('code-1').focus();
+            }
         });
 
-        // Resend code
-        resendLink.addEventListener('click', (e) => {
+        resendLink.addEventListener('click', async (e) => {
             e.preventDefault();
             
-            // Disable link
             resendLink.style.pointerEvents = 'none';
             resendLink.textContent = 'Mengirim ulang...';
             
-            // Generate new code
             currentCode = generateCode();
-            smsCode.textContent = currentCode;
             
-            // Show SMS notification
+            smsCode.textContent = currentCode;
             smsNotification.classList.add('show');
             
-            // Update SMS time
             const now = new Date();
             document.getElementById('sms-time').textContent = now.toLocaleTimeString('id-ID', { 
                 hour: '2-digit', 
                 minute: '2-digit' 
             });
             
-            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            showSuccess(verificationSuccess, 'Kode berhasil dikirim ulang');
+            
+            resendLink.style.pointerEvents = 'auto';
+            resendLink.textContent = 'Kirim ulang';
+            
             setTimeout(() => {
-                // Enable link
-                resendLink.style.pointerEvents = 'auto';
-                resendLink.textContent = 'Kirim ulang';
-                
-                // Hide SMS notification after 5 seconds
-                setTimeout(() => {
-                    smsNotification.classList.remove('show');
-                }, 5000);
-            }, 1500);
+                smsNotification.classList.remove('show');
+            }, 5000);
         });
 
-        // Dropdown Menu
         const menuButton = document.getElementById('menu-button');
         const dropdownMenu = document.getElementById('dropdown-menu');
 
@@ -1424,14 +1744,12 @@
             dropdownMenu.classList.toggle('active');
         });
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!menuButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
                 dropdownMenu.classList.remove('active');
             }
         });
 
-        // Prayer Times
         const prayerTimes = {
             Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
             Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
@@ -1465,7 +1783,6 @@
             const currentMinutes = now.getHours() * 60 + now.getMinutes();
             const currentSeconds = now.getSeconds();
             
-            // Find current prayer
             for (let i = 0; i < prayerNames.length; i++) {
                 const prayerTime = prayerTimes[prayerNames[i]];
                 const prayerMinutes = timeToMinutes(prayerTime.time);
@@ -1481,14 +1798,12 @@
             const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
             const nextPrayerTime = prayerTimes[nextPrayerName].time;
             
-            // Calculate countdown to next prayer
             const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
             let countdownMinutes;
             
             if (nextPrayerMinutes > currentMinutes) {
                 countdownMinutes = nextPrayerMinutes - currentMinutes;
             } else {
-                // Next prayer is tomorrow
                 countdownMinutes = (24 * 60) - currentMinutes + nextPrayerMinutes;
             }
             
@@ -1500,11 +1815,9 @@
             const countdownStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             document.getElementById('countdown').textContent = countdownStr;
             
-            // Check if it's prayer time (within 2 minutes)
             const prayerMinutes = timeToMinutes(currentPrayerTime);
             const timeDiff = Math.abs(currentMinutes - prayerMinutes);
             
-            // Update active prayer time
             document.querySelectorAll('.prayer-time-item').forEach(item => {
                 item.classList.remove('active');
             });
@@ -1514,8 +1827,7 @@
                 document.getElementById('prayer-alert').classList.add('active');
                 document.getElementById('prayer-alert-text').textContent = `Waktu ${currentPrayerName} telah tiba!`;
                 
-                // Play adhan sound if not already playing
-                if (!isAdhanPlaying && !document.getElementById('sound-control').classList.contains('muted')) {
+                if (!isAdhanPlaying) {
                     playAdhan();
                 }
             } else {
@@ -1536,23 +1848,9 @@
             };
         }
 
-        // Update prayer times every second
         setInterval(updatePrayerTimes, 1000);
         updatePrayerTimes();
 
-        // Sound Control
-        const soundControl = document.getElementById('sound-control');
-        soundControl.addEventListener('click', () => {
-            soundControl.classList.toggle('muted');
-            
-            if (soundControl.classList.contains('muted')) {
-                document.getElementById('adzan-audio').muted = true;
-            } else {
-                document.getElementById('adzan-audio').muted = false;
-            }
-        });
-
-        // Info Modal
         const infoModal = document.getElementById('info-modal');
         const modalClose = document.getElementById('modal-close');
         const infoMenuItem = document.getElementById('info-menu-item');
@@ -1575,22 +1873,18 @@
             }
         });
 
-        // Prayer menu item
         prayerMenuItem.addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('prayer-card').scrollIntoView({ behavior: 'smooth' });
             dropdownMenu.classList.remove('active');
         });
 
-        // Logout
         logoutMenuItem.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Reset form
             loginForm.reset();
             codeInputs.forEach(input => input.value = '');
             
-            // Show login and hide app
             appContainer.classList.remove('active');
             setTimeout(() => {
                 loginContainer.classList.remove('hidden');
