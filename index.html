@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GusOfcXD 404</title>
+    <title>God Of Force - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
@@ -18,10 +18,10 @@
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
-            padding-bottom: 100px;
             cursor: none;
         }
 
+        /* Custom Cursor */
         .custom-cursor {
             width: 20px;
             height: 20px;
@@ -50,6 +50,7 @@
             background-color: rgba(102, 126, 234, 0.3);
         }
 
+        /* Background Effects */
         .background-container {
             position: fixed;
             top: 0;
@@ -117,25 +118,40 @@
             }
         }
 
-        .profile-section {
-            position: sticky;
-            top: 0;
+        /* Login Container */
+        .login-container {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            padding: 20px 40px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 100;
-            animation: slideDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        @keyframes slideDown {
+        .login-container.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
             from {
-                transform: translateY(-100%);
+                transform: translateY(30px);
                 opacity: 0;
             }
             to {
@@ -144,116 +160,7 @@
             }
         }
 
-        .profile-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-        }
-
-        .profile-image::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-            animation: rotate 3s linear infinite;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .profile-image:hover {
-            transform: scale(1.08);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
-        }
-
-        .profile-image:hover::before {
-            opacity: 1;
-        }
-
-        .profile-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .profile-name {
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            transition: transform 0.3s ease;
-        }
-
-        .profile-name:hover {
-            transform: translateX(5px);
-        }
-
-        .verified-badge {
-            width: 28px;
-            height: 28px;
-            background: #1d9bf0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-            box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.3);
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        .verified-badge:hover {
-            box-shadow: 0 0 0 6px rgba(29, 155, 240, 0.1);
-            transform: rotate(360deg) scale(1.1);
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 60px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 50px 40px;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
+        .login-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -266,7 +173,7 @@
             opacity: 0;
         }
 
-        .card:hover::before {
+        .login-card:hover::before {
             animation: shimmer 0.5s ease;
         }
 
@@ -284,385 +191,409 @@
             }
         }
 
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
-
-        @keyframes fadeInUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .card:hover {
-            transform: translateY(-12px) scale(1.02);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-
-        .card-icon {
-            font-size: 50px;
-            margin-bottom: 25px;
+        .login-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: inline-block;
-            transition: all 0.4s ease;
+            letter-spacing: -0.5px;
+        }
+
+        .login-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
             position: relative;
         }
 
-        .card-icon::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .form-input {
             width: 100%;
-            height: 100%;
-            background: inherit;
-            filter: blur(20px);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
+            padding: 15px 15px 15px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
 
-        .card:hover .card-icon {
-            transform: scale(1.15) rotate(5deg);
-            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.6));
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .card:hover .card-icon::after {
-            opacity: 0.5;
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        .card h2 {
-            font-size: 30px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-            transition: transform 0.3s ease;
+        .form-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 18px;
         }
 
-        .card:hover h2 {
-            transform: translateY(-3px);
+        .form-group:focus-within .form-icon {
+            color: #667eea;
         }
 
-        .card p {
-            font-size: 17px;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.8);
-            transition: color 0.3s ease;
+        .form-row {
+            display: flex;
+            gap: 15px;
         }
 
-        .card:hover p {
-            color: rgba(255, 255, 255, 0.95);
+        .form-row .form-group {
+            flex: 1;
         }
 
-        .card a {
+        .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            padding: 14px 30px;
+            padding: 15px 30px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 12px;
             font-weight: 600;
             font-size: 16px;
             transition: all 0.4s ease;
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+            border: none;
+            cursor: pointer;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
         }
 
-        .card a:hover::before {
-            left: 100%;
-        }
-
-        .card a:hover {
-            transform: scale(1.05);
+        .btn:hover {
+            transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
             background: linear-gradient(135deg, #764ba2, #667eea);
         }
 
-        .card a i {
-            font-size: 14px;
-            transition: transform 0.3s ease;
-        }
-
-        .card a:hover i {
-            transform: translateX(4px);
-        }
-
-        .notification-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            width: 90%;
-            max-width: 375px;
-        }
-
-        .notification {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 12px 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transform: translateY(-100px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 0.5px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .notification.show {
+        .btn:active {
             transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .verification-container {
+            display: none;
+        }
+
+        .verification-container.active {
+            display: block;
+        }
+
+        .login-container.verification .login-form {
+            display: none;
+        }
+
+        .login-container.verification .verification-container {
+            display: block;
+        }
+
+        .code-inputs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .code-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .resend-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .resend-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .resend-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Main App Container */
+        .app-container {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-container.active {
             opacity: 1;
+            transform: scale(1);
+            pointer-events: all;
         }
 
-        .notification-header {
+        /* Header */
+        .app-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 8px;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .notification-app-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .app-title {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .notification-app-icon {
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #0086e6, #0066b3);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .menu-button {
+            background: none;
+            border: none;
             color: white;
-            font-weight: bold;
-            font-size: 11px;
-        }
-
-        .notification-app-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: #ffffff;
-        }
-
-        .notification-time {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .notification-content {
-            padding-left: 28px;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 2px;
-            font-size: 15px;
-        }
-
-        .notification-message {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            line-height: 1.3;
-        }
-
-        .notification-expand {
-            height: 44px;
-            margin-top: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            font-size: 20px;
             cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .notification-expand:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.02);
-        }
-
-        .notification-expand-text {
-            font-size: 14px;
-            font-weight: 500;
-            color: #0086e6;
-        }
-
-        .notification-expand-icon {
-            font-size: 12px;
-            color: #0086e6;
-            transition: transform 0.3s ease;
-        }
-
-        .notification-expand:hover .notification-expand-icon {
-            transform: translateX(3px);
-        }
-
-        .sound-indicator {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
+            position: relative;
             width: 40px;
             height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            cursor: pointer;
-            z-index: 100;
-            opacity: 0;
-            transition: all 0.3s ease;
+            border-radius: 50%;
+            transition: background 0.3s ease;
         }
 
-        .sound-indicator.show {
-            opacity: 1;
+        .menu-button:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .sound-indicator:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .prayer-times {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
             background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 20px;
-            z-index: 100;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 200px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 101;
+            margin-top: 10px;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .dropdown-item {
+            padding: 12px 15px;
             display: flex;
             align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .app-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Prayer Times */
+        .prayer-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prayer-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .prayer-card:hover::before {
+            animation: shimmer 0.5s ease;
+        }
+
+        .prayer-header {
+            display: flex;
             justify-content: space-between;
-            animation: slideUp 0.8s ease-out;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .prayer-location {
+        .prayer-title {
+            font-size: 24px;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .prayer-location i {
-            color: #667eea;
-            font-size: 18px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-3px);
-            }
-        }
-
-        .prayer-location span {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .prayer-status {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .current-prayer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .current-prayer-name {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 5px;
-        }
-
-        .current-prayer-time {
-            font-size: 18px;
-            font-weight: 700;
+        .prayer-title i {
             color: #667eea;
         }
 
-        .prayer-countdown {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .countdown-label {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 5px;
-        }
-
-        .countdown-time {
-            font-size: 18px;
-            font-weight: 700;
-            color: #764ba2;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .prayer-alert {
+        .prayer-location {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 15px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+        }
+
+        .prayer-location i {
+            color: #667eea;
+        }
+
+        .prayer-times-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .prayer-time-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prayer-time-item.active {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            border: 1px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .prayer-time-item.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .prayer-name {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .prayer-time {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .prayer-time-item.active .prayer-time {
+            color: #667eea;
+        }
+
+        .prayer-alert {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            border-radius: 12px;
+            margin-top: 15px;
             animation: pulse 2s infinite;
+        }
+
+        .prayer-alert.active {
+            display: flex;
         }
 
         @keyframes pulse {
@@ -678,7 +609,8 @@
         }
 
         .prayer-alert i {
-            font-size: 16px;
+            font-size: 20px;
+            color: #667eea;
             animation: ring 1s infinite;
         }
 
@@ -694,40 +626,206 @@
             }
         }
 
-        .prayer-alert span {
+        .prayer-alert-text {
             font-weight: 600;
-            font-size: 14px;
         }
 
-        .next-prayer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .next-prayer-name {
+        .countdown {
+            margin-top: 5px;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Social Media */
+        .social-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-title i {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .social-link.telegram {
+            border-left: 3px solid #0088cc;
+        }
+
+        .social-link.tiktok {
+            border-left: 3px solid #ff0050;
+        }
+
+        /* Info Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-body {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .modal-body h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0 10px;
+            color: white;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .modal-body ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .modal-body li {
             margin-bottom: 5px;
         }
 
-        .next-prayer-time {
-            font-size: 18px;
-            font-weight: 700;
-            color: #764ba2;
+        /* Sound Control */
+        .sound-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        @media (max-width: 768px) {
-            .prayer-times {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .prayer-status {
-                width: 100%;
-                justify-content: space-around;
-            }
+        .sound-control:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1);
+        }
 
+        .sound-control.muted i::before {
+            content: "\f6a6"; /* volume-mute icon */
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
             .custom-cursor,
             .cursor-follower {
                 display: none;
@@ -736,16 +834,24 @@
             body {
                 cursor: auto;
             }
+
+            .prayer-times-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
     <div class="cursor-follower"></div>
 
-    <div class="floating-particles" id="particles"></div>
-
+    <!-- Background Effects -->
     <div class="background-container">
         <img src="https://files.catbox.moe/rzv2c5.jpg" class="background-image active" alt="Background 1">
         <img src="https://files.catbox.moe/lxht20.jpg" class="background-image" alt="Background 2">
@@ -753,137 +859,199 @@
         <img src="https://files.catbox.moe/q2l6xu.jpg" class="background-image" alt="Background 4">
     </div>
     <div class="overlay"></div>
+    <div class="floating-particles" id="particles"></div>
 
-    <header class="profile-section">
-        <img src="https://files.catbox.moe/vgjj30.jpg" alt="Profile" class="profile-image">
-        <div class="profile-info">
-            <h1 class="profile-name">GusOfcXD 404</h1>
-            <div class="verified-badge">
-                <i class="fas fa-check"></i>
+    <!-- Login Container -->
+    <div class="login-container" id="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="login-title">God Of Force</h1>
+                <p class="login-subtitle">Hi selamat datang di website saya</p>
             </div>
-        </div>
-    </header>
-
-    <main class="main-content">
-        <div class="card">
-            <div class="card-icon">
-                <i class="fas fa-globe-americas"></i>
-            </div>
-            <h2>Track IP</h2>
-            <p>Pressione aqui para ir para a página de rastreamento de IP.</p>
-            <a href="trackip.html">
-                <span>Ir para Track IP</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">
-                <i class="fas fa-mobile-alt"></i>
-            </div>
-            <h2>IQC</h2>
-            <p>Pressione aqui para ir para a página de consulta do iPhone.</p>
-            <a href="ipqt.html">
-                <span>Ir para IQC</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">
-                <i class="fas fa-info-circle"></i>
-            </div>
-            <h2>Device Info</h2>
-            <p>Mau tau informasi device mu? Ayo klik ini saja</p>
-            <a href="device-your-information.html">
-                <span>Cek Info Device</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">
-                <i class="fas fa-trash-alt"></i>
-            </div>
-            <h2>Del Repository</h2>
-            <p>Pressione aqui se quiser acessar o repositório do GitHub.</p>
-            <a href="delrepostori.html">
-                <span>Ir para Del Repository</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">
-                <i class="fas fa-robot"></i>
-            </div>
-            <h2>XavAi</h2>
-            <p>Click ini untuk ke halaman bots ai GusOfcXD 404</p>
-            <a href="https://xavai.vercel.app/" target="_blank">
-                <span>Buka XavAi</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </main>
-
-    <div class="notification-container">
-        <div class="notification" id="notification">
-            <div class="notification-header">
-                <div class="notification-app-info">
-                    <div class="notification-app-icon">D</div>
-                    <div class="notification-app-name">DANA</div>
+            
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <i class="fas fa-user form-icon"></i>
+                    <input type="text" class="form-input" id="name-input" placeholder="Masukan nama anda" required>
                 </div>
-                <div class="notification-time">sekarang</div>
-            </div>
-            <div class="notification-content">
-                <div class="notification-title">Selamat!</div>
-                <div class="notification-message">Anda baru saja menerima dana sebesar Rp100.000, ayo cek dana mu sekarang!</div>
-            </div>
-            <div class="notification-expand">
-                <span class="notification-expand-text">Buka</span>
-                <i class="fas fa-chevron-right notification-expand-icon"></i>
+                
+                <div class="form-group">
+                    <i class="fas fa-lock form-icon"></i>
+                    <input type="password" class="form-input" id="password-input" placeholder="Buat password" required>
+                </div>
+                
+                <div class="form-group">
+                    <i class="fas fa-phone form-icon"></i>
+                    <input type="tel" class="form-input" id="phone-input" placeholder="Nomor telepon anda" required>
+                </div>
+                
+                <button type="submit" class="btn" id="send-code-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Kirim Code</span>
+                </button>
+            </form>
+            
+            <div class="verification-container" id="verification-container">
+                <p style="text-align: center; margin-bottom: 20px;">Masukan code yang sudah di kirim ke SMS anda</p>
+                
+                <div class="code-inputs">
+                    <input type="text" class="code-input" maxlength="1" id="code-1">
+                    <input type="text" class="code-input" maxlength="1" id="code-2">
+                    <input type="text" class="code-input" maxlength="1" id="code-3">
+                    <input type="text" class="code-input" maxlength="1" id="code-4">
+                </div>
+                
+                <button type="button" class="btn" id="verify-btn">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verifikasi</span>
+                </button>
+                
+                <p class="resend-text">Tidak menerima code? <a href="#" class="resend-link" id="resend-link">Kirim ulang</a></p>
             </div>
         </div>
     </div>
 
-    <div class="sound-indicator" id="sound-indicator">
+    <!-- App Container -->
+    <div class="app-container" id="app-container">
+        <header class="app-header">
+            <h1 class="app-title">God Of Force</h1>
+            <div class="menu-wrapper" style="position: relative;">
+                <button class="menu-button" id="menu-button">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu" id="dropdown-menu">
+                    <a href="#" class="dropdown-item" id="prayer-menu-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Waktu Sholat</span>
+                    </a>
+                    <a href="#" class="dropdown-item" id="info-menu-item">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Info</span>
+                    </a>
+                    <a href="#" class="dropdown-item" id="logout-menu-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Keluar</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-content">
+            <!-- Prayer Times Card -->
+            <div class="prayer-card" id="prayer-card">
+                <div class="prayer-header">
+                    <h2 class="prayer-title">
+                        <i class="fas fa-clock"></i>
+                        Waktu Sholat
+                    </h2>
+                    <div class="prayer-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Makassar</span>
+                    </div>
+                </div>
+                
+                <div class="prayer-times-grid">
+                    <div class="prayer-time-item" id="subuh-time">
+                        <div class="prayer-name">Subuh</div>
+                        <div class="prayer-time">04:45</div>
+                    </div>
+                    <div class="prayer-time-item" id="dzuhur-time">
+                        <div class="prayer-name">Dzuhur</div>
+                        <div class="prayer-time">12:15</div>
+                    </div>
+                    <div class="prayer-time-item" id="ashar-time">
+                        <div class="prayer-name">Ashar</div>
+                        <div class="prayer-time">15:30</div>
+                    </div>
+                    <div class="prayer-time-item" id="maghrib-time">
+                        <div class="prayer-name">Maghrib</div>
+                        <div class="prayer-time">18:15</div>
+                    </div>
+                    <div class="prayer-time-item" id="isya-time">
+                        <div class="prayer-name">Isya</div>
+                        <div class="prayer-time">19:30</div>
+                    </div>
+                </div>
+                
+                <div class="prayer-alert" id="prayer-alert">
+                    <i class="fas fa-bell"></i>
+                    <div>
+                        <div class="prayer-alert-text" id="prayer-alert-text">Waktu Sholat telah tiba!</div>
+                        <div class="countdown" id="countdown">00:00:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Card -->
+            <div class="social-card">
+                <h2 class="social-title">
+                    <i class="fas fa-share-alt"></i>
+                    Media Sosial
+                </h2>
+                
+                <div class="social-links">
+                    <a href="https://t.me/goofc404" target="_blank" class="social-link telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                        <span>@goofc404</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@gusofcxd.4.0.4" target="_blank" class="social-link tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        <span>gusofcxd.4.0.4</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Info Modal -->
+    <div class="modal" id="info-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Tentang Website</h2>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p>Selamat datang di website God Of Force, sebuah platform digital yang menyediakan berbagai layanan dan informasi berguna.</p>
+                
+                <h3>Fitur Utama</h3>
+                <ul>
+                    <li>Track IP - Melacak informasi lokasi berdasarkan alamat IP</li>
+                    <li>IQC - Informasi lengkap tentang perangkat iPhone</li>
+                    <li>Device Info - Menampilkan informasi detail tentang perangkat yang digunakan</li>
+                    <li>Del Repository - Akses ke repositori GitHub</li>
+                    <li>XavAi - Bot AI canggih untuk berbagai kebutuhan</li>
+                </ul>
+                
+                <h3>Waktu Sholat</h3>
+                <p>Website ini dilengkapi dengan fitur waktu sholat untuk wilayah Makassar yang diperbarui secara real-time. Notifikasi akan muncul ketika waktu sholat telah tiba.</p>
+                
+                <h3>Kontak</h3>
+                <p>Untuk informasi lebih lanjut, silakan hubungi kami melalui media sosial:</p>
+                <ul>
+                    <li>Telegram: @goofc404</li>
+                    <li>TikTok: gusofcxd.4.0.4</li>
+                </ul>
+                
+                <p>Terima kasih telah menggunakan layanan kami!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sound Control -->
+    <div class="sound-control" id="sound-control">
         <i class="fas fa-volume-up"></i>
     </div>
 
-    <div class="prayer-times" id="prayer-times">
-        <div class="prayer-location">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Makassar</span>
-        </div>
-        
-        <div class="prayer-status">
-            <div class="current-prayer">
-                <div class="current-prayer-name" id="current-prayer-name">Subuh</div>
-                <div class="current-prayer-time" id="current-prayer-time">04:45</div>
-            </div>
-            
-            <div class="prayer-countdown">
-                <div class="countdown-label">Waktu tersisa</div>
-                <div class="countdown-time" id="countdown-time">01:23:45</div>
-            </div>
-            
-            <div class="next-prayer">
-                <div class="next-prayer-name" id="next-prayer-name">Dzuhur</div>
-                <div class="next-prayer-time" id="next-prayer-time">12:15</div>
-            </div>
-            
-            <div class="prayer-alert" id="prayer-alert" style="display: none;">
-                <i class="fas fa-bell"></i>
-                <span id="prayer-alert-text">Azan sudah dimulai!</span>
-            </div>
-        </div>
-    </div>
-
-    <audio id="notification-sound" preload="auto">
-        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjGH0fPTgjMGHm7A7+OZURE" type="audio/wav">
+    <!-- Audio for Adzan -->
+    <audio id="adzan-audio" preload="auto">
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
     </audio>
 
     <script>
+        // Custom Cursor
         const cursor = document.querySelector('.custom-cursor');
         const follower = document.querySelector('.cursor-follower');
 
@@ -905,7 +1073,7 @@
             cursor.classList.remove('active');
         });
 
-        const links = document.querySelectorAll('a, button, .card, .verified-badge');
+        const links = document.querySelectorAll('a, button, .card, .verified-badge, .menu-button, .dropdown-item, .modal-close, .sound-control');
         links.forEach(link => {
             link.addEventListener('mouseenter', () => {
                 cursor.classList.add('active');
@@ -915,6 +1083,7 @@
             });
         });
 
+        // Floating Particles
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
@@ -925,6 +1094,7 @@
             particlesContainer.appendChild(particle);
         }
 
+        // Background Image Rotation
         const images = document.querySelectorAll('.background-image');
         let currentImageIndex = 0;
 
@@ -934,123 +1104,347 @@
             images[currentImageIndex].classList.add('active');
         }
 
-        setInterval(showNextImage, 3000);
+        setInterval(showNextImage, 5000);
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const notification = document.getElementById('notification');
-            const notificationSound = document.getElementById('notification-sound');
-            const soundIndicator = document.getElementById('sound-indicator');
-            const expandButton = notification.querySelector('.notification-expand');
+        // Login System
+        const loginContainer = document.getElementById('login-container');
+        const appContainer = document.getElementById('app-container');
+        const loginForm = document.getElementById('login-form');
+        const verificationContainer = document.getElementById('verification-container');
+        const sendCodeBtn = document.getElementById('send-code-btn');
+        const verifyBtn = document.getElementById('verify-btn');
+        const resendLink = document.getElementById('resend-link');
+        const codeInputs = document.querySelectorAll('.code-input');
+
+        // Simulate sending verification code
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
             
+            // Disable button and show loading state
+            sendCodeBtn.disabled = true;
+            sendCodeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengirim...</span>';
+            
+            // Simulate API call
             setTimeout(() => {
-                notification.classList.add('show');
+                // Show verification form
+                loginContainer.classList.add('verification');
                 
-                notificationSound.play().catch(e => {
-                    soundIndicator.classList.add('show');
-                    setTimeout(() => {
-                        soundIndicator.classList.remove('show');
-                    }, 3000);
-                });
+                // Reset button
+                sendCodeBtn.disabled = false;
+                sendCodeBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Kirim Code</span>';
+                
+                // Focus on first code input
+                document.getElementById('code-1').focus();
             }, 1500);
-            
-            expandButton.addEventListener('click', function() {
-                window.open('https://www.dana.id/', '_blank');
+        });
+
+        // Auto-focus next input when typing
+        codeInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < codeInputs.length - 1) {
+                    codeInputs[index + 1].focus();
+                }
             });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    codeInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Verify code
+        verifyBtn.addEventListener('click', () => {
+            const code = Array.from(codeInputs).map(input => input.value).join('');
+            
+            // Disable button and show loading state
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Memverifikasi...</span>';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // For demo purposes, accept any 4-digit code
+                if (code.length === 4) {
+                    // Hide login and show app
+                    loginContainer.classList.add('hidden');
+                    setTimeout(() => {
+                        appContainer.classList.add('active');
+                    }, 500);
+                } else {
+                    // Show error
+                    verifyBtn.disabled = false;
+                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Verifikasi</span>';
+                    
+                    // Shake inputs
+                    codeInputs.forEach(input => {
+                        input.style.animation = 'shake 0.5s';
+                        setTimeout(() => {
+                            input.style.animation = '';
+                        }, 500);
+                    });
+                }
+            }, 1500);
+        });
+
+        // Resend code
+        resendLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Disable link
+            resendLink.style.pointerEvents = 'none';
+            resendLink.textContent = 'Mengirim ulang...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Enable link
+                resendLink.style.pointerEvents = 'auto';
+                resendLink.textContent = 'Kirim ulang';
+                
+                // Show notification
+                showNotification('Code telah dikirim ulang');
+            }, 1500);
+        });
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Dropdown Menu
+        const menuButton = document.getElementById('menu-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        menuButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
+        // Prayer Times
+        const prayerTimes = {
+            Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
+            Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
+            Ashar: { time: '15:30', nextPrayer: 'Maghrib' },
+            Maghrib: { time: '18:15', nextPrayer: 'Isya' },
+            Isya: { time: '19:30', nextPrayer: 'Subuh' }
+        };
+
+        const prayerNames = Object.keys(prayerTimes);
+        let currentPrayerIndex = 0;
+        let isAdhanPlaying = false;
+
+        function getCurrentTime() {
+            const now = new Date();
+            return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+        }
+
+        function timeToMinutes(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        function minutesToTime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+        }
+
+        function updatePrayerTimes() {
+            const now = new Date();
+            const currentMinutes = now.getHours() * 60 + now.getMinutes();
+            const currentSeconds = now.getSeconds();
+            
+            // Find current prayer
+            for (let i = 0; i < prayerNames.length; i++) {
+                const prayerTime = prayerTimes[prayerNames[i]];
+                const prayerMinutes = timeToMinutes(prayerTime.time);
+                
+                if (currentMinutes < prayerMinutes || (i === prayerNames.length - 1 && currentMinutes >= prayerMinutes)) {
+                    currentPrayerIndex = i;
+                    break;
+                }
+            }
+            
+            const currentPrayerName = prayerNames[currentPrayerIndex];
+            const currentPrayerTime = prayerTimes[currentPrayerName].time;
+            const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
+            const nextPrayerTime = prayerTimes[nextPrayerName].time;
+            
+            // Update UI
+            document.getElementById('current-prayer-name').textContent = currentPrayerName;
+            document.getElementById('current-prayer-time').textContent = currentPrayerTime;
+            document.getElementById('next-prayer-name').textContent = nextPrayerName;
+            document.getElementById('next-prayer-time').textContent = nextPrayerTime;
+            
+            // Calculate countdown to next prayer
+            const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
+            let countdownMinutes;
+            
+            if (nextPrayerMinutes > currentMinutes) {
+                countdownMinutes = nextPrayerMinutes - currentMinutes;
+            } else {
+                // Next prayer is tomorrow
+                countdownMinutes = (24 * 60) - currentMinutes + nextPrayerMinutes;
+            }
+            
+            const totalSeconds = countdownMinutes * 60 - currentSeconds;
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            const countdownStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('countdown').textContent = countdownStr;
+            
+            // Check if it's prayer time (within 2 minutes)
+            const prayerMinutes = timeToMinutes(currentPrayerTime);
+            const timeDiff = Math.abs(currentMinutes - prayerMinutes);
+            
+            // Update active prayer time
+            document.querySelectorAll('.prayer-time-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.getElementById(`${currentPrayerName.toLowerCase()}-time`).classList.add('active');
+            
+            if (timeDiff < 2) {
+                document.getElementById('prayer-alert').classList.add('active');
+                document.getElementById('prayer-alert-text').textContent = `Waktu ${currentPrayerName} telah tiba!`;
+                
+                // Play adhan sound if not already playing
+                if (!isAdhanPlaying && !document.getElementById('sound-control').classList.contains('muted')) {
+                    playAdhan();
+                }
+            } else {
+                document.getElementById('prayer-alert').classList.remove('active');
+            }
+        }
+
+        function playAdhan() {
+            const adhanAudio = document.getElementById('adzan-audio');
+            isAdhanPlaying = true;
+            
+            adhanAudio.play().catch(e => {
+                console.error('Error playing adhan:', e);
+            });
+            
+            adhanAudio.onended = () => {
+                isAdhanPlaying = false;
+            };
+        }
+
+        // Update prayer times every second
+        setInterval(updatePrayerTimes, 1000);
+        updatePrayerTimes();
+
+        // Sound Control
+        const soundControl = document.getElementById('sound-control');
+        soundControl.addEventListener('click', () => {
+            soundControl.classList.toggle('muted');
+            
+            if (soundControl.classList.contains('muted')) {
+                document.getElementById('adzan-audio').muted = true;
+            } else {
+                document.getElementById('adzan-audio').muted = false;
+            }
+        });
+
+        // Info Modal
+        const infoModal = document.getElementById('info-modal');
+        const modalClose = document.getElementById('modal-close');
+        const infoMenuItem = document.getElementById('info-menu-item');
+        const prayerMenuItem = document.getElementById('prayer-menu-item');
+        const logoutMenuItem = document.getElementById('logout-menu-item');
+
+        infoMenuItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            infoModal.classList.add('active');
+            dropdownMenu.classList.remove('active');
+        });
+
+        modalClose.addEventListener('click', () => {
+            infoModal.classList.remove('active');
+        });
+
+        infoModal.addEventListener('click', (e) => {
+            if (e.target === infoModal) {
+                infoModal.classList.remove('active');
+            }
+        });
+
+        // Prayer menu item
+        prayerMenuItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('prayer-card').scrollIntoView({ behavior: 'smooth' });
+            dropdownMenu.classList.remove('active');
+        });
+
+        // Logout
+        logoutMenuItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Reset form
+            loginForm.reset();
+            codeInputs.forEach(input => input.value = '');
+            
+            // Show login and hide app
+            appContainer.classList.remove('active');
+            setTimeout(() => {
+                loginContainer.classList.remove('hidden');
+                loginContainer.classList.remove('verification');
+            }, 500);
+        });
+
+        // Notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.background = 'rgba(0, 0, 0, 0.8)';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 20px';
+            notification.style.borderRadius = '10px';
+            notification.style.zIndex = '1000';
+            notification.style.animation = 'slideDown 0.5s ease-out';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.classList.remove('show');
-            }, 8000);
-            
-            soundIndicator.addEventListener('click', function() {
-                notificationSound.play();
-                this.classList.remove('show');
-            });
-        });
+                notification.style.animation = 'slideUp 0.5s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const prayerTimes = {
-                Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
-                Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
-                Ashar: { time: '15:30', nextPrayer: 'Maghrib' },
-                Maghrib: { time: '18:15', nextPrayer: 'Isya' },
-                Isya: { time: '19:30', nextPrayer: 'Subuh' }
-            };
-
-            const prayerNames = Object.keys(prayerTimes);
-            let currentPrayerIndex = 0;
-
-            function getCurrentTime() {
-                const now = new Date();
-                return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-            }
-
-            function timeToMinutes(timeStr) {
-                const [hours, minutes] = timeStr.split(':').map(Number);
-                return hours * 60 + minutes;
-            }
-
-            function minutesToTime(minutes) {
-                const hours = Math.floor(minutes / 60);
-                const mins = minutes % 60;
-                return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-            }
-
-            function calculateCountdown() {
-                const now = new Date();
-                const currentMinutes = now.getHours() * 60 + now.getMinutes();
-                const currentSeconds = now.getSeconds();
-                
-                for (let i = 0; i < prayerNames.length; i++) {
-                    const prayerTime = prayerTimes[prayerNames[i]];
-                    const prayerMinutes = timeToMinutes(prayerTime.time);
-                    
-                    if (currentMinutes < prayerMinutes || (i === prayerNames.length - 1 && currentMinutes >= prayerMinutes)) {
-                        currentPrayerIndex = i;
-                        break;
-                    }
+        // Add slideUp animation
+        const slideUpStyle = document.createElement('style');
+        slideUpStyle.textContent = `
+            @keyframes slideUp {
+                from {
+                    transform: translate(-50%, 0);
+                    opacity: 1;
                 }
-                
-                const currentPrayerName = prayerNames[currentPrayerIndex];
-                const currentPrayerTime = prayerTimes[currentPrayerName].time;
-                const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
-                const nextPrayerTime = prayerTimes[nextPrayerName].time;
-                
-                document.getElementById('current-prayer-name').textContent = currentPrayerName;
-                document.getElementById('current-prayer-time').textContent = currentPrayerTime;
-                document.getElementById('next-prayer-name').textContent = nextPrayerName;
-                document.getElementById('next-prayer-time').textContent = nextPrayerTime;
-                
-                const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
-                let countdownMinutes;
-                
-                if (nextPrayerMinutes > currentMinutes) {
-                    countdownMinutes = nextPrayerMinutes - currentMinutes;
-                } else {
-                    countdownMinutes = (24 * 60) - currentMinutes + nextPrayerMinutes;
-                }
-                
-                const totalSeconds = countdownMinutes * 60 - currentSeconds;
-                const hours = Math.floor(totalSeconds / 3600);
-                const minutes = Math.floor((totalSeconds % 3600) / 60);
-                const seconds = totalSeconds % 60;
-                
-                const countdownStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                document.getElementById('countdown-time').textContent = countdownStr;
-                
-                const prayerMinutes = timeToMinutes(currentPrayerTime);
-                const timeDiff = Math.abs(currentMinutes - prayerMinutes);
-                
-                if (timeDiff < 2) {
-                    document.getElementById('prayer-alert').style.display = 'flex';
-                    document.getElementById('prayer-alert-text').textContent = `Waktu ${currentPrayerName} telah tiba!`;
-                } else {
-                    document.getElementById('prayer-alert').style.display = 'none';
+                to {
+                    transform: translate(-50%, -100%);
+                    opacity: 0;
                 }
             }
-
-            calculateCountdown();
-            setInterval(calculateCountdown, 1000);
-        });
+        `;
+        document.head.appendChild(slideUpStyle);
     </script>
 
 </body>
