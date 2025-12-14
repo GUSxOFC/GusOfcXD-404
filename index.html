@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God Of Force</title>
+    <title>GusOfcXD 404</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
@@ -380,166 +380,164 @@
             transform: none;
         }
 
-        .verification-container {
-            display: none;
-        }
-
-        .verification-container.active {
-            display: block;
-        }
-
-        .login-container.verification .login-form {
-            display: none;
-        }
-
-        .login-container.verification .verification-container {
-            display: block;
-        }
-
-        .code-inputs {
+        .captcha-container {
             display: flex;
-            gap: 12px;
-            justify-content: center;
+            align-items: center;
+            gap: 15px;
             margin-bottom: 25px;
             position: relative;
             z-index: 2;
         }
 
-        .code-input {
-            width: 50px;
-            height: 55px;
-            text-align: center;
-            font-size: 26px;
-            font-weight: 800;
+        .captcha-image {
+            flex: 1;
+            height: 60px;
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            color: #ffffff;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-
-        .code-input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
-            transform: scale(1.1);
-        }
-
-        .resend-text {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            position: relative;
-            z-index: 2;
-        }
-
-        .resend-link {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .resend-link:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
-        }
-
-        .sms-notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(20, 20, 40, 0.95));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            padding: 25px;
-            max-width: 380px;
-            z-index: 1000;
-            transform: translateX(500px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .sms-notification.show {
-            transform: translateX(0);
-        }
-
-        .sms-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sms-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 20px;
-            animation: iconPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .sms-info {
-            flex: 1;
-        }
-
-        .sms-sender {
-            font-weight: 700;
-            font-size: 18px;
-            color: white;
-        }
-
-        .sms-number {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .sms-time {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .sms-content {
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-        }
-
-        .sms-code {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
-            padding: 12px 15px;
-            border-radius: 12px;
+            font-size: 24px;
             font-weight: 800;
-            font-size: 22px;
-            margin: 12px 0;
+            letter-spacing: 5px;
             color: #667eea;
-            letter-spacing: 4px;
-            text-align: center;
-            width: 100%;
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            animation: codeGlow 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes codeGlow {
-            0%, 100% { box-shadow: 0 0 5px rgba(102, 126, 234, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
+        .captcha-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: captchaShine 3s infinite;
+        }
+
+        @keyframes captchaShine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .captcha-refresh {
+            width: 50px;
+            height: 60px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .captcha-refresh:hover {
+            background: rgba(102, 126, 234, 0.4);
+            transform: rotate(180deg);
+        }
+
+        .captcha-input {
+            width: 100%;
+            padding: 18px 18px 18px 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .captcha-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.4),
+                inset 0 0 10px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 18px;
+            display: none;
+            animation: errorShake 0.5s;
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            color: #51cf66;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 18px;
+            display: none;
+            animation: successSlide 0.5s;
+        }
+
+        @keyframes successSlide {
+            from {
+                transform: translateY(-15px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .particle-explosion {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .particle-burst {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            border-radius: 50%;
+            animation: burst 1s ease-out forwards;
+        }
+
+        @keyframes burst {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
         }
 
         .app-container {
@@ -692,6 +690,147 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 25px;
+            border: 2px solid transparent;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+            border-radius: inherit;
+            z-index: -1;
+            animation: borderFlow 3s linear infinite;
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .dashboard-welcome {
+            flex: 1;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        .dashboard-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .dashboard-content {
+            margin-top: 20px;
+        }
+
+        .dashboard-message {
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+        }
+
+        .help-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .help-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .help-button:hover::before {
+            left: 100%;
+        }
+
+        .help-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        .features-section {
+            margin-top: 30px;
+        }
+
+        .features-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .features-title i {
+            color: #667eea;
+            font-size: 24px;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .portal-list {
@@ -1133,79 +1272,34 @@
             margin-bottom: 8px;
         }
 
-        .error-message {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            color: #ff6b6b;
-            padding: 12px 18px;
-            border-radius: 12px;
-            font-size: 15px;
-            margin-bottom: 18px;
-            display: none;
-            animation: errorShake 0.5s;
+        .help-modal .form-group {
+            margin-bottom: 20px;
         }
 
-        @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        .help-modal .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .error-message.show {
-            display: block;
+        .help-modal .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.4),
+                inset 0 0 10px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
         }
 
-        .success-message {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
-            border: 2px solid rgba(0, 255, 0, 0.3);
-            color: #51cf66;
-            padding: 12px 18px;
-            border-radius: 12px;
-            font-size: 15px;
-            margin-bottom: 18px;
-            display: none;
-            animation: successSlide 0.5s;
-        }
-
-        @keyframes successSlide {
-            from {
-                transform: translateY(-15px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .particle-explosion {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-        }
-
-        .particle-burst {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
-            border-radius: 50%;
-            animation: burst 1s ease-out forwards;
-        }
-
-        @keyframes burst {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
+        .help-modal textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
         }
 
         @media (max-width: 768px) {
@@ -1221,12 +1315,6 @@
                 flex-direction: column;
             }
 
-            .sms-notification {
-                right: 15px;
-                left: 15px;
-                max-width: none;
-            }
-
             .code-inputs {
                 gap: 10px;
             }
@@ -1239,6 +1327,15 @@
 
             .portal-list {
                 grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .dashboard-avatar {
+                margin-bottom: 15px;
             }
         }
     </style>
@@ -1255,30 +1352,12 @@
 
     <div class="holographic-cursor"></div>
 
-    <div class="sms-notification" id="sms-notification">
-        <div class="sms-header">
-            <div class="sms-icon">
-                <i class="fas fa-sms"></i>
-            </div>
-            <div class="sms-info">
-                <div class="sms-sender">God Of Force</div>
-                <div class="sms-number">+62816124</div>
-            </div>
-            <div class="sms-time" id="sms-time">Baru saja</div>
-        </div>
-        <div class="sms-content">
-            <p>Kode verifikasi Anda:</p>
-            <div class="sms-code" id="sms-code"></div>
-            <p>Masukkan kode ini untuk melanjutkan login. Kode berlaku selama 5 menit. Jangan bagikan kode ini kepada siapa pun.</p>
-        </div>
-    </div>
-
     <div class="login-container" id="login-container">
         <div class="login-card">
             <div class="liquid-fill"></div>
             <div class="login-header">
-                <h1 class="login-title">God Of Force</h1>
-                <p class="login-subtitle">Hi selamat datang di website saya</p>
+                <h1 class="login-title">GusOfcXD 404</h1>
+                <p class="login-subtitle">Selamat datang di website kami</p>
             </div>
             
             <form class="login-form" id="login-form">
@@ -1286,8 +1365,8 @@
                 <div class="success-message" id="login-success"></div>
                 
                 <div class="form-group">
-                    <i class="fas fa-user form-icon"></i>
-                    <input type="text" class="form-input" id="name-input" placeholder="Masukan nama anda" required>
+                    <i class="fas fa-envelope form-icon"></i>
+                    <input type="email" class="form-input" id="email-input" placeholder="Masukan email anda" required>
                 </div>
                 
                 <div class="form-group">
@@ -1296,48 +1375,43 @@
                 </div>
                 
                 <div class="form-group">
-                    <i class="fas fa-phone form-icon"></i>
-                    <input type="tel" class="form-input" id="phone-input" placeholder="Nomor telepon anda" required>
+                    <div class="captcha-container">
+                        <div class="captcha-image" id="captcha-image"></div>
+                        <div class="captcha-refresh" id="captcha-refresh">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                    </div>
                 </div>
                 
-                <button type="submit" class="btn" id="send-code-btn">
-                    <i class="fas fa-paper-plane"></i>
-                    <span>Kirim Code</span>
+                <div class="form-group">
+                    <i class="fas fa-shield-alt form-icon"></i>
+                    <input type="text" class="form-input captcha-input" id="captcha-input" placeholder="Verif code captcha" required>
+                </div>
+                
+                <button type="submit" class="btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
                 </button>
             </form>
-            
-            <div class="verification-container" id="verification-container">
-                <div class="error-message" id="verification-error"></div>
-                <div class="success-message" id="verification-success"></div>
-                <p style="text-align: center; margin-bottom: 25px;">Masukan kode OTP yang sudah dikirim ke SMS anda</p>
-                
-                <div class="code-inputs">
-                    <input type="text" class="code-input" maxlength="1" id="code-1">
-                    <input type="text" class="code-input" maxlength="1" id="code-2">
-                    <input type="text" class="code-input" maxlength="1" id="code-3">
-                    <input type="text" class="code-input" maxlength="1" id="code-4">
-                    <input type="text" class="code-input" maxlength="1" id="code-5">
-                    <input type="text" class="code-input" maxlength="1" id="code-6">
-                </div>
-                
-                <button type="button" class="btn" id="verify-btn">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Verifikasi</span>
-                </button>
-                
-                <p class="resend-text">Tidak menerima code? <a href="#" class="resend-link" id="resend-link">Kirim ulang</a></p>
-            </div>
         </div>
     </div>
 
     <div class="app-container" id="app-container">
         <header class="app-header">
-            <h1 class="app-title">God Of Force</h1>
+            <h1 class="app-title">GusOfcXD 404</h1>
             <div class="menu-wrapper" style="position: relative;">
                 <button class="menu-button" id="menu-button">
                     <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <div class="dropdown-menu" id="dropdown-menu">
+                    <a href="#" class="dropdown-item" id="dashboard-menu-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="dropdown-item" id="features-menu-item">
+                        <i class="fas fa-th-large"></i>
+                        <span>Fitur</span>
+                    </a>
                     <a href="#" class="dropdown-item" id="prayer-menu-item">
                         <i class="fas fa-clock"></i>
                         <span>Waktu Sholat</span>
@@ -1355,45 +1429,73 @@
         </header>
 
         <main class="app-content">
-            <div class="portal-list">
-                <div class="portal-item" onclick="window.open('trackip.html', '_blank')">
-                    <div class="portal-icon">
-                        <i class="fas fa-globe-americas"></i>
+            <div class="dashboard-card" id="dashboard-card">
+                <div class="dashboard-header">
+                    <div class="dashboard-avatar" id="user-avatar">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <h3 class="portal-title">Track IP</h3>
-                    <p class="portal-description">Melacak informasi lokasi berdasarkan alamat IP dengan akurasi tinggi</p>
+                    <div class="dashboard-welcome">
+                        <h2 class="dashboard-title">Dashboard</h2>
+                        <p class="dashboard-subtitle" id="welcome-message">Hi, selamat datang di website GusOfcXD 404</p>
+                    </div>
                 </div>
-
-                <div class="portal-item" onclick="window.open('ipqt.html', '_blank')">
-                    <div class="portal-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="portal-title">IQC</h3>
-                    <p class="portal-description">Informasi lengkap dan detail tentang perangkat iPhone</p>
+                
+                <div class="dashboard-content">
+                    <p class="dashboard-message">Hi <span id="user-email"></span> selamat datang di website GusOfcXD 404, apa yang dapat kami bantu?</p>
+                    
+                    <button class="help-button" id="help-button">
+                        <i class="fas fa-envelope"></i>
+                        <span>Kirim pesan ke contacts admin</span>
+                    </button>
                 </div>
+            </div>
 
-                <div class="portal-item" onclick="window.open('device-your-information.html', '_blank')">
-                    <div class="portal-icon">
-                        <i class="fas fa-info-circle"></i>
+            <div class="features-section" id="features-section">
+                <h2 class="features-title">
+                    <i class="fas fa-th-large"></i>
+                    Fitur
+                </h2>
+                
+                <div class="portal-list">
+                    <div class="portal-item" onclick="window.open('trackip.html', '_blank')">
+                        <div class="portal-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3 class="portal-title">Track IP</h3>
+                        <p class="portal-description">Melacak informasi lokasi berdasarkan alamat IP dengan akurasi tinggi</p>
                     </div>
-                    <h3 class="portal-title">Device Info</h3>
-                    <p class="portal-description">Menampilkan informasi detail tentang perangkat yang sedang digunakan</p>
-                </div>
 
-                <div class="portal-item" onclick="window.open('delrepostori.html', '_blank')">
-                    <div class="portal-icon">
-                        <i class="fas fa-trash-alt"></i>
+                    <div class="portal-item" onclick="window.open('ipqt.html', '_blank')">
+                        <div class="portal-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="portal-title">IQC</h3>
+                        <p class="portal-description">Informasi lengkap dan detail tentang perangkat iPhone</p>
                     </div>
-                    <h3 class="portal-title">Del Repository</h3>
-                    <p class="portal-description">Akses langsung ke repositori GitHub untuk pengembangan</p>
-                </div>
 
-                <div class="portal-item" onclick="window.open('https://xavai.vercel.app/', '_blank')">
-                    <div class="portal-icon">
-                        <i class="fas fa-robot"></i>
+                    <div class="portal-item" onclick="window.open('device-your-information.html', '_blank')">
+                        <div class="portal-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h3 class="portal-title">Device Info</h3>
+                        <p class="portal-description">Menampilkan informasi detail tentang perangkat yang sedang digunakan</p>
                     </div>
-                    <h3 class="portal-title">XavAi</h3>
-                    <p class="portal-description">Bot AI canggih untuk berbagai kebutuhan digital Anda</p>
+
+                    <div class="portal-item" onclick="window.open('delrepostori.html', '_blank')">
+                        <div class="portal-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <h3 class="portal-title">Del Repository</h3>
+                        <p class="portal-description">Akses langsung ke repositori GitHub untuk pengembangan</p>
+                    </div>
+
+                    <div class="portal-item" onclick="window.open('https://xavai.vercel.app/', '_blank')">
+                        <div class="portal-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="portal-title">XavAi</h3>
+                        <p class="portal-description">Bot AI canggih untuk berbagai kebutuhan digital Anda</p>
+                    </div>
                 </div>
             </div>
 
@@ -1471,7 +1573,7 @@
             </div>
             
             <div class="modal-body">
-                <p>Selamat datang di website God Of Force, sebuah platform digital yang menyediakan berbagai layanan dan informasi berguna.</p>
+                <p>Selamat datang di website GusOfcXD 404, sebuah platform digital yang menyediakan berbagai layanan dan informasi berguna.</p>
                 
                 <h3>Fitur Utama</h3>
                 <ul>
@@ -1497,6 +1599,41 @@
         </div>
     </div>
 
+    <div class="modal help-modal" id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Kirim Pesan ke Admin</h2>
+                <button class="modal-close" id="help-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="help-form">
+                    <div class="form-group">
+                        <label for="help-email">Email Anda:</label>
+                        <input type="email" class="form-input" id="help-email" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="help-subject">Subjek:</label>
+                        <input type="text" class="form-input" id="help-subject" placeholder="Masukkan subjek pesan" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="help-message">Pesan:</label>
+                        <textarea class="form-input" id="help-message" placeholder="Tuliskan pesan Anda di sini" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="send-help-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Kirim Bantuan</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <audio id="adzan-audio" preload="auto">
         <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjGH0fPTgjMGHm7A7+OZURE" type="audio/wav">
     </audio>
@@ -1510,7 +1647,7 @@
                 cursor.style.top = e.clientY - 15 + 'px';
             });
 
-            const interactiveElements = document.querySelectorAll('a, button, .portal-item, .menu-button, .dropdown-item, .modal-close, .form-input, .code-input');
+            const interactiveElements = document.querySelectorAll('a, button, .portal-item, .menu-button, .dropdown-item, .modal-close, .form-input, .captcha-input, .captcha-refresh');
             interactiveElements.forEach(element => {
                 element.addEventListener('mouseenter', () => {
                     cursor.style.transform = 'scale(1.5)';
@@ -1564,30 +1701,38 @@
             }
         });
 
+        // Login and Captcha functionality
         const loginContainer = document.getElementById('login-container');
         const appContainer = document.getElementById('app-container');
         const loginForm = document.getElementById('login-form');
-        const verificationContainer = document.getElementById('verification-container');
-        const sendCodeBtn = document.getElementById('send-code-btn');
-        const verifyBtn = document.getElementById('verify-btn');
-        const resendLink = document.getElementById('resend-link');
-        const codeInputs = document.querySelectorAll('.code-input');
-        const smsNotification = document.getElementById('sms-notification');
-        const smsCode = document.getElementById('sms-code');
+        const loginBtn = document.getElementById('login-btn');
+        const emailInput = document.getElementById('email-input');
+        const passwordInput = document.getElementById('password-input');
+        const captchaInput = document.getElementById('captcha-input');
+        const captchaImage = document.getElementById('captcha-image');
+        const captchaRefresh = document.getElementById('captcha-refresh');
         const loginError = document.getElementById('login-error');
         const loginSuccess = document.getElementById('login-success');
-        const verificationError = document.getElementById('verification-error');
-        const verificationSuccess = document.getElementById('verification-success');
 
-        function generateCode() {
-            return Math.floor(100000 + Math.random() * 900000).toString();
+        let currentCaptcha = '';
+
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+            let captcha = '';
+            for (let i = 0; i < 6; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return captcha;
         }
 
-        let currentCode = '';
+        function displayCaptcha() {
+            currentCaptcha = generateCaptcha();
+            captchaImage.textContent = currentCaptcha;
+        }
 
-        function validatePhone(phone) {
-            const phoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,11}$/;
-            return phoneRegex.test(phone);
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
 
         function showError(element, message) {
@@ -1606,15 +1751,20 @@
             }, 3000);
         }
 
+        captchaRefresh.addEventListener('click', () => {
+            displayCaptcha();
+            captchaInput.value = '';
+        });
+
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const name = document.getElementById('name-input').value.trim();
-            const password = document.getElementById('password-input').value;
-            const phone = document.getElementById('phone-input').value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const captcha = captchaInput.value.trim();
             
-            if (name.length < 3) {
-                showError(loginError, 'Nama minimal 3 karakter');
+            if (!validateEmail(email)) {
+                showError(loginError, 'Email tidak valid');
                 return;
             }
             
@@ -1623,120 +1773,44 @@
                 return;
             }
             
-            if (!validatePhone(phone)) {
-                showError(loginError, 'Nomor telepon tidak valid');
+            if (captcha !== currentCaptcha) {
+                showError(loginError, 'Kode captcha salah');
+                displayCaptcha();
+                captchaInput.value = '';
                 return;
             }
             
-            sendCodeBtn.disabled = true;
-            sendCodeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengirim...</span>';
-            
-            currentCode = generateCode();
-            
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            showSuccess(loginSuccess, 'Kode berhasil dikirim ke SMS');
-            
-            smsCode.textContent = currentCode;
-            smsNotification.classList.add('show');
-            
-            const now = new Date();
-            document.getElementById('sms-time').textContent = now.toLocaleTimeString('id-ID', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-            
-            loginContainer.classList.add('verification');
-            
-            sendCodeBtn.disabled = false;
-            sendCodeBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Kirim Code</span>';
-            
-            document.getElementById('code-1').focus();
-            
-            setTimeout(() => {
-                smsNotification.classList.remove('show');
-            }, 5000);
-        });
-
-        codeInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                if (e.target.value.length === 1 && index < codeInputs.length - 1) {
-                    codeInputs[index + 1].focus();
-                }
-            });
-            
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
-                    codeInputs[index - 1].focus();
-                }
-            });
-            
-            input.addEventListener('keypress', (e) => {
-                if (!/[0-9]/.test(e.key)) {
-                    e.preventDefault();
-                }
-            });
-        });
-
-        verifyBtn.addEventListener('click', async () => {
-            const enteredCode = Array.from(codeInputs).map(input => input.value).join('');
-            
-            if (enteredCode.length !== 6) {
-                showError(verificationError, 'Masukkan 6 digit kode');
-                return;
-            }
-            
-            verifyBtn.disabled = true;
-            verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Memverifikasi...</span>';
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Masuk...</span>';
             
             await new Promise(resolve => setTimeout(resolve, 1500));
             
-            if (enteredCode === currentCode) {
-                showSuccess(verificationSuccess, 'Verifikasi berhasil!');
-                
-                loginContainer.classList.add('hidden');
-                setTimeout(() => {
-                    appContainer.classList.add('active');
-                }, 500);
-            } else {
-                showError(verificationError, 'Kode verifikasi salah');
-                verifyBtn.disabled = false;
-                verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Verifikasi</span>';
-                
-                codeInputs.forEach(input => input.value = '');
-                document.getElementById('code-1').focus();
-            }
-        });
-
-        resendLink.addEventListener('click', async (e) => {
-            e.preventDefault();
+            showSuccess(loginSuccess, 'Login berhasil!');
             
-            resendLink.style.pointerEvents = 'none';
-            resendLink.textContent = 'Mengirim ulang...';
+            // Store user data
+            localStorage.setItem('userEmail', email);
             
-            currentCode = generateCode();
+            // Update dashboard with user email
+            document.getElementById('user-email').textContent = email;
+            document.getElementById('help-email').value = email;
             
-            smsCode.textContent = currentCode;
-            smsNotification.classList.add('show');
+            // Update user avatar with first letter of email
+            const firstLetter = email.charAt(0).toUpperCase();
+            document.getElementById('user-avatar').innerHTML = firstLetter;
             
-            const now = new Date();
-            document.getElementById('sms-time').textContent = now.toLocaleTimeString('id-ID', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-            
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            showSuccess(verificationSuccess, 'Kode berhasil dikirim ulang');
-            
-            resendLink.style.pointerEvents = 'auto';
-            resendLink.textContent = 'Kirim ulang';
-            
+            loginContainer.classList.add('hidden');
             setTimeout(() => {
-                smsNotification.classList.remove('show');
-            }, 5000);
+                appContainer.classList.add('active');
+            }, 500);
+            
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>Login</span>';
         });
 
+        // Initialize captcha on page load
+        displayCaptcha();
+
+        // Menu functionality
         const menuButton = document.getElementById('menu-button');
         const dropdownMenu = document.getElementById('dropdown-menu');
 
@@ -1750,6 +1824,7 @@
             }
         });
 
+        // Prayer times functionality
         const prayerTimes = {
             Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
             Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
@@ -1851,11 +1926,37 @@
         setInterval(updatePrayerTimes, 1000);
         updatePrayerTimes();
 
+        // Modal functionality
         const infoModal = document.getElementById('info-modal');
         const modalClose = document.getElementById('modal-close');
-        const infoMenuItem = document.getElementById('info-menu-item');
+        const helpModal = document.getElementById('help-modal');
+        const helpModalClose = document.getElementById('help-modal-close');
+        const helpButton = document.getElementById('help-button');
+        const helpForm = document.getElementById('help-form');
+        const sendHelpBtn = document.getElementById('send-help-btn');
+        const dashboardMenuItem = document.getElementById('dashboard-menu-item');
+        const featuresMenuItem = document.getElementById('features-menu-item');
         const prayerMenuItem = document.getElementById('prayer-menu-item');
+        const infoMenuItem = document.getElementById('info-menu-item');
         const logoutMenuItem = document.getElementById('logout-menu-item');
+
+        dashboardMenuItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('dashboard-card').scrollIntoView({ behavior: 'smooth' });
+            dropdownMenu.classList.remove('active');
+        });
+
+        featuresMenuItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('features-section').scrollIntoView({ behavior: 'smooth' });
+            dropdownMenu.classList.remove('active');
+        });
+
+        prayerMenuItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('prayer-card').scrollIntoView({ behavior: 'smooth' });
+            dropdownMenu.classList.remove('active');
+        });
 
         infoMenuItem.addEventListener('click', (e) => {
             e.preventDefault();
@@ -1873,23 +1974,91 @@
             }
         });
 
-        prayerMenuItem.addEventListener('click', (e) => {
+        helpButton.addEventListener('click', () => {
+            helpModal.classList.add('active');
+        });
+
+        helpModalClose.addEventListener('click', () => {
+            helpModal.classList.remove('active');
+        });
+
+        helpModal.addEventListener('click', (e) => {
+            if (e.target === helpModal) {
+                helpModal.classList.remove('active');
+            }
+        });
+
+        helpForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            document.getElementById('prayer-card').scrollIntoView({ behavior: 'smooth' });
-            dropdownMenu.classList.remove('active');
+            
+            const subject = document.getElementById('help-subject').value.trim();
+            const message = document.getElementById('help-message').value.trim();
+            const email = document.getElementById('help-email').value;
+            
+            if (!subject || !message) {
+                alert('Mohon lengkapi semua field');
+                return;
+            }
+            
+            sendHelpBtn.disabled = true;
+            sendHelpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengirim...</span>';
+            
+            // Simulate sending email
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // In a real application, you would send this data to your server
+            // which would then send an email to gusofcofficer@gmail.com
+            console.log('Sending email to gusofcofficer@gmail.com');
+            console.log('From:', email);
+            console.log('Subject:', subject);
+            console.log('Message:', message);
+            
+            // Show success message
+            alert('Pesan Anda telah terkirim! Kami akan segera menghubungi Anda.');
+            
+            // Reset form
+            helpForm.reset();
+            document.getElementById('help-email').value = email;
+            
+            // Close modal
+            helpModal.classList.remove('active');
+            
+            sendHelpBtn.disabled = false;
+            sendHelpBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Kirim Bantuan</span>';
         });
 
         logoutMenuItem.addEventListener('click', (e) => {
             e.preventDefault();
             
             loginForm.reset();
-            codeInputs.forEach(input => input.value = '');
+            captchaInput.value = '';
+            displayCaptcha();
             
             appContainer.classList.remove('active');
             setTimeout(() => {
                 loginContainer.classList.remove('hidden');
-                loginContainer.classList.remove('verification');
             }, 500);
+            
+            // Clear stored user data
+            localStorage.removeItem('userEmail');
+        });
+
+        // Check if user is already logged in
+        window.addEventListener('load', () => {
+            const userEmail = localStorage.getItem('userEmail');
+            if (userEmail) {
+                // Update dashboard with user email
+                document.getElementById('user-email').textContent = userEmail;
+                document.getElementById('help-email').value = userEmail;
+                
+                // Update user avatar with first letter of email
+                const firstLetter = userEmail.charAt(0).toUpperCase();
+                document.getElementById('user-avatar').innerHTML = firstLetter;
+                
+                // Skip login screen
+                loginContainer.classList.add('hidden');
+                appContainer.classList.add('active');
+            }
         });
     </script>
 
