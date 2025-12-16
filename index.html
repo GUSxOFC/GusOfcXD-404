@@ -798,6 +798,261 @@
             border-left: 3px solid #ff0050;
         }
 
+        /* Share Section Styles */
+        .share-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .share-title {
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .share-title i {
+            color: var(--accent);
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .upload-form {
+            display: none;
+            background: var(--bg-primary);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .upload-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-label:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .file-list {
+            margin-top: 25px;
+        }
+
+        .file-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .file-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .file-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .file-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .delete-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .file-type-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .file-type-apk {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .file-type-html {
+            background: linear-gradient(135deg, #FF5722, #f44336);
+        }
+
+        .file-type-zip {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+        }
+
+        .file-type-default {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+        }
+
         @media (max-width: 768px) {
             .prayer-times-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -818,6 +1073,20 @@
 
             .dashboard-avatar {
                 margin-bottom: 15px;
+            }
+
+            .share-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .file-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .file-actions {
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -963,6 +1232,196 @@
                 </div>
             </div>
 
+            <div class="content-section" id="share-section">
+                <div class="share-card">
+                    <div class="share-header">
+                        <h2 class="share-title">
+                            <i class="fas fa-share-alt"></i>
+                            Share Files
+                        </h2>
+                        <button class="upload-btn" id="upload-toggle">
+                            <i class="fas fa-upload"></i>
+                            <span>Upload File</span>
+                        </button>
+                    </div>
+                    
+                    <div class="upload-form" id="upload-form">
+                        <div class="form-group">
+                            <label class="form-label">Upload File</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" class="file-input" id="file-input" multiple>
+                                <label for="file-input" class="file-input-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Pilih file atau drag & drop di sini</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Nama File</label>
+                            <input type="text" class="form-input" id="file-name-input" placeholder="Masukkan nama file">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Deskripsi</label>
+                            <textarea class="form-input form-textarea" id="file-description-input" placeholder="Masukkan deskripsi file"></textarea>
+                        </div>
+                        
+                        <button class="upload-btn" id="submit-upload">
+                            <i class="fas fa-check"></i>
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                    
+                    <div class="file-list" id="file-list">
+                        <!-- Pre-added files -->
+                        <div class="file-item">
+                            <div class="file-header">
+                                <div class="file-type-icon file-type-apk">
+                                    <i class="fab fa-android"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">APK Cek Banned WhatsApp</div>
+                                    <div class="file-meta">
+                                        <span><i class="fas fa-file"></i> APK</span>
+                                        <span><i class="fas fa-calendar"></i> 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-description">
+                                Aplikasi untuk mengecek status banned akun WhatsApp Anda dengan mudah dan cepat.
+                            </div>
+                            <div class="file-actions">
+                                <a href="https://www.mediafire.com/file/pj2p9u4akt4f6jg/PrasszTzy_CekBand.apk/file" target="_blank" class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download APK</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="file-item">
+                            <div class="file-header">
+                                <div class="file-type-icon file-type-apk">
+                                    <i class="fas fa-cube"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Minecraft Mojang Gratis</div>
+                                    <div class="file-meta">
+                                        <span><i class="fas fa-file"></i> APK</span>
+                                        <span><i class="fas fa-calendar"></i> November 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-description">
+                                Minecraft versi gratis dari Mojang dengan semua fitur premium terbuka. Mainkan tanpa batas!
+                            </div>
+                            <div class="file-actions">
+                                <a href="https://www.mediafire.com/file/cmj2wu5epw5uh0s/minecraft-apk-latest-version-november-2025.apk/file" target="_blank" class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download APK</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="file-item">
+                            <div class="file-header">
+                                <div class="file-type-icon file-type-apk">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">Nekopoi untuk Wibu</div>
+                                    <div class="file-meta">
+                                        <span><i class="fas fa-file"></i> APK</span>
+                                        <span><i class="fas fa-calendar"></i> v2.5.3</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-description">
+                                Aplikasi khusus untuk wibu dengan koleksi anime terlengkap dan update setiap hari.
+                            </div>
+                            <div class="file-actions">
+                                <a href="https://www.mediafire.com/file/vtmkstxz7cczqm2/Nekopoi_2.5.3_nekopoisapk.com.apk/file" target="_blank" class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download APK</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="file-item">
+                            <div class="file-header">
+                                <div class="file-type-icon file-type-html">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">HTML Cek Informasi Handphone</div>
+                                    <div class="file-meta">
+                                        <span><i class="fas fa-file"></i> HTML</span>
+                                        <span><i class="fas fa-calendar"></i> 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-description">
+                                Tool HTML untuk mengecek informasi lengkap handphone Anda termasuk IP, lokasi, dan spesifikasi device.
+                            </div>
+                            <div class="file-actions">
+                                <a href="https://www.mediafire.com/file/5zhy3fajkn61lb3/cek_info_ip_addres.html/file" target="_blank" class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download HTML</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="file-item">
+                            <div class="file-header">
+                                <div class="file-type-icon file-type-html">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">HTML Payment Manual</div>
+                                    <div class="file-meta">
+                                        <span><i class="fas fa-file"></i> HTML</span>
+                                        <span><i class="fas fa-calendar"></i> 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-description">
+                                Template HTML untuk sistem payment manual yang bisa digunakan untuk berbagai keperluan transaksi online.
+                            </div>
+                            <div class="file-actions">
+                                <a href="https://www.mediafire.com/file/458rtbs9087kv2e/html_payment.html/file" target="_blank" class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download HTML</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="file-item">
+                            <div class="file-header">
+                                <div class="file-type-icon file-type-html">
+                                    <i class="fas fa-laugh-beam"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-name">HTML Prank Teman</div>
+                                    <div class="file-meta">
+                                        <span><i class="fas fa-file"></i> HTML</span>
+                                        <span><i class="fas fa-calendar"></i> 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-description">
+                                HTML prank untuk menjahili teman-teman Anda dengan berbagai efek lucu dan mengejutkan.
+                            </div>
+                            <div class="file-actions">
+                                <a href="https://www.mediafire.com/file/806ej9vxwxlzjz4/html_prank_%2540gofcc404.html/file" target="_blank" class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download HTML</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="content-section" id="prayer-section">
                 <div class="prayer-card">
                     <div class="prayer-header">
@@ -1036,6 +1495,10 @@
             <a class="nav-item" data-section="features-section">
                 <i class="fas fa-th-large"></i>
                 <span>Fitur</span>
+            </a>
+            <a class="nav-item" data-section="share-section">
+                <i class="fas fa-share-alt"></i>
+                <span>Share</span>
             </a>
             <a class="nav-item" data-section="prayer-section">
                 <i class="fas fa-clock"></i>
@@ -1184,6 +1647,106 @@
                 themeIcon.className = 'fas fa-sun';
             }
         }
+
+        // Upload functionality
+        const uploadToggle = document.getElementById('upload-toggle');
+        const uploadForm = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file-input');
+        const fileNameInput = document.getElementById('file-name-input');
+        const fileDescriptionInput = document.getElementById('file-description-input');
+        const submitUpload = document.getElementById('submit-upload');
+        const fileList = document.getElementById('file-list');
+
+        uploadToggle.addEventListener('click', () => {
+            uploadForm.classList.toggle('active');
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                fileNameInput.value = files[0].name;
+            }
+        });
+
+        submitUpload.addEventListener('click', () => {
+            const files = fileInput.files;
+            const fileName = fileNameInput.value.trim();
+            const fileDescription = fileDescriptionInput.value.trim();
+            
+            if (files.length === 0) {
+                alert('Pilih file terlebih dahulu');
+                return;
+            }
+            
+            if (!fileName) {
+                alert('Masukkan nama file');
+                return;
+            }
+            
+            // Create new file item
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            let fileTypeClass = 'file-type-default';
+            let fileIcon = 'fas fa-file';
+            
+            if (fileExtension === 'apk') {
+                fileTypeClass = 'file-type-apk';
+                fileIcon = 'fab fa-android';
+            } else if (fileExtension === 'html') {
+                fileTypeClass = 'file-type-html';
+                fileIcon = 'fas fa-code';
+            } else if (fileExtension === 'zip') {
+                fileTypeClass = 'file-type-zip';
+                fileIcon = 'fas fa-file-archive';
+            }
+            
+            const currentDate = new Date().toLocaleDateString('id-ID', { 
+                year: 'numeric', 
+                month: 'long' 
+            });
+            
+            fileItem.innerHTML = `
+                <div class="file-header">
+                    <div class="file-type-icon ${fileTypeClass}">
+                        <i class="${fileIcon}"></i>
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${fileName}</div>
+                        <div class="file-meta">
+                            <span><i class="fas fa-file"></i> ${fileExtension.toUpperCase()}</span>
+                            <span><i class="fas fa-calendar"></i> ${currentDate}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="file-description">
+                    ${fileDescription || 'Tidak ada deskripsi'}
+                </div>
+                <div class="file-actions">
+                    <a href="#" class="download-btn">
+                        <i class="fas fa-download"></i>
+                        <span>Download</span>
+                    </a>
+                    <button class="delete-btn" onclick="this.closest('.file-item').remove()">
+                        <i class="fas fa-trash"></i>
+                        <span>Hapus</span>
+                    </button>
+                </div>
+            `;
+            
+            // Add to file list (at the beginning)
+            fileList.insertBefore(fileItem, fileList.firstChild);
+            
+            // Reset form
+            fileInput.value = '';
+            fileNameInput.value = '';
+            fileDescriptionInput.value = '';
+            uploadForm.classList.remove('active');
+            
+            // Show success message
+            alert('File berhasil diupload!');
+        });
 
         // Prayer times functionality
         const prayerTimes = {
