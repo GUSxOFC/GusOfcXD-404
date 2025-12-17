@@ -21,6 +21,9 @@
             --gradient-2: #764ba2;
             --gradient-3: #f093fb;
             --gradient-4: #f5576c;
+            --success: #51cf66;
+            --warning: #ffd43b;
+            --error: #ff6b6b;
         }
 
         [data-theme="light"] {
@@ -634,6 +637,175 @@
             line-height: 1.5;
         }
 
+        /* Share Section Styles */
+        .share-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .share-title {
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .share-title i {
+            color: var(--accent);
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 150px;
+            background: var(--bg-primary);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .file-list {
+            margin-top: 25px;
+        }
+
+        .file-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .file-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .file-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .file-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .file-type-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .file-type-apk {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .file-type-html {
+            background: linear-gradient(135deg, #FF5722, #f44336);
+        }
+
+        .file-type-zip {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+        }
+
+        .file-type-default {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+        }
+
+        /* Prayer Card Styles */
         .prayer-card {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
@@ -798,85 +970,107 @@
             border-left: 3px solid #ff0050;
         }
 
-        /* Share Section Styles */
-        .share-card {
-            background: var(--bg-card);
+        /* Create Website Modal Styles */
+        .create-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        .share-header {
+        .create-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .create-modal-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .create-modal.active .create-modal-content {
+            transform: scale(1);
+        }
+
+        .create-modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .share-title {
-            font-size: 24px;
+        .create-modal-title {
+            font-size: 28px;
             font-weight: 800;
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .create-modal-close {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .share-title i {
-            color: var(--accent);
-        }
-
-        .upload-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            justify-content: center;
             cursor: pointer;
-            border: none;
+            transition: all 0.3s ease;
+            font-size: 20px;
         }
 
-        .upload-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        .create-modal-close:hover {
+            background: var(--bg-card-hover);
+            transform: rotate(90deg);
         }
 
-        .upload-form {
-            display: none;
-            background: var(--bg-primary);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .upload-form.active {
-            display: block;
+        .create-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .form-label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: 600;
             color: var(--text-primary);
+            font-size: 16px;
         }
 
         .form-input {
             width: 100%;
-            padding: 12px;
-            background: var(--bg-card);
+            padding: 15px;
+            background: var(--bg-primary);
             border: 1px solid var(--border);
             border-radius: 10px;
             color: var(--text-primary);
@@ -891,166 +1085,180 @@
         }
 
         .form-textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
         }
 
-        .file-input {
-            position: absolute;
-            left: -9999px;
-        }
-
-        .file-input-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        .template-item {
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
             padding: 20px;
-            background: var(--bg-card);
-            border: 2px dashed var(--border);
-            border-radius: 10px;
-            color: var(--text-secondary);
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .file-input-label:hover {
+        .template-item:hover,
+        .template-item.selected {
             border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .file-list {
-            margin-top: 25px;
-        }
-
-        .file-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .file-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .file-header {
+        .template-preview {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 10px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
             margin-bottom: 10px;
         }
 
-        .file-info {
-            flex: 1;
-        }
-
-        .file-name {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        .file-meta {
+        .color-picker {
             display: flex;
             gap: 15px;
-            font-size: 14px;
-            color: var(--text-muted);
+            justify-content: center;
         }
 
-        .file-meta span {
+        .color-picker input[type="color"] {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .content-editor {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .editor-toolbar {
+            background: var(--bg-primary);
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .editor-toolbar button {
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 6px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .editor-toolbar button:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .editor-content {
+            min-height: 200px;
+            padding: 15px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .create-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 5px;
-        }
-
-        .file-description {
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .file-actions {
-            display: flex;
+            justify-content: center;
             gap: 10px;
         }
 
-        .download-btn {
-            display: inline-flex;
+        .create-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .preview-section {
+            margin-top: 30px;
+        }
+
+        .preview-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .preview-frame {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            height: 400px;
+        }
+
+        .preview-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .download-btn,
+        .copy-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 8px 16px;
+        }
+
+        .download-btn {
             background: var(--accent);
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        }
+
+        .copy-btn {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
         }
 
         .download-btn:hover {
             background: var(--accent-hover);
-            transform: translateY(-2px);
         }
 
-        .delete-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: #dc3545;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-            transform: translateY(-2px);
-        }
-
-        .file-type-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-        }
-
-        .file-type-apk {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-
-        .file-type-html {
-            background: linear-gradient(135deg, #FF5722, #f44336);
-        }
-
-        .file-type-zip {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
-        }
-
-        .file-type-default {
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+        .copy-btn:hover {
+            background: var(--bg-card-hover);
         }
 
         @media (max-width: 768px) {
@@ -1087,6 +1295,18 @@
 
             .file-actions {
                 flex-wrap: wrap;
+            }
+
+            .create-modal-content {
+                padding: 20px;
+            }
+
+            .template-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .preview-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -1229,6 +1449,14 @@
                         <h3 class="portal-title">XavAi</h3>
                         <p class="portal-description">Bot AI canggih untuk berbagai kebutuhan digital Anda</p>
                     </div>
+
+                    <div class="portal-item" onclick="openCreateWebsite()">
+                        <div class="portal-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="portal-title">Create Website</h3>
+                        <p class="portal-description">Buat website dengan mudah dan cepat tanpa coding</p>
+                    </div>
                 </div>
             </div>
 
@@ -1239,42 +1467,21 @@
                             <i class="fas fa-share-alt"></i>
                             Share Files
                         </h2>
-                        <button class="upload-btn" id="upload-toggle">
-                            <i class="fas fa-upload"></i>
-                            <span>Upload File</span>
-                        </button>
                     </div>
                     
-                    <div class="upload-form" id="upload-form">
-                        <div class="form-group">
-                            <label class="form-label">Upload File</label>
-                            <div class="file-input-wrapper">
-                                <input type="file" class="file-input" id="file-input" multiple>
-                                <label for="file-input" class="file-input-label">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <span>Pilih file atau drag & drop di sini</span>
-                                </label>
-                            </div>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-files">6</div>
+                            <div class="stat-label">Total Files</div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Nama File</label>
-                            <input type="text" class="form-input" id="file-name-input" placeholder="Masukkan nama file">
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-downloads">0</div>
+                            <div class="stat-label">Downloads</div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Deskripsi</label>
-                            <textarea class="form-input form-textarea" id="file-description-input" placeholder="Masukkan deskripsi file"></textarea>
-                        </div>
-                        
-                        <button class="upload-btn" id="submit-upload">
-                            <i class="fas fa-check"></i>
-                            <span>Submit</span>
-                        </button>
                     </div>
                     
                     <div class="file-list" id="file-list">
-                        <!-- Pre-added files -->
+                        <!-- Default files -->
                         <div class="file-item">
                             <div class="file-header">
                                 <div class="file-type-icon file-type-apk">
@@ -1285,6 +1492,7 @@
                                     <div class="file-meta">
                                         <span><i class="fas fa-file"></i> APK</span>
                                         <span><i class="fas fa-calendar"></i> 2024</span>
+                                        <span><i class="fas fa-download"></i> <span class="download-count">0</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1292,7 +1500,7 @@
                                 Aplikasi untuk mengecek status banned akun WhatsApp Anda dengan mudah dan cepat.
                             </div>
                             <div class="file-actions">
-                                <a href="https://www.mediafire.com/file/pj2p9u4akt4f6jg/PrasszTzy_CekBand.apk/file" target="_blank" class="download-btn">
+                                <a href="https://www.mediafire.com/file/pj2p9u4akt4f6jg/PrasszTzy_CekBand.apk/file" target="_blank" class="download-btn" onclick="trackDownload(this)">
                                     <i class="fas fa-download"></i>
                                     <span>Download APK</span>
                                 </a>
@@ -1309,6 +1517,7 @@
                                     <div class="file-meta">
                                         <span><i class="fas fa-file"></i> APK</span>
                                         <span><i class="fas fa-calendar"></i> November 2025</span>
+                                        <span><i class="fas fa-download"></i> <span class="download-count">0</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1316,7 +1525,7 @@
                                 Minecraft versi gratis dari Mojang dengan semua fitur premium terbuka. Mainkan tanpa batas!
                             </div>
                             <div class="file-actions">
-                                <a href="https://www.mediafire.com/file/cmj2wu5epw5uh0s/minecraft-apk-latest-version-november-2025.apk/file" target="_blank" class="download-btn">
+                                <a href="https://www.mediafire.com/file/cmj2wu5epw5uh0s/minecraft-apk-latest-version-november-2025.apk/file" target="_blank" class="download-btn" onclick="trackDownload(this)">
                                     <i class="fas fa-download"></i>
                                     <span>Download APK</span>
                                 </a>
@@ -1333,6 +1542,7 @@
                                     <div class="file-meta">
                                         <span><i class="fas fa-file"></i> APK</span>
                                         <span><i class="fas fa-calendar"></i> v2.5.3</span>
+                                        <span><i class="fas fa-download"></i> <span class="download-count">0</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1340,7 +1550,7 @@
                                 Aplikasi khusus untuk wibu dengan koleksi anime terlengkap dan update setiap hari.
                             </div>
                             <div class="file-actions">
-                                <a href="https://www.mediafire.com/file/vtmkstxz7cczqm2/Nekopoi_2.5.3_nekopoisapk.com.apk/file" target="_blank" class="download-btn">
+                                <a href="https://www.mediafire.com/file/vtmkstxz7cczqm2/Nekopoi_2.5.3_nekopoisapk.com.apk/file" target="_blank" class="download-btn" onclick="trackDownload(this)">
                                     <i class="fas fa-download"></i>
                                     <span>Download APK</span>
                                 </a>
@@ -1357,6 +1567,7 @@
                                     <div class="file-meta">
                                         <span><i class="fas fa-file"></i> HTML</span>
                                         <span><i class="fas fa-calendar"></i> 2024</span>
+                                        <span><i class="fas fa-download"></i> <span class="download-count">0</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1364,7 +1575,7 @@
                                 Tool HTML untuk mengecek informasi lengkap handphone Anda termasuk IP, lokasi, dan spesifikasi device.
                             </div>
                             <div class="file-actions">
-                                <a href="https://www.mediafire.com/file/5zhy3fajkn61lb3/cek_info_ip_addres.html/file" target="_blank" class="download-btn">
+                                <a href="https://www.mediafire.com/file/5zhy3fajkn61lb3/cek_info_ip_addres.html/file" target="_blank" class="download-btn" onclick="trackDownload(this)">
                                     <i class="fas fa-download"></i>
                                     <span>Download HTML</span>
                                 </a>
@@ -1381,6 +1592,7 @@
                                     <div class="file-meta">
                                         <span><i class="fas fa-file"></i> HTML</span>
                                         <span><i class="fas fa-calendar"></i> 2024</span>
+                                        <span><i class="fas fa-download"></i> <span class="download-count">0</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1388,7 +1600,7 @@
                                 Template HTML untuk sistem payment manual yang bisa digunakan untuk berbagai keperluan transaksi online.
                             </div>
                             <div class="file-actions">
-                                <a href="https://www.mediafire.com/file/458rtbs9087kv2e/html_payment.html/file" target="_blank" class="download-btn">
+                                <a href="https://www.mediafire.com/file/458rtbs9087kv2e/html_payment.html/file" target="_blank" class="download-btn" onclick="trackDownload(this)">
                                     <i class="fas fa-download"></i>
                                     <span>Download HTML</span>
                                 </a>
@@ -1405,6 +1617,7 @@
                                     <div class="file-meta">
                                         <span><i class="fas fa-file"></i> HTML</span>
                                         <span><i class="fas fa-calendar"></i> 2024</span>
+                                        <span><i class="fas fa-download"></i> <span class="download-count">0</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1412,7 +1625,7 @@
                                 HTML prank untuk menjahili teman-teman Anda dengan berbagai efek lucu dan mengejutkan.
                             </div>
                             <div class="file-actions">
-                                <a href="https://www.mediafire.com/file/806ej9vxwxlzjz4/html_prank_%2540gofcc404.html/file" target="_blank" class="download-btn">
+                                <a href="https://www.mediafire.com/file/806ej9vxwxlzjz4/html_prank_%2540gofcc404.html/file" target="_blank" class="download-btn" onclick="trackDownload(this)">
                                     <i class="fas fa-download"></i>
                                     <span>Download HTML</span>
                                 </a>
@@ -1502,9 +1715,109 @@
             </a>
             <a class="nav-item" data-section="prayer-section">
                 <i class="fas fa-clock"></i>
-                <span>Jadwal Sholat</span>
+                <span>Jadwal</span>
             </a>
         </nav>
+    </div>
+
+    <!-- Create Website Modal -->
+    <div class="create-modal" id="create-modal">
+        <div class="create-modal-content">
+            <div class="create-modal-header">
+                <h2 class="create-modal-title">Create Website</h2>
+                <button class="create-modal-close" id="create-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="create-form">
+                <div class="form-group">
+                    <label class="form-label">Nama Website</label>
+                    <input type="text" class="form-input" id="website-name" placeholder="Masukkan nama website">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea class="form-input form-textarea" id="website-desc" placeholder="Deskripsi singkat website"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Pilih Template</label>
+                    <div class="template-grid">
+                        <div class="template-item" data-template="portfolio">
+                            <div class="template-preview">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <span>Portfolio</span>
+                        </div>
+                        <div class="template-item" data-template="business">
+                            <div class="template-preview">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <span>Business</span>
+                        </div>
+                        <div class="template-item" data-template="blog">
+                            <div class="template-preview">
+                                <i class="fas fa-blog"></i>
+                            </div>
+                            <span>Blog</span>
+                        </div>
+                        <div class="template-item" data-template="landing">
+                            <div class="template-preview">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <span>Landing Page</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Warna Tema</label>
+                    <div class="color-picker">
+                        <input type="color" id="primary-color" value="#667eea">
+                        <input type="color" id="secondary-color" value="#764ba2">
+                        <input type="color" id="text-color" value="#ffffff">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Konten Utama</label>
+                    <div class="content-editor">
+                        <div class="editor-toolbar">
+                            <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                            <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                            <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                            <button onclick="addLink()"><i class="fas fa-link"></i></button>
+                        </div>
+                        <div class="editor-content" contenteditable="true" id="website-content">
+                            <p>Tulis konten website Anda di sini...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="create-btn" onclick="generateWebsite()">
+                    <i class="fas fa-magic"></i>
+                    <span>Generate Website</span>
+                </button>
+                
+                <div class="preview-section" id="preview-section" style="display: none;">
+                    <h3 class="preview-title">Preview Website</h3>
+                    <div class="preview-frame">
+                        <iframe id="preview-frame" srcdoc=""></iframe>
+                    </div>
+                    <div class="preview-actions">
+                        <button class="download-btn" onclick="downloadWebsite()">
+                            <i class="fas fa-download"></i>
+                            <span>Download HTML</span>
+                        </button>
+                        <button class="copy-btn" onclick="copyCode()">
+                            <i class="fas fa-copy"></i>
+                            <span>Copy Code</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1547,7 +1860,6 @@
                 });
             } else {
                 item.addEventListener('click', () => {
-                    // Simulate adding a new account
                     const newEmail = prompt('Masukkan email Anda:');
                     if (newEmail) {
                         const newName = prompt('Masukkan nama Anda:');
@@ -1648,105 +1960,184 @@
             }
         }
 
-        // Upload functionality
-        const uploadToggle = document.getElementById('upload-toggle');
-        const uploadForm = document.getElementById('upload-form');
-        const fileInput = document.getElementById('file-input');
-        const fileNameInput = document.getElementById('file-name-input');
-        const fileDescriptionInput = document.getElementById('file-description-input');
-        const submitUpload = document.getElementById('submit-upload');
-        const fileList = document.getElementById('file-list');
+        // Create Website Modal functionality
+        const createModal = document.getElementById('create-modal');
+        const createModalClose = document.getElementById('create-modal-close');
+        let selectedTemplate = '';
 
-        uploadToggle.addEventListener('click', () => {
-            uploadForm.classList.toggle('active');
+        function openCreateWebsite() {
+            createModal.classList.add('active');
+        }
+
+        createModalClose.addEventListener('click', () => {
+            createModal.classList.remove('active');
         });
 
-        fileInput.addEventListener('change', (e) => {
-            const files = e.target.files;
-            if (files.length > 0) {
-                fileNameInput.value = files[0].name;
+        createModal.addEventListener('click', (e) => {
+            if (e.target === createModal) {
+                createModal.classList.remove('active');
             }
         });
 
-        submitUpload.addEventListener('click', () => {
-            const files = fileInput.files;
-            const fileName = fileNameInput.value.trim();
-            const fileDescription = fileDescriptionInput.value.trim();
-            
-            if (files.length === 0) {
-                alert('Pilih file terlebih dahulu');
-                return;
-            }
-            
-            if (!fileName) {
-                alert('Masukkan nama file');
-                return;
-            }
-            
-            // Create new file item
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-            
-            const fileExtension = fileName.split('.').pop().toLowerCase();
-            let fileTypeClass = 'file-type-default';
-            let fileIcon = 'fas fa-file';
-            
-            if (fileExtension === 'apk') {
-                fileTypeClass = 'file-type-apk';
-                fileIcon = 'fab fa-android';
-            } else if (fileExtension === 'html') {
-                fileTypeClass = 'file-type-html';
-                fileIcon = 'fas fa-code';
-            } else if (fileExtension === 'zip') {
-                fileTypeClass = 'file-type-zip';
-                fileIcon = 'fas fa-file-archive';
-            }
-            
-            const currentDate = new Date().toLocaleDateString('id-ID', { 
-                year: 'numeric', 
-                month: 'long' 
+        // Template selection
+        document.querySelectorAll('.template-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.template-item').forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTemplate = this.dataset.template;
             });
-            
-            fileItem.innerHTML = `
-                <div class="file-header">
-                    <div class="file-type-icon ${fileTypeClass}">
-                        <i class="${fileIcon}"></i>
-                    </div>
-                    <div class="file-info">
-                        <div class="file-name">${fileName}</div>
-                        <div class="file-meta">
-                            <span><i class="fas fa-file"></i> ${fileExtension.toUpperCase()}</span>
-                            <span><i class="fas fa-calendar"></i> ${currentDate}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="file-description">
-                    ${fileDescription || 'Tidak ada deskripsi'}
-                </div>
-                <div class="file-actions">
-                    <a href="#" class="download-btn">
-                        <i class="fas fa-download"></i>
-                        <span>Download</span>
-                    </a>
-                    <button class="delete-btn" onclick="this.closest('.file-item').remove()">
-                        <i class="fas fa-trash"></i>
-                        <span>Hapus</span>
-                    </button>
-                </div>
-            `;
-            
-            // Add to file list (at the beginning)
-            fileList.insertBefore(fileItem, fileList.firstChild);
-            
-            // Reset form
-            fileInput.value = '';
-            fileNameInput.value = '';
-            fileDescriptionInput.value = '';
-            uploadForm.classList.remove('active');
-            
-            // Show success message
-            alert('ini belum work ya kontol, tunggu update aja mbut');
         });
+
+        // Text formatting
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function addLink() {
+            const url = prompt('Masukkan URL:');
+            if (url) {
+                document.execCommand('createLink', false, url);
+            }
+        }
+
+        // Generate website
+        function generateWebsite() {
+            const name = document.getElementById('website-name').value;
+            const desc = document.getElementById('website-desc').value;
+            const content = document.getElementById('website-content').innerHTML;
+            const primaryColor = document.getElementById('primary-color').value;
+            const secondaryColor = document.getElementById('secondary-color').value;
+            const textColor = document.getElementById('text-color').value;
+            
+            if (!name || !content) {
+                alert('Nama website dan konten harus diisi');
+                return;
+            }
+            
+            const html = generateHTML(name, desc, content, primaryColor, secondaryColor, textColor);
+            
+            // Show preview
+            const previewFrame = document.getElementById('preview-frame');
+            previewFrame.srcdoc = html;
+            document.getElementById('preview-section').style.display = 'block';
+            
+            // Scroll to preview
+            document.getElementById('preview-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateHTML(name, desc, content, primaryColor, secondaryColor, textColor) {
+            return `
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${name}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
+            color: ${textColor};
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        main {
+            line-height: 1.6;
+            font-size: 18px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width:768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>${name}</h1>
+            <p class="subtitle">${desc}</p>
+        </header>
+        
+        <main>
+            ${content}
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 ${name}. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+            `;
+        }
+
+        function downloadWebsite() {
+            const name = document.getElementById('website-name').value || 'website';
+            const html = document.getElementById('preview-frame').srcdoc;
+            
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${name}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('Website berhasil diunduh');
+        }
+
+        function copyCode() {
+            const html = document.getElementById('preview-frame').srcdoc;
+            navigator.clipboard.writeText(html).then(() => {
+                alert('Kode berhasil disalin');
+            });
+        }
 
         // Prayer times functionality
         const prayerTimes = {
@@ -1829,10 +2220,19 @@
             }
         }
 
-        setInterval(updatePrayerTimes, 1000);
-        updatePrayerTimes();
+        // Download tracking
+        function trackDownload(element) {
+            const downloadCount = element.querySelector('.download-count');
+            const currentCount = parseInt(downloadCount.textContent);
+            downloadCount.textContent = currentCount + 1;
+            
+            // Update total downloads
+            const totalDownloadsElement = document.getElementById('total-downloads');
+            const currentTotal = parseInt(totalDownloadsElement.textContent);
+            totalDownloadsElement.textContent = currentTotal + 1;
+        }
 
-        // Check if user is already logged in
+        // Initialize
         window.addEventListener('load', () => {
             const storedEmail = localStorage.getItem('userEmail');
             const storedName = localStorage.getItem('userName');
@@ -1847,6 +2247,10 @@
                 loginContainer.classList.add('hidden');
                 appContainer.classList.add('active');
             }
+            
+            // Start prayer times update
+            setInterval(updatePrayerTimes, 1000);
+            updatePrayerTimes();
         });
     </script>
 
