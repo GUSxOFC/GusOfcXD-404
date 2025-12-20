@@ -549,24 +549,78 @@
             margin-bottom: 25px;
         }
 
-        .whatsapp-group-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            background: #25D366;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 16px;
+        .dashboard-welcome-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 25px;
+            border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
 
-        .whatsapp-group-btn:hover {
-            background: #128C7E;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        .dashboard-welcome-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            margin: 0 auto 20px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .welcome-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .welcome-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .welcome-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .welcome-feature i {
+            color: var(--accent);
         }
 
         .features-section {
@@ -1379,6 +1433,11 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             
+            .welcome-features {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
             .prayer-times-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1510,10 +1569,29 @@
                     <div class="dashboard-content">
                         <p class="dashboard-message">Hi <span id="user-email"></span> selamat datang di website GusOfcXD 404, apa yang dapat kami bantu?</p>
                         
-                        <a href="https://chat.whatsapp.com/FqevjyLGK5f3pXhby55ARm" target="_blank" class="whatsapp-group-btn">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>Group WhatsApp Developer</span>
-                        </a>
+                        <div class="dashboard-welcome-card">
+                            <div class="welcome-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3 class="welcome-title">Jelajahi Dunia Digital</h3>
+                            <p class="welcome-description">
+                                Temukan berbagai fitur menarik dan tools canggih yang kami sediakan untuk memudahkan aktivitas digital Anda. Dari pelacakan IP hingga pembuatan website, semuanya ada di sini.
+                            </p>
+                            <div class="welcome-features">
+                                <div class="welcome-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Cepat & Mudah</span>
+                                </div>
+                                <div class="welcome-feature">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Aman & Terpercaya</span>
+                                </div>
+                                <div class="welcome-feature">
+                                    <i class="fas fa-star"></i>
+                                    <span>Fitur Lengkap</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1710,7 +1788,7 @@
                     <div class="events-header">
                         <h2 class="events-title">
                             <i class="fas fa-calendar-alt"></i>
-                            Kalender Hari Besar 2024
+                            Kalender Hari Besar 2025
                         </h2>
                     </div>
                     
@@ -1832,7 +1910,7 @@
                         url: 'https://www.mediafire.com/file/pj2p9u4akt4f6jg/PrasszTzy_CekBand.apk/file',
                         description: 'Aplikasi untuk mengecek status banned akun WhatsApp Anda dengan mudah dan cepat.',
                         type: 'apk',
-                        date: '2024',
+                        date: '2025',
                         downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
@@ -1865,7 +1943,7 @@
                         url: 'https://www.mediafire.com/file/5zhy3fajkn61lb3/cek_info_ip_addres.html/file',
                         description: 'Tool HTML untuk mengecek informasi lengkap handphone Anda termasuk IP, lokasi, dan spesifikasi device.',
                         type: 'html',
-                        date: '2024',
+                        date: '2025',
                         downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
@@ -1876,7 +1954,7 @@
                         url: 'https://www.mediafire.com/file/458rtbs9087kv2e/html_payment.html/file',
                         description: 'Template HTML untuk sistem payment manual yang bisa digunakan untuk berbagai keperluan transaksi online.',
                         type: 'html',
-                        date: '2024',
+                        date: '2025',
                         downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
@@ -1887,7 +1965,7 @@
                         url: 'https://www.mediafire.com/file/806ej9vxwxlzjz4/html_prank_%2540gofcc404.html/file',
                         description: 'HTML prank untuk menjahili teman-teman Anda dengan berbagai efek lucu dan mengejutkan.',
                         type: 'html',
-                        date: '2024',
+                        date: '2025',
                         downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
@@ -2150,6 +2228,9 @@
                 
                 submitUpload.disabled = false;
                 submitUpload.innerHTML = '<i class="fas fa-check"></i> <span>Submit</span>';
+                
+                // Show maintenance notification
+                showNotification('Maintenance akk*', 'warning');
             }, 1000);
         });
 
@@ -2294,14 +2375,14 @@
 
         function loadEvents() {
             const eventsData = [
-                { name: 'Tahun Baru 2024', date: '1 Januari 2024', type: 'national', icon: 'fa-champagne-glasses' },
-                { name: 'Isra Miraj', date: '8 Februari 2024', type: 'religious', icon: 'fa-moon' },
-                { name: 'Natal', date: '25 Desember 2024', type: 'religious', icon: 'fa-christmas-tree' },
-                { name: 'Idul Fitri', date: '10 April 2024', type: 'religious', icon: 'fa-mosque' },
-                { name: 'Kemerdekaan RI', date: '17 Agustus 2024', type: 'national', icon: 'fa-flag' },
-                { name: 'Halloween', date: '31 Oktober 2024', type: 'international', icon: 'fa-ghost' },
-                { name: 'Tahun Baru Islam', date: '10 Juli 2024', type: 'religious', icon: 'fa-crescent' },
-                { name: 'Valentine Day', date: '14 Februari 2024', type: 'international', icon: 'fa-heart' }
+                { name: 'Tahun Baru 2025', date: '1 Januari 2025', type: 'national', icon: 'fa-champagne-glasses' },
+                { name: 'Isra Miraj', date: '8 Februari 2025', type: 'religious', icon: 'fa-moon' },
+                { name: 'Natal', date: '25 Desember 2025', type: 'religious', icon: 'fa-christmas-tree' },
+                { name: 'Idul Fitri', date: '10 April 2025', type: 'religious', icon: 'fa-mosque' },
+                { name: 'Kemerdekaan RI', date: '17 Agustus 2025', type: 'national', icon: 'fa-flag' },
+                { name: 'Halloween', date: '31 Oktober 2025', type: 'international', icon: 'fa-ghost' },
+                { name: 'Tahun Baru Islam', date: '10 Juli 2025', type: 'religious', icon: 'fa-crescent' },
+                { name: 'Valentine Day', date: '14 Februari 2025', type: 'international', icon: 'fa-heart' }
             ];
             
             const eventsList = document.getElementById('events-list');
