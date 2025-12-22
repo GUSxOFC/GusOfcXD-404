@@ -4,55 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GusOfcXD 404</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --bg-card: rgba(255, 255, 255, 0.05);
-            --bg-card-hover: rgba(255, 255, 255, 0.08);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --text-muted: rgba(255, 255, 255, 0.5);
+        :root { 
+            --bg: #0b0f1a; 
+            --card: #151c2c; 
+            --primary: #4a8d88; 
+            --text-dim: #94a3b8;
             --accent: #667eea;
             --accent-hover: #764ba2;
-            --border: rgba(255, 255, 255, 0.1);
-            --gradient-1: #667eea;
-            --gradient-2: #764ba2;
-            --gradient-3: #f093fb;
-            --gradient-4: #f5576c;
             --success: #51cf66;
-            --warning: #ffd43b;
             --error: #ff6b6b;
         }
-
-        [data-theme="light"] {
-            --bg-primary: #f5f5f5;
-            --bg-secondary: #e0e0e0;
-            --bg-card: rgba(0, 0, 0, 0.05);
-            --bg-card-hover: rgba(0, 0, 0, 0.08);
-            --text-primary: #121212;
-            --text-secondary: rgba(0, 0, 0, 0.7);
-            --text-muted: rgba(0, 0, 0, 0.5);
-            --accent: #4285f4;
-            --accent-hover: #1a73e8;
-            --border: rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+        
+        body { 
+            margin: 0; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg); 
+            color: white; 
+            padding-bottom: 90px;
             overflow-x: hidden;
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .quantum-field {
@@ -62,7 +34,7 @@
             top: 0;
             left: 0;
             z-index: -2;
-            background: linear-gradient(45deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary), var(--bg-secondary));
+            background: linear-gradient(45deg, var(--bg), var(--card), var(--bg), var(--card));
             background-size: 400% 400%;
             animation: quantumShift 15s ease infinite;
         }
@@ -100,38 +72,238 @@
             100% { transform: translateY(-100%) rotate(360deg); }
         }
 
-        .plasma-orb {
-            position: fixed;
-            width: 300px;
-            height: 300px;
+        .top-bar { 
+            padding: 25px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        
+        .user-info h2 { 
+            margin: 0; 
+            font-size: 18px; 
+            font-weight: 800; 
+        }
+        
+        .notif-btn { 
+            position: relative; 
+            width: 45px; 
+            height: 45px; 
+            background: var(--card); 
+            border-radius: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            color: white; 
+            border: 1px solid rgba(255,255,255,0.05); 
+        }
+        
+        #notifDot { 
+            position: absolute; 
+            top: 12px; 
+            right: 12px; 
+            width: 9px; 
+            height: 9px; 
+            background: #ff4757; 
+            border-radius: 50%; 
+            border: 2px solid var(--bg); 
+            display: none; 
+        }
+
+        .firebase-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.4), transparent, rgba(118, 75, 162, 0.4));
-            filter: blur(60px);
-            animation: plasmaFloat 20s infinite ease-in-out;
-            z-index: -1;
+            background-color: var(--error);
         }
 
-        .plasma-orb:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            animation-delay: -5s;
-            left: auto;
-            right: 10%;
+        .status-dot.online {
+            background-color: var(--success);
         }
 
-        .plasma-orb:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            animation-delay: -10s;
-            top: auto;
-            bottom: 20%;
+        .welcome-card { 
+            margin: 0 5% 25px; 
+            padding: 25px; 
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%); 
+            border-radius: 28px; 
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2); 
+        }
+        
+        .welcome-card h1 { 
+            margin: 8px 0 20px; 
+            font-size: 28px; 
+            font-weight: 800; 
         }
 
-        @keyframes plasmaFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(100px, -50px) scale(1.2); }
-            50% { transform: translate(-50px, 100px) scale(0.8); }
-            75% { transform: translate(-100px, -30px) scale(1.1); }
+        .section-label { 
+            padding: 0 6%; 
+            font-size: 12px; 
+            font-weight: 800; 
+            margin: 25px 0 15px; 
+            color: var(--primary); 
+            letter-spacing: 1px; 
+            display: flex; 
+            justify-content: space-between; 
+        }
+        
+        .menu-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            padding: 0 5%; 
+        }
+        
+        .menu-item { 
+            background: var(--card); 
+            padding: 20px 10px; 
+            border-radius: 22px; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            text-decoration: none; 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .menu-item i { 
+            font-size: 24px; 
+            color: var(--primary); 
+            margin-bottom: 10px; 
+        }
+        
+        .menu-item span { 
+            font-size: 13px; 
+            font-weight: 700; 
+        }
+
+        .ads-section {
+            margin: 25px 5%;
+            padding: 20px;
+            background: var(--card);
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .ads-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .ads-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .ad-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .ad-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .ad-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .ad-info {
+            flex: 1;
+        }
+
+        .ad-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .ad-desc {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .ad-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 10px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-bar { 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            background: rgba(21, 28, 44, 0.98); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0 25px; 
+            backdrop-filter: blur(20px); 
+            border-top: 1px solid rgba(255,255,255,0.05); 
+            z-index: 9999;
+        }
+        
+        .nav-item { 
+            text-decoration: none; 
+            color: #94a3b8; 
+            text-align: center; 
+            flex: 1; 
+            transition: 0.3s;
+        }
+        
+        .nav-item.active { 
+            color: #4a8d88; 
+        }
+        
+        .nav-item i { 
+            font-size: 20px; 
+            display: block; 
+            margin-bottom: 4px; 
+        }
+        
+        .nav-item span { 
+            font-size: 10px; 
+            font-weight: 800; 
+            display: block;
+            text-transform: uppercase;
         }
 
         .login-container {
@@ -154,15 +326,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-primary);
+            background: var(--bg);
         }
 
         .login-card {
-            background: var(--bg-card);
+            background: var(--card);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 40px;
             width: 100%;
             max-width: 420px;
@@ -188,7 +360,7 @@
             font-size: 32px;
             font-weight: 800;
             margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            background: linear-gradient(45deg, var(--accent), var(--accent-hover));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -196,7 +368,7 @@
 
         .login-subtitle {
             font-size: 16px;
-            color: var(--text-secondary);
+            color: var(--text-dim);
             font-weight: 400;
         }
 
@@ -207,10 +379,10 @@
             gap: 12px;
             width: 100%;
             padding: 14px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
+            background: var(--bg);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
-            color: var(--text-primary);
+            color: white;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
@@ -219,7 +391,7 @@
         }
 
         .google-login-btn:hover {
-            background: var(--bg-card-hover);
+            background: rgba(255,255,255,0.1);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
@@ -243,8 +415,8 @@
             align-items: center;
             gap: 15px;
             padding: 15px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
             margin-bottom: 10px;
             cursor: pointer;
@@ -252,7 +424,7 @@
         }
 
         .account-item:hover {
-            background: var(--bg-card-hover);
+            background: rgba(255,255,255,0.1);
             transform: translateY(-2px);
         }
 
@@ -260,7 +432,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -279,1116 +451,119 @@
 
         .account-email {
             font-size: 14px;
-            color: var(--text-muted);
+            color: var(--text-dim);
         }
 
-        .app-container {
-            opacity: 0;
-            transform: scale(0.9);
-            pointer-events: none;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        .profile-container {
+            display: none;
+            padding: 20px;
         }
 
-        .app-container.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: all;
+        .profile-container.active {
+            display: block;
         }
 
-        .app-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-primary);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .app-title {
-            font-size: 22px;
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            background: var(--bg-card-hover);
-            transform: rotate(180deg);
-        }
-
-        .user-menu {
-            position: relative;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .user-avatar:hover {
-            transform: scale(1.1);
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            width: 200px;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(-10px);
-            pointer-events: none;
-            transition: all 0.3s ease;
-            z-index: 101;
-            margin-top: 10px;
-        }
-
-        .user-dropdown.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-
-        .user-dropdown-item {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .user-dropdown-item:hover {
-            background: var(--bg-card);
-        }
-
-        .user-dropdown-item i {
-            width: 20px;
+        .profile-header {
             text-align: center;
+            margin-bottom: 25px;
         }
 
-        .app-content {
-            flex: 1;
-            padding: 80px 20px 80px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .profile-avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+        }
+
+        .profile-avatar {
             width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
         }
 
-        .bottom-nav {
-            position: fixed;
+        .avatar-upload {
+            position: absolute;
             bottom: 0;
-            left: 0;
             right: 0;
-            background: var(--bg-primary);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border);
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 50%;
             display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            border: 2px solid var(--card);
         }
 
-        .nav-item {
+        .profile-form {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            padding: 10px 20px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .nav-item.active {
-            color: var(--accent);
-        }
-
-        .nav-item.active::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px;
-        }
-
-        .nav-item i {
-            font-size: 20px;
-        }
-
-        .nav-item span {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .content-section {
-            display: none;
-        }
-
-        .content-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dashboard-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .dashboard-header {
-            display: flex;
-            align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .dashboard-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 800;
-            color: white;
-        }
-
-        .dashboard-welcome {
-            flex: 1;
-        }
-
-        .dashboard-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 5px;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .dashboard-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-
-        .dashboard-content {
-            margin-top: 20px;
-        }
-
-        .dashboard-message {
-            font-size: 16px;
-            line-height: 1.6;
-            color: var(--text-primary);
-            margin-bottom: 25px;
-        }
-
-        .dashboard-welcome-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 25px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .dashboard-welcome-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .welcome-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            margin: 0 auto 20px;
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .welcome-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .welcome-description {
-            font-size: 16px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 25px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .welcome-features {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .welcome-feature {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .welcome-feature i {
-            color: var(--accent);
-        }
-
-        .features-section {
-            margin-top: 20px;
-        }
-
-        .features-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-title i {
-            color: var(--accent);
-        }
-
-        .portal-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .portal-item {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            padding: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portal-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            background: var(--bg-card-hover);
-        }
-
-        .portal-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .portal-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .portal-description {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* Share Section Styles */
-        .share-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .share-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .share-title {
-            font-size: 24px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .share-title i {
-            color: var(--accent);
-        }
-
-        .upload-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-
-        .upload-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .upload-form {
-            display: none;
-            background: var(--bg-primary);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .upload-form.active {
-            display: block;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .form-label {
-            display: block;
-            margin-bottom: 8px;
+            font-size: 14px;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--text-dim);
         }
 
         .form-input {
-            width: 100%;
             padding: 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
-            color: var(--text-primary);
+            color: white;
             font-size: 16px;
             transition: all 0.3s ease;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 141, 136, 0.1);
         }
 
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .file-list {
-            margin-top: 25px;
-        }
-
-        .file-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .file-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .file-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-
-        .file-info {
-            flex: 1;
-        }
-
-        .file-name {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        .file-meta {
-            display: flex;
-            gap: 15px;
-            font-size: 14px;
-            color: var(--text-muted);
-            flex-wrap: wrap;
-        }
-
-        .file-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .file-description {
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .file-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--accent);
+        .save-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-hover));
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
-        .delete-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: #dc3545;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
             border: none;
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-            transform: translateY(-2px);
-        }
-
-        .file-type-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-        }
-
-        .file-type-apk {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-
-        .file-type-html {
-            background: linear-gradient(135deg, #FF5722, #f44336);
-        }
-
-        .file-type-zip {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
-        }
-
-        .file-type-default {
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-        }
-
-        .stats-container {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            flex: 1;
-            min-width: 150px;
-            background: var(--bg-primary);
-            padding: 15px;
             border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        /* Weather Card Styles */
-        .weather-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .weather-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .weather-title {
-            font-size: 22px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .weather-title i {
-            color: var(--accent);
-        }
-
-        .weather-location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
             font-size: 16px;
-        }
-
-        .weather-location i {
-            color: var(--accent);
-        }
-
-        .weather-current {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .weather-main {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .weather-icon {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: var(--accent);
-        }
-
-        .weather-temp {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .weather-temp span:first-child {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .weather-temp span:last-child {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-
-        .weather-details {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .weather-detail {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-        }
-
-        .weather-detail i {
-            color: var(--accent);
-            width: 20px;
-        }
-
-        .weather-live {
-            margin-bottom: 25px;
-        }
-
-        .live-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .live-container {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .live-container img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .live-controls {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .live-btn {
-            padding: 8px 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .live-btn:hover {
-            background: rgba(0, 0, 0, 0.9);
-        }
-
-        .live-controls select {
-            padding: 8px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .weather-forecast h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .forecast-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-        }
-
-        .forecast-item {
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .forecast-day {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .forecast-icon {
-            font-size: 24px;
-            margin-bottom: 5px;
-            color: var(--accent);
-        }
-
-        .forecast-temp {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        /* Events Card Styles */
-        .events-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .events-header {
-            margin-bottom: 20px;
-        }
-
-        .events-title {
-            font-size: 22px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .events-title i {
-            color: var(--accent);
-        }
-
-        .events-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .event-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .event-item:hover {
-            transform: translateX(5px);
-        }
-
-        .event-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .event-icon.religious {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-        }
-
-        .event-icon.national {
-            background: linear-gradient(135deg, #FF5722, #f44336);
-            color: white;
-        }
-
-        .event-icon.international {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-            color: white;
-        }
-
-        .event-info {
-            flex: 1;
-        }
-
-        .event-name {
-            font-weight: 700;
-            margin-bottom: 3px;
-            color: var(--text-primary);
-        }
-
-        .event-date {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Prayer Card Styles */
-        .prayer-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .prayer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .prayer-title {
-            font-size: 22px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .prayer-title i {
-            color: var(--accent);
-        }
-
-        .prayer-location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        .prayer-location i {
-            color: var(--accent);
-        }
-
-        .prayer-times-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .prayer-time-item {
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .prayer-time-item.active {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            border: 1px solid var(--accent);
-            transform: scale(1.05);
-        }
-
-        .prayer-name {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .prayer-time {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .prayer-time-item.active .prayer-time {
-            color: var(--accent);
-        }
-
-        .prayer-alert {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            border-radius: 12px;
-            margin-top: 15px;
-            border: 1px solid var(--accent);
-        }
-
-        .prayer-alert.active {
-            display: flex;
-        }
-
-        .prayer-alert i {
-            font-size: 20px;
-            color: var(--accent);
-        }
-
-        .prayer-alert-text {
             font-weight: 600;
-            font-size: 16px;
-        }
-
-        .countdown {
-            margin-top: 5px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .social-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .social-title i {
-            color: var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-link {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            color: var(--text-primary);
-            text-decoration: none;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .social-link:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-3px);
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 141, 136, 0.3);
         }
 
-        .social-link.telegram {
-            border-left: 3px solid #0088cc;
+        .logout-btn {
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .social-link.tiktok {
-            border-left: 3px solid #ff0050;
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         .notification {
@@ -1420,80 +595,22 @@
         }
 
         .notification.warning {
-            background: var(--warning);
-            color: var(--bg-primary);
+            background: #ffd43b;
+            color: var(--bg);
         }
 
         @media (max-width: 768px) {
-            .weather-current {
+            .ads-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .forecast-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .welcome-features {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .prayer-times-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .social-links {
-                flex-direction: column;
-            }
-
-            .portal-list {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .dashboard-avatar {
-                margin-bottom: 15px;
-            }
-
-            .share-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .file-header {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .file-actions {
-                flex-wrap: wrap;
-            }
-
-            .notification {
-                right: 10px;
-                left: 10px;
-                transform: translateY(-100px);
-            }
-
-            .notification.show {
-                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-
     <div class="quantum-field"></div>
     <div class="aurora-layer"></div>
     <div class="aurora-layer"></div>
     <div class="aurora-layer"></div>
-    <div class="plasma-orb" style="top: 20%; left: 10%;"></div>
-    <div class="plasma-orb"></div>
-    <div class="plasma-orb"></div>
 
     <div class="login-container" id="login-container">
         <div class="login-card">
@@ -1523,7 +640,7 @@
                     </div>
                 </div>
                 <div class="account-item" id="add-account">
-                    <div class="account-avatar" style="background: var(--bg-primary); color: var(--text-primary);">
+                    <div class="account-avatar" style="background: var(--bg); color: white;">
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="account-info">
@@ -1534,496 +651,312 @@
         </div>
     </div>
 
-    <div class="app-container" id="app-container">
-        <header class="app-header">
-            <h1 class="app-title">GusOfcXD 404</h1>
-            <div class="header-actions">
-                <button class="theme-toggle" id="theme-toggle">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </button>
-                <div class="user-menu">
-                    <div class="user-avatar" id="user-avatar">U</div>
-                    <div class="user-dropdown" id="user-dropdown">
-                        <a href="#" class="user-dropdown-item" id="logout-item">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Keluar</span>
-                        </a>
-                    </div>
-                </div>
+    <div id="app-container" style="display: none;">
+        <div class="top-bar">
+            <div class="user-info">
+                <p style="margin:0; font-size:12px; color:var(--text-dim);">Halo,</p>
+                <h2 id="userName">Memuat...</h2>
             </div>
-        </header>
-
-        <main class="app-content">
-            <div class="content-section active" id="home-section">
-                <div class="dashboard-card">
-                    <div class="dashboard-header">
-                        <div class="dashboard-avatar" id="dashboard-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="dashboard-welcome">
-                            <h2 class="dashboard-title">Dashboard</h2>
-                            <p class="dashboard-subtitle" id="welcome-message">Selamat datang di website GusOfcXD 404</p>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-content">
-                        <p class="dashboard-message">Hi <span id="user-email"></span> selamat datang di website GusOfcXD 404, apa yang dapat kami bantu?</p>
-                        
-                        <div class="dashboard-welcome-card">
-                            <div class="welcome-icon">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <h3 class="welcome-title">Jelajahi Dunia Digital</h3>
-                            <p class="welcome-description">
-                                Temukan berbagai fitur menarik dan tools canggih yang kami sediakan untuk memudahkan aktivitas digital Anda. Dari pelacakan IP hingga pembuatan website, semuanya ada di sini.
-                            </p>
-                            <div class="welcome-features">
-                                <div class="welcome-feature">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>Cepat & Mudah</span>
-                                </div>
-                                <div class="welcome-feature">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Aman & Terpercaya</span>
-                                </div>
-                                <div class="welcome-feature">
-                                    <i class="fas fa-star"></i>
-                                    <span>Fitur Lengkap</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="firebase-status">
+                    <div class="status-dot" id="firebase-status"></div>
+                    <span id="firebase-text">Offline</span>
                 </div>
+                <a href="#" class="notif-btn" id="notif-btn">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="notifDot"></span>
+                </a>
             </div>
+        </div>
 
-            <div class="content-section" id="features-section">
-                <h2 class="features-title">
-                    <i class="fas fa-th-large"></i>
-                    Fitur
-                </h2>
-                
-                <div class="portal-list">
-                    <div class="portal-item" onclick="window.open('trackip.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-globe-americas"></i>
-                        </div>
-                        <h3 class="portal-title">Track IP</h3>
-                        <p class="portal-description">Melacak informasi lokasi berdasarkan alamat IP dengan akurasi tinggi</p>
-                    </div>
+        <div class="welcome-card">
+            <small>SELAMAT DATANG</small>
+            <h1 id="welcomeMessage">GusOfcXD 404</h1>
+            <p style="margin: 0; opacity: 0.9;">Jelajahi berbagai fitur menarik dan tools canggih yang kami sediakan untuk memudahkan aktivitas digital Anda.</p>
+        </div>
 
-                    <div class="portal-item" onclick="window.open('ipqt.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3 class="portal-title">IQC</h3>
-                        <p class="portal-description">Informasi lengkap dan detail tentang perangkat iPhone</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('device-your-information.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-info-circle"></i>
-                        </div>
-                        <h3 class="portal-title">Device Info</h3>
-                        <p class="portal-description">Menampilkan informasi detail tentang perangkat yang sedang digunakan</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('delrepostori.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-trash-alt"></i>
-                        </div>
-                        <h3 class="portal-title">Del Repository</h3>
-                        <p class="portal-description">Akses langsung ke repositori GitHub untuk pengembangan</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('https://xavai.vercel.app/', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3 class="portal-title">XavAi</h3>
-                        <p class="portal-description">Bot AI canggih untuk berbagai kebutuhan digital Anda</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('create-website.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3 class="portal-title">Create Website</h3>
-                        <p class="portal-description">Buat website dengan mudah dan cepat menggunakan template yang tersedia</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-section" id="share-section">
-                <div class="share-card">
-                    <div class="share-header">
-                        <h2 class="share-title">
-                            <i class="fas fa-share-alt"></i>
-                            Share Files
-                        </h2>
-                        <button class="upload-btn" id="upload-toggle">
-                            <i class="fas fa-upload"></i>
-                            <span>Upload File</span>
-                        </button>
-                    </div>
-                    
-                    <div class="stats-container">
-                        <div class="stat-item">
-                            <div class="stat-number" id="total-files">0</div>
-                            <div class="stat-label">Total Files</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="total-downloads">0</div>
-                            <div class="stat-label">Downloads</div>
-                        </div>
-                    </div>
-                    
-                    <div class="upload-form" id="upload-form">
-                        <div class="form-group">
-                            <label class="form-label">URL File (Mediafire, Google Drive, etc)</label>
-                            <input type="url" class="form-input" id="file-url-input" placeholder="https://mediafire.com/file/..." required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Nama File (Hanya APK & HTML)</label>
-                            <input type="text" class="form-input" id="file-name-input" placeholder="nama.apk atau nama.html" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Deskripsi</label>
-                            <textarea class="form-input form-textarea" id="file-description-input" placeholder="Masukkan deskripsi file" required></textarea>
-                        </div>
-                        
-                        <button class="upload-btn" id="submit-upload">
-                            <i class="fas fa-check"></i>
-                            <span>Submit</span>
-                        </button>
-                    </div>
-                    
-                    <div class="file-list" id="file-list">
-                        <!-- Files will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-section" id="create-section">
-                <div class="portal-list">
-                    <div class="portal-item" onclick="window.open('create-website.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3 class="portal-title">Create Website</h3>
-                        <p class="portal-description">Buat website dengan mudah dan cepat menggunakan template yang tersedia</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-section" id="prayer-section">
-                <!-- Weather Card -->
-                <div class="weather-card">
-                    <div class="weather-header">
-                        <h2 class="weather-title">
-                            <i class="fas fa-cloud-sun"></i>
-                            Cuaca BMKG
-                        </h2>
-                        <div class="weather-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Makassar</span>
-                        </div>
-                    </div>
-                    
-                    <div class="weather-current">
-                        <div class="weather-main">
-                            <div class="weather-icon">
-                                <i class="fas fa-sun"></i>
-                            </div>
-                            <div class="weather-temp">
-                                <span id="weather-temp">28°C</span>
-                                <span id="weather-desc">Cerah Berawan</span>
-                            </div>
-                        </div>
-                        <div class="weather-details">
-                            <div class="weather-detail">
-                                <i class="fas fa-wind"></i>
-                                <span>Angin: <span id="wind-speed">15 km/j</span></span>
-                            </div>
-                            <div class="weather-detail">
-                                <i class="fas fa-tint"></i>
-                                <span>Kelembaban: <span id="humidity">75%</span></span>
-                            </div>
-                            <div class="weather-detail">
-                                <i class="fas fa-eye"></i>
-                                <span>Visibilitas: <span id="visibility">10 km</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="weather-live">
-                        <h3 class="live-title">Live Cuaca Satelit</h3>
-                        <div class="live-container">
-                            <img id="satellite-img" src="https://satelit.bmkg.go.id/GMS_20231215033000.png" alt="Satellite">
-                            <div class="live-controls">
-                                <button class="live-btn" onclick="refreshWeather()">
-                                    <i class="fas fa-sync-alt"></i> Refresh
-                                </button>
-                                <select id="region-select" onchange="changeRegion()">
-                                    <option value="makassar">Makassar</option>
-                                    <option value="jakarta">Jakarta</option>
-                                    <option value="surabaya">Surabaya</option>
-                                    <option value="medan">Medan</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="weather-forecast">
-                        <h3>Prakiraan 7 Hari</h3>
-                        <div class="forecast-grid" id="forecast-grid">
-                            <!-- Forecast items will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Events Calendar -->
-                <div class="events-card">
-                    <div class="events-header">
-                        <h2 class="events-title">
-                            <i class="fas fa-calendar-alt"></i>
-                            Kalender Hari Besar 2025
-                        </h2>
-                    </div>
-                    
-                    <div class="events-list" id="events-list">
-                        <!-- Events will be loaded here -->
-                    </div>
-                </div>
-
-                <!-- Prayer Times -->
-                <div class="prayer-card">
-                    <div class="prayer-header">
-                        <h2 class="prayer-title">
-                            <i class="fas fa-clock"></i>
-                            Waktu Sholat
-                        </h2>
-                        <div class="prayer-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Makassar</span>
-                        </div>
-                    </div>
-                    
-                    <div class="prayer-times-grid">
-                        <div class="prayer-time-item" id="subuh-time">
-                            <div class="prayer-name">Subuh</div>
-                            <div class="prayer-time">04:45</div>
-                        </div>
-                        <div class="prayer-time-item" id="dzuhur-time">
-                            <div class="prayer-name">Dzuhur</div>
-                            <div class="prayer-time">12:15</div>
-                        </div>
-                        <div class="prayer-time-item" id="ashar-time">
-                            <div class="prayer-name">Ashar</div>
-                            <div class="prayer-time">15:30</div>
-                        </div>
-                        <div class="prayer-time-item" id="maghrib-time">
-                            <div class="prayer-name">Maghrib</div>
-                            <div class="prayer-time">18:15</div>
-                        </div>
-                        <div class="prayer-time-item" id="isya-time">
-                            <div class="prayer-name">Isya</div>
-                            <div class="prayer-time">19:30</div>
-                        </div>
-                    </div>
-                    
-                    <div class="prayer-alert" id="prayer-alert">
-                        <i class="fas fa-bell"></i>
-                        <div>
-                            <div class="prayer-alert-text" id="prayer-alert-text">Waktu Sholat telah tiba!</div>
-                            <div class="countdown" id="countdown">00:00:00</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Social Card -->
-                <div class="social-card">
-                    <h2 class="social-title">
-                        <i class="fas fa-share-alt"></i>
-                        Media Sosial
-                    </h2>
-                    
-                    <div class="social-links">
-                        <a href="https://t.me/goofc404" target="_blank" class="social-link telegram">
-                            <i class="fab fa-telegram-plane"></i>
-                            <span>@goofc404</span>
-                        </a>
-                        <a href="https://www.tiktok.com/@gusofcxd.4.0.4" target="_blank" class="social-link tiktok">
-                            <i class="fab fa-tiktok"></i>
-                            <span>gusofcxd.4.0.4</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <nav class="bottom-nav">
-            <a class="nav-item active" data-section="home-section">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </a>
-            <a class="nav-item" data-section="features-section">
-                <i class="fas fa-th-large"></i>
+        <p class="section-label">MENU & FITUR</p>
+        <div class="menu-grid">
+            <a href="#" class="menu-item" onclick="showSection('features')">
+                <i class="fa-solid fa-layer-group"></i>
                 <span>Fitur</span>
             </a>
-            <a class="nav-item" data-section="share-section">
-                <i class="fas fa-share-alt"></i>
+
+            <a href="#" class="menu-item" onclick="showSection('share')">
+                <i class="fa-solid fa-share-alt"></i>
                 <span>Share</span>
             </a>
-            <a class="nav-item" data-section="create-section">
-                <i class="fas fa-code"></i>
+
+            <a href="#" class="menu-item" onclick="showSection('create')">
+                <i class="fa-solid fa-code"></i>
                 <span>Create</span>
             </a>
-            <a class="nav-item" data-section="prayer-section">
-                <i class="fas fa-clock"></i>
+
+            <a href="#" class="menu-item" onclick="showSection('schedule')">
+                <i class="fa-solid fa-clock"></i>
                 <span>Jadwal</span>
             </a>
-        </nav>
+
+            <a href="#" class="menu-item" onclick="showSection('ads')">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Pasang Iklan</span>
+            </a>
+
+            <a href="#" class="menu-item" onclick="showSection('profile')">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>Pengaturan</span>
+            </a>
+        </div>
+
+        <div class="ads-section" id="ads-section" style="display: none;">
+            <div class="ads-header">
+                <h3 class="ads-title">IKLAN TERBARU</h3>
+                <button class="save-btn" onclick="showAddAdForm()">
+                    <i class="fas fa-plus"></i> Tambah Iklan
+                </button>
+            </div>
+            <div class="ads-grid" id="ads-grid">
+                <!-- Ads will be loaded here -->
+            </div>
+        </div>
+
+        <div class="profile-container" id="profile-section" style="display: none;">
+            <div class="profile-header">
+                <div class="profile-avatar-container">
+                    <img id="profile-avatar" src="https://via.placeholder.com/100" alt="Profile" class="profile-avatar">
+                    <div class="avatar-upload" onclick="document.getElementById('avatar-input').click()">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="avatar-input" accept="image/*" style="display: none;" onchange="updateAvatar(this)">
+                </div>
+                <h2 id="profile-name">Nama Pengguna</h2>
+                <p id="profile-email">email@example.com</p>
+            </div>
+            <form class="profile-form" onsubmit="saveProfile(event)">
+                <div class="form-group">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-input" id="profile-name-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="profile-email-input" required>
+                </div>
+                <button type="submit" class="save-btn">Simpan Perubahan</button>
+                <button type="button" class="logout-btn" onclick="logout()">Keluar</button>
+            </form>
+        </div>
+
+        <div id="features-section" style="display: none; padding: 0 5%;">
+            <h2 class="section-label">FITUR</h2>
+            <div class="menu-grid">
+                <div class="menu-item" onclick="window.open('trackip.html', '_blank')">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Track IP</span>
+                </div>
+
+                <div class="menu-item" onclick="window.open('ipqt.html', '_blank')">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>IQC</span>
+                </div>
+
+                <div class="menu-item" onclick="window.open('device-your-information.html', '_blank')">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Device Info</span>
+                </div>
+
+                <div class="menu-item" onclick="window.open('delrepostori.html', '_blank')">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Del Repository</span>
+                </div>
+
+                <div class="menu-item" onclick="window.open('https://xavai.vercel.app/', '_blank')">
+                    <i class="fas fa-robot"></i>
+                    <span>XavAi</span>
+                </div>
+
+                <div class="menu-item" onclick="window.open('create-website.html', '_blank')">
+                    <i class="fas fa-code"></i>
+                    <span>Create Website</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="share-section" style="display: none; padding: 0 5%;">
+            <h2 class="section-label">SHARE FILES</h2>
+            <div class="ads-section">
+                <div class="ads-header">
+                    <h3 class="ads-title">UPLOAD FILE</h3>
+                    <button class="save-btn" onclick="toggleUploadForm()">
+                        <i class="fas fa-upload"></i> Upload
+                    </button>
+                </div>
+                <div id="upload-form" style="display: none; margin-top: 15px;">
+                    <div class="form-group">
+                        <label class="form-label">URL File</label>
+                        <input type="url" class="form-input" id="file-url" placeholder="https://mediafire.com/file/...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nama File</label>
+                        <input type="text" class="form-input" id="file-name" placeholder="nama.apk atau nama.html">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea class="form-input" id="file-description" placeholder="Masukkan deskripsi file" rows="3"></textarea>
+                    </div>
+                    <button class="save-btn" onclick="uploadFile()">Upload</button>
+                </div>
+            </div>
+            <div class="ads-grid" id="file-list">
+                <!-- Files will be loaded here -->
+            </div>
+        </div>
+
+        <div id="create-section" style="display: none; padding: 0 5%;">
+            <h2 class="section-label">CREATE WEBSITE</h2>
+            <div class="ads-section">
+                <p style="margin: 0; color: var(--text-dim);">Buat website dengan mudah dan cepat menggunakan template yang tersedia.</p>
+                <div style="margin-top: 15px;">
+                    <a href="create-website.html" target="_blank" class="save-btn" style="text-decoration: none; display: inline-block;">
+                        <i class="fas fa-rocket"></i> Buat Website Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="schedule-section" style="display: none; padding: 0 5%;">
+            <h2 class="section-label">JADWAL</h2>
+            <div class="ads-section">
+                <div class="ads-header">
+                    <h3 class="ads-title">WAKTU SHOLAT</h3>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i>
+                        <span>Makassar</span>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 12px; color: var(--text-dim);">Subuh</div>
+                        <div style="font-size: 16px; font-weight: 700;">04:45</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 12px; color: var(--text-dim);">Dzuhur</div>
+                        <div style="font-size: 16px; font-weight: 700;">12:15</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 12px; color: var(--text-dim);">Ashar</div>
+                        <div style="font-size: 16px; font-weight: 700;">15:30</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 12px; color: var(--text-dim);">Maghrib</div>
+                        <div style="font-size: 16px; font-weight: 700;">18:15</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 12px; color: var(--text-dim);">Isya</div>
+                        <div style="font-size: 16px; font-weight: 700;">19:30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <nav class="nav-bar">
+        <a href="#" class="nav-item active" onclick="showSection('home')">
+            <i class="fa-solid fa-house"></i>
+            <span>HOME</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('features')">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>FEATURES</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('ads')">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>IKLAN</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('profile')">
+            <i class="fa-solid fa-circle-user"></i>
+            <span>PROFILE</span>
+        </a>
+    </nav>
 
     <div class="notification" id="notification"></div>
 
-    <script>
-        // File Storage using localStorage
-        class FileStorage {
-            constructor() {
-                this.files = this.loadFiles();
-            }
+    <!-- Firebase Configuration -->
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-            loadFiles() {
-                const stored = localStorage.getItem('sharedFiles');
-                if (stored) {
-                    return JSON.parse(stored);
-                }
-                
-                // Default files
-                const defaultFiles = [
-                    {
-                        id: '1',
-                        name: 'APK Cek Banned WhatsApp',
-                        url: 'https://www.mediafire.com/file/pj2p9u4akt4f6jg/PrasszTzy_CekBand.apk/file',
-                        description: 'Aplikasi untuk mengecek status banned akun WhatsApp Anda dengan mudah dan cepat.',
-                        type: 'apk',
-                        date: '2025',
-                        downloads: 0,
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '2',
-                        name: 'Minecraft Mojang Gratis',
-                        url: 'https://www.mediafire.com/file/cmj2wu5epw5uh0s/minecraft-apk-latest-version-november-2025.apk/file',
-                        description: 'Minecraft versi gratis dari Mojang dengan semua fitur premium terbuka. Mainkan tanpa batas!',
-                        type: 'apk',
-                        date: 'November 2025',
-                        downloads: 0,
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '3',
-                        name: 'Nekopoi untuk Wibu',
-                        url: 'https://www.mediafire.com/file/vtmkstxz7cczqm2/Nekopoi_2.5.3_nekopoisapk.com.apk/file',
-                        description: 'Aplikasi khusus untuk wibu dengan koleksi anime terlengkap dan update setiap hari.',
-                        type: 'apk',
-                        date: 'v2.5.3',
-                        downloads: 0,
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '4',
-                        name: 'HTML Cek Informasi Handphone',
-                        url: 'https://www.mediafire.com/file/5zhy3fajkn61lb3/cek_info_ip_addres.html/file',
-                        description: 'Tool HTML untuk mengecek informasi lengkap handphone Anda termasuk IP, lokasi, dan spesifikasi device.',
-                        type: 'html',
-                        date: '2025',
-                        downloads: 0,
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '5',
-                        name: 'HTML Payment Manual',
-                        url: 'https://www.mediafire.com/file/458rtbs9087kv2e/html_payment.html/file',
-                        description: 'Template HTML untuk sistem payment manual yang bisa digunakan untuk berbagai keperluan transaksi online.',
-                        type: 'html',
-                        date: '2025',
-                        downloads: 0,
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '6',
-                        name: 'HTML Prank Teman',
-                        url: 'https://www.mediafire.com/file/806ej9vxwxlzjz4/html_prank_%2540gofcc404.html/file',
-                        description: 'HTML prank untuk menjahili teman-teman Anda dengan berbagai efek lucu dan mengejutkan.',
-                        type: 'html',
-                        date: '2025',
-                        downloads: 0,
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    }
-                ];
-                
-                this.saveFiles(defaultFiles);
-                return defaultFiles;
-            }
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBcTut8_8H5S2TiPJhhAOSXHx5i4EXZguA",
+            authDomain: "quicktask-web-eeb28.firebaseapp.com",
+            projectId: "quicktask-web-eeb28",
+            storageBucket: "quicktask-web-eeb28.firebasestorage.app",
+            messagingSenderId: "881107919238",
+            appId: "1:881107919238:web:3bfe5fe233fb29bb468c07",
+            measurementId: "G-D2EG9T833D"
+        };
 
-            saveFiles(files = this.files) {
-                localStorage.setItem('sharedFiles', JSON.stringify(files));
-                this.updateStats();
-            }
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
 
-            updateStats() {
-                const totalFiles = this.files.length;
-                const totalDownloads = this.files.reduce((total, file) => total + (file.downloads || 0), 0);
-                
-                document.getElementById('total-files').textContent = totalFiles;
-                document.getElementById('total-downloads').textContent = totalDownloads;
-            }
-
-            addFile(fileData) {
-                const newFile = {
-                    id: Date.now().toString(),
-                    ...fileData,
-                    downloads: 0,
-                    date: new Date().toLocaleDateString('id-ID'),
-                    uploader: localStorage.getItem('userName') || 'User',
-                    uploaderEmail: document.getElementById('user-email').textContent
-                };
-                
-                this.files.unshift(newFile);
-                this.saveFiles();
-                return newFile;
-            }
-
-            deleteFile(fileId) {
-                this.files = this.files.filter(file => file.id !== fileId);
-                this.saveFiles();
-            }
-
-            incrementDownload(fileId) {
-                const file = this.files.find(f => f.id === fileId);
-                if (file) {
-                    file.downloads = (file.downloads || 0) + 1;
-                    this.saveFiles();
-                }
+        // Update Firebase status
+        function updateFirebaseStatus(isOnline) {
+            const statusDot = document.getElementById('firebase-status');
+            const statusText = document.getElementById('firebase-text');
+            
+            if (isOnline) {
+                statusDot.classList.add('online');
+                statusText.textContent = 'Online';
+            } else {
+                statusDot.classList.remove('online');
+                statusText.textContent = 'Offline';
             }
         }
 
-        // Initialize file storage
-        const fileStorage = new FileStorage();
+        // Check Firebase connection
+        try {
+            // Try to access Firestore to check connection
+            const testConnection = async () => {
+                try {
+                    await getDoc(doc(db, "connection", "test"));
+                    updateFirebaseStatus(true);
+                } catch (error) {
+                    updateFirebaseStatus(false);
+                }
+            };
+            
+            testConnection();
+            
+            // Check connection periodically
+            setInterval(testConnection, 30000); // Check every 30 seconds
+        } catch (error) {
+            updateFirebaseStatus(false);
+        }
 
-        // Notification system
+        // DOM elements
+        const loginContainer = document.getElementById('login-container');
+        const appContainer = document.getElementById('app-container');
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const accountSelector = document.getElementById('account-selector');
+        const accountItems = document.querySelectorAll('.account-item');
+        const userName = document.getElementById('userName');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const profileName = document.getElementById('profile-name');
+        const profileEmail = document.getElementById('profile-email');
+        const profileNameInput = document.getElementById('profile-name-input');
+        const profileEmailInput = document.getElementById('profile-email-input');
+        const notification = document.getElementById('notification');
+        const adsGrid = document.getElementById('ads-grid');
+        const fileList = document.getElementById('file-list');
+
+        // Show notification
         function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
             notification.className = `notification ${type}`;
             notification.innerHTML = `
                 <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
@@ -2037,17 +970,6 @@
         }
 
         // Login functionality
-        const loginContainer = document.getElementById('login-container');
-        const appContainer = document.getElementById('app-container');
-        const googleLoginBtn = document.getElementById('google-login-btn');
-        const accountSelector = document.getElementById('account-selector');
-        const accountItems = document.querySelectorAll('.account-item');
-        const userEmail = document.getElementById('user-email');
-        const dashboardAvatar = document.getElementById('dashboard-avatar');
-        const userAvatar = document.getElementById('user-avatar');
-        const logoutItem = document.getElementById('logout-item');
-        const userDropdown = document.getElementById('user-dropdown');
-
         googleLoginBtn.addEventListener('click', () => {
             accountSelector.classList.add('active');
         });
@@ -2063,18 +985,11 @@
                     localStorage.setItem('userName', name);
                     
                     // Update UI
-                    userEmail.textContent = email;
-                    dashboardAvatar.textContent = name.charAt(0).toUpperCase();
-                    userAvatar.textContent = name.charAt(0).toUpperCase();
-                    
-                    // Load files
-                    loadFiles();
+                    updateUserUI(name, email);
                     
                     // Transition to app
                     loginContainer.classList.add('hidden');
-                    setTimeout(() => {
-                        appContainer.classList.add('active');
-                    }, 300);
+                    appContainer.style.display = 'block';
                 });
             } else {
                 item.addEventListener('click', () => {
@@ -2087,411 +1002,295 @@
                             localStorage.setItem('userName', newName);
                             
                             // Update UI
-                            userEmail.textContent = newEmail;
-                            dashboardAvatar.textContent = newName.charAt(0).toUpperCase();
-                            userAvatar.textContent = newName.charAt(0).toUpperCase();
-                            
-                            // Load files
-                            loadFiles();
+                            updateUserUI(newName, newEmail);
                             
                             // Transition to app
                             loginContainer.classList.add('hidden');
-                            setTimeout(() => {
-                                appContainer.classList.add('active');
-                            }, 300);
+                            appContainer.style.display = 'block';
                         }
                     }
                 });
             }
         });
 
-        userAvatar.addEventListener('click', () => {
-            userDropdown.classList.toggle('active');
-        });
+        // Update user UI
+        function updateUserUI(name, email) {
+            userName.textContent = name;
+            welcomeMessage.textContent = name;
+            profileName.textContent = name;
+            profileEmail.textContent = email;
+            profileNameInput.value = name;
+            profileEmailInput.value = email;
+        }
 
-        logoutItem.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Clear stored user data
-            localStorage.removeItem('userEmail');
-            localStorage.removeItem('userName');
-            
-            // Transition to login
-            appContainer.classList.remove('active');
-            setTimeout(() => {
-                loginContainer.classList.remove('hidden');
-                accountSelector.classList.remove('active');
-            }, 300);
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!userAvatar.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('active');
-            }
-        });
-
-        // Navigation functionality
-        const navItems = document.querySelectorAll('.nav-item');
-        const contentSections = document.querySelectorAll('.content-section');
-
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                const targetSection = item.dataset.section;
-                
-                // Update active nav item
-                navItems.forEach(navItem => navItem.classList.remove('active'));
-                item.classList.add('active');
-                
-                // Show corresponding content section
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                    if (section.id === targetSection) {
-                        section.classList.add('active');
-                    }
-                });
+        // Show section
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('[id$="-section"]').forEach(el => {
+                el.style.display = 'none';
             });
-        });
-
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const htmlElement = document.documentElement;
-
-        // Check for saved theme preference or default to dark mode
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        htmlElement.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.className = 'fas fa-moon';
+            // Show selected section
+            if (section === 'home') {
+                document.getElementById('ads-section').style.display = 'none';
+                document.getElementById('profile-section').style.display = 'none';
+                document.getElementById('features-section').style.display = 'none';
+                document.getElementById('share-section').style.display = 'none';
+                document.getElementById('create-section').style.display = 'none';
+                document.getElementById('schedule-section').style.display = 'none';
             } else {
-                themeIcon.className = 'fas fa-sun';
+                document.getElementById(`${section}-section`).style.display = 'block';
+            }
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (section === 'home') {
+                document.querySelector('.nav-item').classList.add('active');
+            } else if (section === 'features') {
+                document.querySelectorAll('.nav-item')[1].classList.add('active');
+            } else if (section === 'ads') {
+                document.querySelectorAll('.nav-item')[2].classList.add('active');
+            } else if (section === 'profile') {
+                document.querySelectorAll('.nav-item')[3].classList.add('active');
             }
         }
 
-        // Upload functionality
-        const uploadToggle = document.getElementById('upload-toggle');
-        const uploadForm = document.getElementById('upload-form');
-        const submitUpload = document.getElementById('submit-upload');
+        // Profile functions
+        function updateAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    document.getElementById('profile-avatar').src = e.target.result;
+                    showNotification('Foto profil berhasil diperbarui', 'success');
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-        uploadToggle.addEventListener('click', () => {
-            uploadForm.classList.toggle('active');
-        });
-
-        submitUpload.addEventListener('click', () => {
-            const fileUrl = document.getElementById('file-url-input').value.trim();
-            const fileName = document.getElementById('file-name-input').value.trim();
-            const fileDescription = document.getElementById('file-description-input').value.trim();
+        function saveProfile(event) {
+            event.preventDefault();
             
-            if (!fileUrl || !fileName || !fileDescription) {
+            const name = profileNameInput.value;
+            const email = profileEmailInput.value;
+            
+            // Update UI
+            updateUserUI(name, email);
+            
+            // Store user data
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+            
+            showNotification('Profil berhasil diperbarui', 'success');
+        }
+
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+                
+                // Transition to login
+                appContainer.style.display = 'none';
+                loginContainer.classList.remove('hidden');
+                accountSelector.classList.remove('active');
+            }
+        }
+
+        // Ads functions
+        function showAddAdForm() {
+            const title = prompt('Masukkan judul iklan:');
+            if (!title) return;
+            
+            const description = prompt('Masukkan deskripsi iklan:');
+            if (!description) return;
+            
+            const link = prompt('Masukkan link iklan:');
+            if (!link) return;
+            
+            const imageUrl = prompt('Masukkan URL gambar iklan (opsional):');
+            
+            // Add ad to list
+            addAdToList({
+                id: Date.now(),
+                title,
+                description,
+                link,
+                image: imageUrl || 'https://via.placeholder.com/60'
+            });
+            
+            showNotification('Iklan berhasil ditambahkan', 'success');
+        }
+
+        function addAdToList(ad) {
+            const adItem = document.createElement('div');
+            adItem.className = 'ad-item';
+            adItem.innerHTML = `
+                <img src="${ad.image}" alt="${ad.title}" class="ad-image">
+                <div class="ad-info">
+                    <div class="ad-title">${ad.title}</div>
+                    <div class="ad-desc">${ad.description}</div>
+                    <a href="${ad.link}" target="_blank" class="ad-link">Kunjungi</a>
+                </div>
+            `;
+            
+            adsGrid.insertBefore(adItem, adsGrid.firstChild);
+            
+            // Save to localStorage
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            ads.unshift(ad);
+            localStorage.setItem('ads', JSON.stringify(ads));
+        }
+
+        function loadAds() {
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            
+            // Add default ads if none exist
+            if (ads.length === 0) {
+                const defaultAds = [
+                    {
+                        id: 1,
+                        title: 'XavAi - Bot AI Canggih',
+                        description: 'Bot AI untuk berbagai kebutuhan digital Anda',
+                        link: 'https://xavai.vercel.app/',
+                        image: 'https://via.placeholder.com/60'
+                    },
+                    {
+                        id: 2,
+                        title: 'Create Website',
+                        description: 'Buat website dengan mudah dan cepat',
+                        link: 'create-website.html',
+                        image: 'https://via.placeholder.com/60'
+                    }
+                ];
+                
+                defaultAds.forEach(ad => addAdToList(ad));
+            } else {
+                ads.forEach(ad => addAdToList(ad));
+            }
+        }
+
+        // Share functions
+        function toggleUploadForm() {
+            const form = document.getElementById('upload-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function uploadFile() {
+            const url = document.getElementById('file-url').value.trim();
+            const name = document.getElementById('file-name').value.trim();
+            const description = document.getElementById('file-description').value.trim();
+            
+            if (!url || !name || !description) {
                 showNotification('Semua field harus diisi', 'error');
                 return;
             }
             
             // Check file extension
-            const fileExtension = fileName.split('.').pop().toLowerCase();
+            const fileExtension = name.split('.').pop().toLowerCase();
             if (fileExtension !== 'apk' && fileExtension !== 'html') {
                 showNotification('Hanya file APK dan HTML yang diperbolehkan', 'error');
                 return;
             }
             
-            submitUpload.disabled = true;
-            submitUpload.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengupload...</span>';
+            // Add file to list
+            const file = {
+                id: Date.now(),
+                name,
+                url,
+                description,
+                type: fileExtension,
+                date: new Date().toLocaleDateString('id-ID'),
+                downloads: 0,
+                uploader: localStorage.getItem('userName') || 'User'
+            };
             
-            setTimeout(() => {
-                const newFile = fileStorage.addFile({
-                    name: fileName,
-                    url: fileUrl,
-                    description: fileDescription,
-                    type: fileExtension
-                });
-                
-                addFileToList(newFile);
-                
-                // Reset form
-                document.getElementById('file-url-input').value = '';
-                document.getElementById('file-name-input').value = '';
-                document.getElementById('file-description-input').value = '';
-                uploadForm.classList.remove('active');
-                
-                submitUpload.disabled = false;
-                submitUpload.innerHTML = '<i class="fas fa-check"></i> <span>Submit</span>';
-                
-                // Show maintenance notification
-                showNotification('Maintenance akk*', 'warning');
-            }, 1000);
-        });
-
-        // File list functions
-        function loadFiles() {
-            const fileList = document.getElementById('file-list');
-            fileList.innerHTML = '';
+            addFileToList(file);
             
-            fileStorage.files.forEach(file => {
-                addFileToList(file);
-            });
+            // Reset form
+            document.getElementById('file-url').value = '';
+            document.getElementById('file-name').value = '';
+            document.getElementById('file-description').value = '';
+            toggleUploadForm();
+            
+            showNotification('File berhasil diupload', 'success');
         }
 
         function addFileToList(file) {
-            const fileList = document.getElementById('file-list');
             const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-            fileItem.dataset.fileId = file.id;
-            
-            const fileTypeClass = `file-type-${file.type}`;
-            const fileIcon = getFileIcon(file.type);
-            
+            fileItem.className = 'ad-item';
             fileItem.innerHTML = `
-                <div class="file-header">
-                    <div class="file-type-icon ${fileTypeClass}">
-                        <i class="${fileIcon}"></i>
-                    </div>
-                    <div class="file-info">
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-meta">
-                            <span><i class="fas fa-file"></i> ${file.type.toUpperCase()}</span>
-                            <span><i class="fas fa-calendar"></i> ${file.date}</span>
-                            <span><i class="fas fa-download"></i> ${file.downloads || 0}</span>
-                            <span><i class="fas fa-user"></i> ${file.uploader}</span>
-                        </div>
-                    </div>
+                <div class="task-icon" style="background: ${file.type === 'apk' ? 'linear-gradient(135deg, #4CAF50, #45a049)' : 'linear-gradient(135deg, #FF5722, #f44336)'};">
+                    <i class="${file.type === 'apk' ? 'fab fa-android' : 'fas fa-code'}"></i>
                 </div>
-                <div class="file-description">
-                    ${file.description}
-                </div>
-                <div class="file-actions">
-                    <a href="${file.url}" target="_blank" class="download-btn" onclick="trackDownload('${file.id}')">
-                        <i class="fas fa-download"></i>
-                        <span>Download</span>
-                    </a>
-                    ${file.uploaderEmail === document.getElementById('user-email').textContent ? `
-                        <button class="delete-btn" onclick="deleteFile('${file.id}')">
-                            <i class="fas fa-trash"></i>
-                            <span>Hapus</span>
-                        </button>
-                    ` : ''}
+                <div class="ad-info">
+                    <div class="ad-title">${file.name}</div>
+                    <div class="ad-desc">${file.description}</div>
+                    <div style="display: flex; gap: 10px; margin-top: 8px;">
+                        <span style="font-size: 11px; color: var(--text-dim);">${file.type.toUpperCase()}</span>
+                        <span style="font-size: 11px; color: var(--text-dim);">${file.date}</span>
+                        <span style="font-size: 11px; color: var(--text-dim);">${file.downloads} downloads</span>
+                    </div>
+                    <a href="${file.url}" target="_blank" class="ad-link" onclick="trackDownload(${file.id})">Download</a>
                 </div>
             `;
             
             fileList.insertBefore(fileItem, fileList.firstChild);
-        }
-
-        function getFileIcon(type) {
-            const icons = {
-                'apk': 'fab fa-android',
-                'html': 'fas fa-code',
-                'zip': 'fas fa-file-archive',
-                'default': 'fas fa-file'
-            };
-            return icons[type] || icons.default;
+            
+            // Save to localStorage
+            const files = JSON.parse(localStorage.getItem('files') || '[]');
+            files.unshift(file);
+            localStorage.setItem('files', JSON.stringify(files));
         }
 
         function trackDownload(fileId) {
-            fileStorage.incrementDownload(fileId);
-            loadFiles();
-        }
-
-        function deleteFile(fileId) {
-            if (!confirm('Apakah Anda yakin ingin menghapus file ini?')) {
-                return;
-            }
+            const files = JSON.parse(localStorage.getItem('files') || '[]');
+            const file = files.find(f => f.id === fileId);
             
-            fileStorage.deleteFile(fileId);
-            loadFiles();
-            showNotification('File berhasil dihapus', 'success');
-        }
-
-        // Weather Functions
-        function loadWeather() {
-            // Simulate weather data
-            const weatherData = {
-                temp: '28°C',
-                desc: 'Cerah Berawan',
-                wind: '15 km/j',
-                humidity: '75%',
-                visibility: '10 km'
-            };
-
-            document.getElementById('weather-temp').textContent = weatherData.temp;
-            document.getElementById('weather-desc').textContent = weatherData.desc;
-            document.getElementById('wind-speed').textContent = weatherData.wind;
-            document.getElementById('humidity').textContent = weatherData.humidity;
-            document.getElementById('visibility').textContent = weatherData.visibility;
-            
-            // Load satellite image (updated every 30 minutes)
-            const now = new Date();
-            const timeStr = now.getFullYear() + 
-                           String(now.getMonth() + 1).padStart(2, '0') + 
-                           String(now.getDate()).padStart(2, '0') + 
-                           String(now.getHours()).padStart(2, '0') + 
-                           String(Math.floor(now.getMinutes() / 30) * 30).padStart(2, '0') + '00';
-            
-            document.getElementById('satellite-img').src = `https://satelit.bmkg.go.id/GMS_${timeStr}.png`;
-            
-            // Load forecast
-            loadForecast();
-            
-            // Load events
-            loadEvents();
-        }
-
-        function loadForecast() {
-            const forecastData = [
-                { day: 'Senin', icon: 'fa-sun', temp: '30°C' },
-                { day: 'Selasa', icon: 'fa-cloud-sun', temp: '28°C' },
-                { day: 'Rabu', icon: 'fa-cloud', temp: '27°C' },
-                { day: 'Kamis', icon: 'fa-cloud-rain', temp: '25°C' },
-                { day: 'Jumat', icon: 'fa-sun', temp: '29°C' },
-                { day: 'Sabtu', icon: 'fa-cloud-sun', temp: '28°C' },
-                { day: 'Minggu', icon: 'fa-sun', temp: '31°C' }
-            ];
-            
-            const forecastGrid = document.getElementById('forecast-grid');
-            forecastGrid.innerHTML = '';
-            
-            forecastData.forEach(item => {
-                const forecastItem = document.createElement('div');
-                forecastItem.className = 'forecast-item';
-                forecastItem.innerHTML = `
-                    <div class="forecast-day">${item.day}</div>
-                    <div class="forecast-icon"><i class="fas ${item.icon}"></i></div>
-                    <div class="forecast-temp">${item.temp}</div>
-                `;
-                forecastGrid.appendChild(forecastItem);
-            });
-        }
-
-        function loadEvents() {
-            const eventsData = [
-                { name: 'Tahun Baru 2025', date: '1 Januari 2025', type: 'national', icon: 'fa-champagne-glasses' },
-                { name: 'Isra Miraj', date: '8 Februari 2025', type: 'religious', icon: 'fa-moon' },
-                { name: 'Natal', date: '25 Desember 2025', type: 'religious', icon: 'fa-christmas-tree' },
-                { name: 'Idul Fitri', date: '10 April 2025', type: 'religious', icon: 'fa-mosque' },
-                { name: 'Kemerdekaan RI', date: '17 Agustus 2025', type: 'national', icon: 'fa-flag' },
-                { name: 'Halloween', date: '31 Oktober 2025', type: 'international', icon: 'fa-ghost' },
-                { name: 'Tahun Baru Islam', date: '10 Juli 2025', type: 'religious', icon: 'fa-crescent' },
-                { name: 'Valentine Day', date: '14 Februari 2025', type: 'international', icon: 'fa-heart' }
-            ];
-            
-            const eventsList = document.getElementById('events-list');
-            eventsList.innerHTML = '';
-            
-            eventsData.forEach(event => {
-                const eventItem = document.createElement('div');
-                eventItem.className = 'event-item';
-                eventItem.innerHTML = `
-                    <div class="event-icon ${event.type}">
-                        <i class="fas ${event.icon}"></i>
-                    </div>
-                    <div class="event-info">
-                        <div class="event-name">${event.name}</div>
-                        <div class="event-date">${event.date}</div>
-                    </div>
-                `;
-                eventsList.appendChild(eventItem);
-            });
-        }
-
-        function refreshWeather() {
-            loadWeather();
-            showNotification('Cuaca diperbarui', 'success');
-        }
-
-        function changeRegion() {
-            const region = document.getElementById('region-select').value;
-            loadWeather();
-        }
-
-        // Prayer times functionality
-        const prayerTimes = {
-            Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
-            Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
-            Ashar: { time: '15:30', nextPrayer: 'Maghrib' },
-            Maghrib: { time: '18:15', nextPrayer: 'Isya' },
-            Isya: { time: '19:30', nextPrayer: 'Subuh' }
-        };
-
-        const prayerNames = Object.keys(prayerTimes);
-        let currentPrayerIndex = 0;
-
-        function getCurrentTime() {
-            const now = new Date();
-            return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-        }
-
-        function timeToMinutes(timeStr) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            return hours * 60 + minutes;
-        }
-
-        function minutesToTime(minutes) {
-            const hours = Math.floor(minutes / 60);
-            const mins = minutes % 60;
-            return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-        }
-
-        function updatePrayerTimes() {
-            const now = new Date();
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-            const currentSeconds = now.getSeconds();
-            
-            for (let i = 0; i < prayerNames.length; i++) {
-                const prayerTime = prayerTimes[prayerNames[i]];
-                const prayerMinutes = timeToMinutes(prayerTime.time);
+            if (file) {
+                file.downloads = (file.downloads || 0) + 1;
+                localStorage.setItem('files', JSON.stringify(files));
                 
-                if (currentMinutes < prayerMinutes || (i === prayerNames.length - 1 && currentMinutes >= prayerMinutes)) {
-                    currentPrayerIndex = i;
-                    break;
-                }
+                // Reload file list
+                fileList.innerHTML = '';
+                files.forEach(f => addFileToList(f));
             }
+        }
+
+        function loadFiles() {
+            const files = JSON.parse(localStorage.getItem('files') || '[]');
             
-            const currentPrayerName = prayerNames[currentPrayerIndex];
-            const currentPrayerTime = prayerTimes[currentPrayerName].time;
-            const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
-            const nextPrayerTime = prayerTimes[nextPrayerName].time;
-            
-            const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
-            let countdownMinutes;
-            
-            if (nextPrayerMinutes > currentMinutes) {
-                countdownMinutes = nextPrayerMinutes - currentMinutes;
+            // Add default files if none exist
+            if (files.length === 0) {
+                const defaultFiles = [
+                    {
+                        id: 1,
+                        name: 'APK Cek Banned WhatsApp',
+                        url: 'https://www.mediafire.com/file/pj2p9u4akt4f6jg/PrasszTzy_CekBand.apk/file',
+                        description: 'Aplikasi untuk mengecek status banned akun WhatsApp',
+                        type: 'apk',
+                        date: '2025',
+                        downloads: 0,
+                        uploader: 'Admin'
+                    },
+                    {
+                        id: 2,
+                        name: 'HTML Cek Informasi Handphone',
+                        url: 'https://www.mediafire.com/file/5zhy3fajkn61lb3/cek_info_ip_addres.html/file',
+                        description: 'Tool HTML untuk mengecek informasi handphone',
+                        type: 'html',
+                        date: '2025',
+                        downloads: 0,
+                        uploader: 'Admin'
+                    }
+                ];
+                
+                defaultFiles.forEach(file => addFileToList(file));
             } else {
-                countdownMinutes = (24 * 60) - currentMinutes + nextPrayerMinutes;
-            }
-            
-            const totalSeconds = countdownMinutes * 60 - currentSeconds;
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            
-            const countdownStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            document.getElementById('countdown').textContent = countdownStr;
-            
-            const prayerMinutes = timeToMinutes(currentPrayerTime);
-            const timeDiff = Math.abs(currentMinutes - prayerMinutes);
-            
-            document.querySelectorAll('.prayer-time-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.getElementById(`${currentPrayerName.toLowerCase()}-time`).classList.add('active');
-            
-            if (timeDiff < 2) {
-                document.getElementById('prayer-alert').classList.add('active');
-                document.getElementById('prayer-alert-text').textContent = `Waktu ${currentPrayerName} telah tiba!`;
-            } else {
-                document.getElementById('prayer-alert').classList.remove('active');
+                files.forEach(file => addFileToList(file));
             }
         }
 
@@ -2502,27 +1301,17 @@
             
             if (storedEmail && storedName) {
                 // Update UI with stored user data
-                userEmail.textContent = storedEmail;
-                dashboardAvatar.textContent = storedName.charAt(0).toUpperCase();
-                userAvatar.textContent = storedName.charAt(0).toUpperCase();
-                
-                // Load files
-                loadFiles();
+                updateUserUI(storedName, storedEmail);
                 
                 // Skip login screen
                 loginContainer.classList.add('hidden');
-                appContainer.classList.add('active');
+                appContainer.style.display = 'block';
             }
             
-            // Load weather
-            loadWeather();
-            setInterval(loadWeather, 30 * 60 * 1000); // Refresh every 30 minutes
-            
-            // Update prayer times
-            setInterval(updatePrayerTimes, 1000);
-            updatePrayerTimes();
+            // Load ads and files
+            loadAds();
+            loadFiles();
         });
     </script>
-
 </body>
 </html>
