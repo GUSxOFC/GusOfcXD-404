@@ -97,6 +97,7 @@
             text-decoration: none; 
             color: white; 
             border: 1px solid rgba(255,255,255,0.05); 
+            cursor: pointer;
         }
         
         #notifDot { 
@@ -174,6 +175,7 @@
             align-items: center; 
             text-align: center; 
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .menu-item:hover {
@@ -287,6 +289,7 @@
             text-align: center; 
             flex: 1; 
             transition: 0.3s;
+            cursor: pointer;
         }
         
         .nav-item.active { 
@@ -599,6 +602,14 @@
             color: var(--bg);
         }
 
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .ads-grid {
                 grid-template-columns: 1fr;
@@ -651,7 +662,7 @@
         </div>
     </div>
 
-    <div id="app-container" style="display: none;">
+    <div id="app-container" class="content-section">
         <div class="top-bar">
             <div class="user-info">
                 <p style="margin:0; font-size:12px; color:var(--text-dim);">Halo,</p>
@@ -677,41 +688,41 @@
 
         <p class="section-label">MENU & FITUR</p>
         <div class="menu-grid">
-            <a href="#" class="menu-item" onclick="showSection('features')">
+            <a class="menu-item" data-section="features">
                 <i class="fa-solid fa-layer-group"></i>
                 <span>Fitur</span>
             </a>
 
-            <a href="#" class="menu-item" onclick="showSection('share')">
+            <a class="menu-item" data-section="share">
                 <i class="fa-solid fa-share-alt"></i>
                 <span>Share</span>
             </a>
 
-            <a href="#" class="menu-item" onclick="showSection('create')">
+            <a class="menu-item" data-section="create">
                 <i class="fa-solid fa-code"></i>
                 <span>Create</span>
             </a>
 
-            <a href="#" class="menu-item" onclick="showSection('schedule')">
+            <a class="menu-item" data-section="schedule">
                 <i class="fa-solid fa-clock"></i>
                 <span>Jadwal</span>
             </a>
 
-            <a href="#" class="menu-item" onclick="showSection('ads')">
+            <a class="menu-item" data-section="ads">
                 <i class="fa-solid fa-bullhorn"></i>
                 <span>Pasang Iklan</span>
             </a>
 
-            <a href="#" class="menu-item" onclick="showSection('profile')">
+            <a class="menu-item" data-section="profile">
                 <i class="fa-solid fa-user-gear"></i>
                 <span>Pengaturan</span>
             </a>
         </div>
 
-        <div class="ads-section" id="ads-section" style="display: none;">
+        <div class="ads-section content-section" id="ads-section">
             <div class="ads-header">
                 <h3 class="ads-title">IKLAN TERBARU</h3>
-                <button class="save-btn" onclick="showAddAdForm()">
+                <button class="save-btn" id="add-ad-btn">
                     <i class="fas fa-plus"></i> Tambah Iklan
                 </button>
             </div>
@@ -720,19 +731,19 @@
             </div>
         </div>
 
-        <div class="profile-container" id="profile-section" style="display: none;">
+        <div class="profile-container content-section" id="profile-section">
             <div class="profile-header">
                 <div class="profile-avatar-container">
                     <img id="profile-avatar" src="https://via.placeholder.com/100" alt="Profile" class="profile-avatar">
-                    <div class="avatar-upload" onclick="document.getElementById('avatar-input').click()">
+                    <div class="avatar-upload" id="avatar-upload-btn">
                         <i class="fas fa-camera"></i>
                     </div>
-                    <input type="file" id="avatar-input" accept="image/*" style="display: none;" onchange="updateAvatar(this)">
+                    <input type="file" id="avatar-input" accept="image/*" style="display: none;">
                 </div>
                 <h2 id="profile-name">Nama Pengguna</h2>
                 <p id="profile-email">email@example.com</p>
             </div>
-            <form class="profile-form" onsubmit="saveProfile(event)">
+            <form class="profile-form" id="profile-form">
                 <div class="form-group">
                     <label class="form-label">Nama</label>
                     <input type="text" class="form-input" id="profile-name-input" required>
@@ -742,11 +753,11 @@
                     <input type="email" class="form-input" id="profile-email-input" required>
                 </div>
                 <button type="submit" class="save-btn">Simpan Perubahan</button>
-                <button type="button" class="logout-btn" onclick="logout()">Keluar</button>
+                <button type="button" class="logout-btn" id="logout-btn">Keluar</button>
             </form>
         </div>
 
-        <div id="features-section" style="display: none; padding: 0 5%;">
+        <div id="features-section" class="content-section" style="padding: 0 5%;">
             <h2 class="section-label">FITUR</h2>
             <div class="menu-grid">
                 <div class="menu-item" onclick="window.open('trackip.html', '_blank')">
@@ -781,12 +792,12 @@
             </div>
         </div>
 
-        <div id="share-section" style="display: none; padding: 0 5%;">
+        <div id="share-section" class="content-section" style="padding: 0 5%;">
             <h2 class="section-label">SHARE FILES</h2>
             <div class="ads-section">
                 <div class="ads-header">
                     <h3 class="ads-title">UPLOAD FILE</h3>
-                    <button class="save-btn" onclick="toggleUploadForm()">
+                    <button class="save-btn" id="upload-toggle-btn">
                         <i class="fas fa-upload"></i> Upload
                     </button>
                 </div>
@@ -803,7 +814,7 @@
                         <label class="form-label">Deskripsi</label>
                         <textarea class="form-input" id="file-description" placeholder="Masukkan deskripsi file" rows="3"></textarea>
                     </div>
-                    <button class="save-btn" onclick="uploadFile()">Upload</button>
+                    <button class="save-btn" id="submit-upload-btn">Upload</button>
                 </div>
             </div>
             <div class="ads-grid" id="file-list">
@@ -811,7 +822,7 @@
             </div>
         </div>
 
-        <div id="create-section" style="display: none; padding: 0 5%;">
+        <div id="create-section" class="content-section" style="padding: 0 5%;">
             <h2 class="section-label">CREATE WEBSITE</h2>
             <div class="ads-section">
                 <p style="margin: 0; color: var(--text-dim);">Buat website dengan mudah dan cepat menggunakan template yang tersedia.</p>
@@ -823,7 +834,7 @@
             </div>
         </div>
 
-        <div id="schedule-section" style="display: none; padding: 0 5%;">
+        <div id="schedule-section" class="content-section" style="padding: 0 5%;">
             <h2 class="section-label">JADWAL</h2>
             <div class="ads-section">
                 <div class="ads-header">
@@ -860,19 +871,19 @@
     </div>
 
     <nav class="nav-bar">
-        <a href="#" class="nav-item active" onclick="showSection('home')">
+        <a class="nav-item active" data-section="home">
             <i class="fa-solid fa-house"></i>
             <span>HOME</span>
         </a>
-        <a href="#" class="nav-item" onclick="showSection('features')">
+        <a class="nav-item" data-section="features">
             <i class="fa-solid fa-layer-group"></i>
             <span>FEATURES</span>
         </a>
-        <a href="#" class="nav-item" onclick="showSection('ads')">
+        <a class="nav-item" data-section="ads">
             <i class="fa-solid fa-bullhorn"></i>
             <span>IKLAN</span>
         </a>
-        <a href="#" class="nav-item" onclick="showSection('profile')">
+        <a class="nav-item" data-section="profile">
             <i class="fa-solid fa-circle-user"></i>
             <span>PROFILE</span>
         </a>
@@ -880,64 +891,17 @@
 
     <div class="notification" id="notification"></div>
 
-    <!-- Firebase Configuration -->
+    <!-- Import Firebase Configuration -->
+    <script type="module" src="firebase-config.js"></script>
+    
+    <!-- Main Application Script -->
     <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBcTut8_8H5S2TiPJhhAOSXHx5i4EXZguA",
-            authDomain: "quicktask-web-eeb28.firebaseapp.com",
-            projectId: "quicktask-web-eeb28",
-            storageBucket: "quicktask-web-eeb28.firebasestorage.app",
-            messagingSenderId: "881107919238",
-            appId: "1:881107919238:web:3bfe5fe233fb29bb468c07",
-            measurementId: "G-D2EG9T833D"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-
-        // Update Firebase status
-        function updateFirebaseStatus(isOnline) {
-            const statusDot = document.getElementById('firebase-status');
-            const statusText = document.getElementById('firebase-text');
-            
-            if (isOnline) {
-                statusDot.classList.add('online');
-                statusText.textContent = 'Online';
-            } else {
-                statusDot.classList.remove('online');
-                statusText.textContent = 'Offline';
-            }
-        }
-
-        // Check Firebase connection
-        try {
-            // Try to access Firestore to check connection
-            const testConnection = async () => {
-                try {
-                    await getDoc(doc(db, "connection", "test"));
-                    updateFirebaseStatus(true);
-                } catch (error) {
-                    updateFirebaseStatus(false);
-                }
-            };
-            
-            testConnection();
-            
-            // Check connection periodically
-            setInterval(testConnection, 30000); // Check every 30 seconds
-        } catch (error) {
-            updateFirebaseStatus(false);
-        }
+        // Import Firebase from config file
+        import { auth, db, storage } from './firebase-config.js';
+        // Import other Firebase modules needed
+        import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         // DOM elements
         const loginContainer = document.getElementById('login-container');
@@ -969,49 +933,36 @@
             }, 3000);
         }
 
-        // Login functionality
-        googleLoginBtn.addEventListener('click', () => {
-            accountSelector.classList.add('active');
-        });
-
-        accountItems.forEach(item => {
-            if (item.id !== 'add-account') {
-                item.addEventListener('click', () => {
-                    const email = item.dataset.email;
-                    const name = item.dataset.name;
-                    
-                    // Store user data
-                    localStorage.setItem('userEmail', email);
-                    localStorage.setItem('userName', name);
-                    
-                    // Update UI
-                    updateUserUI(name, email);
-                    
-                    // Transition to app
-                    loginContainer.classList.add('hidden');
-                    appContainer.style.display = 'block';
-                });
+        // Update Firebase status
+        function updateFirebaseStatus(isOnline) {
+            const statusDot = document.getElementById('firebase-status');
+            const statusText = document.getElementById('firebase-text');
+            
+            if (isOnline) {
+                statusDot.classList.add('online');
+                statusText.textContent = 'Online';
             } else {
-                item.addEventListener('click', () => {
-                    const newEmail = prompt('Masukkan email Anda:');
-                    if (newEmail) {
-                        const newName = prompt('Masukkan nama Anda:');
-                        if (newName) {
-                            // Store user data
-                            localStorage.setItem('userEmail', newEmail);
-                            localStorage.setItem('userName', newName);
-                            
-                            // Update UI
-                            updateUserUI(newName, newEmail);
-                            
-                            // Transition to app
-                            loginContainer.classList.add('hidden');
-                            appContainer.style.display = 'block';
-                        }
-                    }
-                });
+                statusDot.classList.remove('online');
+                statusText.textContent = 'Offline';
             }
-        });
+        }
+
+        // Check Firebase connection
+        try {
+            const testConnection = async () => {
+                try {
+                    await getDoc(doc(db, "connection", "test"));
+                    updateFirebaseStatus(true);
+                } catch (error) {
+                    updateFirebaseStatus(false);
+                }
+            };
+            
+            testConnection();
+            setInterval(testConnection, 30000);
+        } catch (error) {
+            updateFirebaseStatus(false);
+        }
 
         // Update user UI
         function updateUserUI(name, email) {
@@ -1024,22 +975,20 @@
         }
 
         // Show section
-        function showSection(section) {
+        function showSection(sectionId) {
             // Hide all sections
-            document.querySelectorAll('[id$="-section"]').forEach(el => {
-                el.style.display = 'none';
+            document.querySelectorAll('.content-section').forEach(el => {
+                el.classList.remove('active');
             });
             
             // Show selected section
-            if (section === 'home') {
-                document.getElementById('ads-section').style.display = 'none';
-                document.getElementById('profile-section').style.display = 'none';
-                document.getElementById('features-section').style.display = 'none';
-                document.getElementById('share-section').style.display = 'none';
-                document.getElementById('create-section').style.display = 'none';
-                document.getElementById('schedule-section').style.display = 'none';
+            if (sectionId === 'home') {
+                appContainer.classList.add('active');
             } else {
-                document.getElementById(`${section}-section`).style.display = 'block';
+                const section = document.getElementById(`${sectionId}-section`);
+                if (section) {
+                    section.classList.add('active');
+                }
             }
             
             // Update nav active state
@@ -1047,14 +996,9 @@
                 item.classList.remove('active');
             });
             
-            if (section === 'home') {
-                document.querySelector('.nav-item').classList.add('active');
-            } else if (section === 'features') {
-                document.querySelectorAll('.nav-item')[1].classList.add('active');
-            } else if (section === 'ads') {
-                document.querySelectorAll('.nav-item')[2].classList.add('active');
-            } else if (section === 'profile') {
-                document.querySelectorAll('.nav-item')[3].classList.add('active');
+            const activeNavItem = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
             }
         }
 
@@ -1094,7 +1038,7 @@
                 localStorage.removeItem('userName');
                 
                 // Transition to login
-                appContainer.style.display = 'none';
+                appContainer.classList.remove('active');
                 loginContainer.classList.remove('hidden');
                 accountSelector.classList.remove('active');
             }
@@ -1294,8 +1238,79 @@
             }
         }
 
-        // Initialize
-        window.addEventListener('load', () => {
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Login functionality
+            googleLoginBtn.addEventListener('click', () => {
+                accountSelector.classList.add('active');
+            });
+
+            accountItems.forEach(item => {
+                if (item.id !== 'add-account') {
+                    item.addEventListener('click', () => {
+                        const email = item.dataset.email;
+                        const name = item.dataset.name;
+                        
+                        // Store user data
+                        localStorage.setItem('userEmail', email);
+                        localStorage.setItem('userName', name);
+                        
+                        // Update UI
+                        updateUserUI(name, email);
+                        
+                        // Transition to app
+                        loginContainer.classList.add('hidden');
+                        appContainer.classList.add('active');
+                    });
+                } else {
+                    item.addEventListener('click', () => {
+                        const newEmail = prompt('Masukkan email Anda:');
+                        if (newEmail) {
+                            const newName = prompt('Masukkan nama Anda:');
+                            if (newName) {
+                                // Store user data
+                                localStorage.setItem('userEmail', newEmail);
+                                localStorage.setItem('userName', newName);
+                                
+                                // Update UI
+                                updateUserUI(newName, newEmail);
+                                
+                                // Transition to app
+                                loginContainer.classList.add('hidden');
+                                appContainer.classList.add('active');
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Profile form submission
+            document.getElementById('profile-form').addEventListener('submit', saveProfile);
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            document.getElementById('avatar-upload-btn').addEventListener('click', () => {
+                document.getElementById('avatar-input').click();
+            });
+            document.getElementById('avatar-input').addEventListener('change', (e) => updateAvatar(e.target));
+
+            // Ads functionality
+            document.getElementById('add-ad-btn').addEventListener('click', showAddAdForm);
+
+            // Share functionality
+            document.getElementById('upload-toggle-btn').addEventListener('click', toggleUploadForm);
+            document.getElementById('submit-upload-btn').addEventListener('click', uploadFile);
+
+            // Navigation
+            document.querySelectorAll('.nav-item, .menu-item[data-section]').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = item.dataset.section || item.getAttribute('href').substring(1);
+                    if (sectionId) {
+                        showSection(sectionId);
+                    }
+                });
+            });
+
+            // Initialize
             const storedEmail = localStorage.getItem('userEmail');
             const storedName = localStorage.getItem('userName');
             
@@ -1305,7 +1320,7 @@
                 
                 // Skip login screen
                 loginContainer.classList.add('hidden');
-                appContainer.style.display = 'block';
+                appContainer.classList.add('active');
             }
             
             // Load ads and files
