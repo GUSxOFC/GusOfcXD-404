@@ -724,72 +724,6 @@
             color: var(--accent);
         }
 
-        .upload-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-
-        .upload-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .upload-form {
-            display: none;
-            background: var(--bg-primary);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .upload-form.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
         .file-list {
             margin-top: 25px;
         }
@@ -944,198 +878,6 @@
         .stat-label {
             font-size: 14px;
             color: var(--text-secondary);
-        }
-
-        /* Weather Card Styles */
-        .weather-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .weather-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .weather-title {
-            font-size: 22px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .weather-title i {
-            color: var(--accent);
-        }
-
-        .weather-location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        .weather-location i {
-            color: var(--accent);
-        }
-
-        .weather-current {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .weather-main {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .weather-icon {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: var(--accent);
-        }
-
-        .weather-temp {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .weather-temp span:first-child {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .weather-temp span:last-child {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-
-        .weather-details {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .weather-detail {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-        }
-
-        .weather-detail i {
-            color: var(--accent);
-            width: 20px;
-        }
-
-        .weather-live {
-            margin-bottom: 25px;
-        }
-
-        .live-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .live-container {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .live-container img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .live-controls {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .live-btn {
-            padding: 8px 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .live-btn:hover {
-            background: rgba(0, 0, 0, 0.9);
-        }
-
-        .live-controls select {
-            padding: 8px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .weather-forecast h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .forecast-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-        }
-
-        .forecast-item {
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .forecast-day {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .forecast-icon {
-            font-size: 24px;
-            margin-bottom: 5px;
-            color: var(--accent);
-        }
-
-        .forecast-temp {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-primary);
         }
 
         /* Events Card Styles */
@@ -1464,14 +1206,6 @@
         }
 
         @media (max-width: 768px) {
-            .weather-current {
-                grid-template-columns: 1fr;
-            }
-            
-            .forecast-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
             .welcome-features {
                 flex-direction: column;
                 gap: 15px;
@@ -1640,7 +1374,7 @@
                         <i class="fas fa-users"></i>
                         Total Pengunjung
                     </h2>
-                    <div class="visitor-count" id="visitor-count">0</div>
+                    <div class="visitor-count" id="visitor-count">15,000</div>
                     <div class="visitor-description">Terima kasih telah mengunjungi website kami</div>
                 </div>
             </div>
@@ -1670,7 +1404,7 @@
 
                     <div class="portal-item" onclick="window.open('device-your-information.html', '_blank')">
                         <div class="portal-icon">
-                            <i class="fas fa-info-circle"></i>
+                            < <i class="fas fa-info-circle"></i>
                         </div>
                         <h3 class="portal-title">Device Info</h3>
                         <p class="portal-description">Menampilkan informasi detail tentang perangkat yang sedang digunakan</p>
@@ -1709,10 +1443,6 @@
                             <i class="fas fa-share-alt"></i>
                             Share Files
                         </h2>
-                        <button class="upload-btn" id="upload-toggle">
-                            <i class="fas fa-upload"></i>
-                            <span>Upload File</span>
-                        </button>
                     </div>
                     
                     <div class="stats-container">
@@ -1720,32 +1450,6 @@
                             <div class="stat-number" id="total-files">0</div>
                             <div class="stat-label">Total Files</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="total-downloads">0</div>
-                            <div class="stat-label">Downloads</div>
-                        </div>
-                    </div>
-                    
-                    <div class="upload-form" id="upload-form">
-                        <div class="form-group">
-                            <label class="form-label">URL File (Mediafire, Google Drive, etc)</label>
-                            <input type="url" class="form-input" id="file-url-input" placeholder="https://mediafire.com/file/..." required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Nama File (Hanya APK & HTML)</label>
-                            <input type="text" class="form-input" id="file-name-input" placeholder="nama.apk atau nama.html" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Deskripsi</label>
-                            <textarea class="form-input form-textarea" id="file-description-input" placeholder="Masukkan deskripsi file" required></textarea>
-                        </div>
-                        
-                        <button class="upload-btn" id="submit-upload">
-                            <i class="fas fa-check"></i>
-                            <span>Submit</span>
-                        </button>
                     </div>
                     
                     <div class="file-list" id="file-list">
@@ -1755,71 +1459,6 @@
             </div>
 
             <div class="content-section" id="prayer-section">
-                <!-- Weather Card -->
-                <div class="weather-card">
-                    <div class="weather-header">
-                        <h2 class="weather-title">
-                            <i class="fas fa-cloud-sun"></i>
-                            Cuaca BMKG
-                        </h2>
-                        <div class="weather-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Makassar</span>
-                        </div>
-                    </div>
-                    
-                    <div class="weather-current">
-                        <div class="weather-main">
-                            <div class="weather-icon">
-                                <i class="fas fa-sun"></i>
-                            </div>
-                            <div class="weather-temp">
-                                <span id="weather-temp">28°C</span>
-                                <span id="weather-desc">Cerah Berawan</span>
-                            </div>
-                        </div>
-                        <div class="weather-details">
-                            <div class="weather-detail">
-                                <i class="fas fa-wind"></i>
-                                <span>Angin: <span id="wind-speed">15 km/j</span></span>
-                            </div>
-                            <div class="weather-detail">
-                                <i class="fas fa-tint"></i>
-                                <span>Kelembaban: <span id="humidity">75%</span></span>
-                            </div>
-                            <div class="weather-detail">
-                                <i class="fas fa-eye"></i>
-                                <span>Visibilitas: <span id="visibility">10 km</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="weather-live">
-                        <h3 class="live-title">Live Cuaca Satelit</h3>
-                        <div class="live-container">
-                            <img id="satellite-img" src="https://satelit.bmkg.go.id/GMS_20231215033000.png" alt="Satellite">
-                            <div class="live-controls">
-                                <button class="live-btn" onclick="refreshWeather()">
-                                    <i class="fas fa-sync-alt"></i> Refresh
-                                </button>
-                                <select id="region-select" onchange="changeRegion()">
-                                    <option value="makassar">Makassar</option>
-                                    <option value="jakarta">Jakarta</option>
-                                    <option value="surabaya">Surabaya</option>
-                                    <option value="medan">Medan</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="weather-forecast">
-                        <h3>Prakiraan 7 Hari</h3>
-                        <div class="forecast-grid" id="forecast-grid">
-                            <!-- Forecast items will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Events Calendar -->
                 <div class="events-card">
                     <div class="events-header">
@@ -1926,19 +1565,8 @@
         // Visitor Counter
         class VisitorCounter {
             constructor() {
-                this.count = this.getCount();
-                this.incrementCount();
+                this.count = 15000; // Set to 15,000 as requested
                 this.updateDisplay();
-            }
-
-            getCount() {
-                const stored = localStorage.getItem('visitorCount');
-                return stored ? parseInt(stored) : 0;
-            }
-
-            incrementCount() {
-                this.count++;
-                localStorage.setItem('visitorCount', this.count.toString());
             }
 
             updateDisplay() {
@@ -1973,7 +1601,6 @@
                         description: 'Aplikasi untuk mengecek status banned akun WhatsApp Anda dengan mudah dan cepat.',
                         type: 'apk',
                         date: '2025',
-                        downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
                     },
@@ -1984,7 +1611,6 @@
                         description: 'Minecraft versi gratis dari Mojang dengan semua fitur premium terbuka. Mainkan tanpa batas!',
                         type: 'apk',
                         date: 'November 2025',
-                        downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
                     },
@@ -1995,7 +1621,6 @@
                         description: 'Aplikasi khusus untuk wibu dengan koleksi anime terlengkap dan update setiap hari.',
                         type: 'apk',
                         date: 'v2.5.3',
-                        downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
                     },
@@ -2006,7 +1631,6 @@
                         description: 'Tool HTML untuk mengecek informasi lengkap handphone Anda termasuk IP, lokasi, dan spesifikasi device.',
                         type: 'html',
                         date: '2025',
-                        downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
                     },
@@ -2017,7 +1641,6 @@
                         description: 'Template HTML untuk sistem payment manual yang bisa digunakan untuk berbagai keperluan transaksi online.',
                         type: 'html',
                         date: '2025',
-                        downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
                     },
@@ -2028,7 +1651,6 @@
                         description: 'HTML prank untuk menjahili teman-teman Anda dengan berbagai efek lucu dan mengejutkan.',
                         type: 'html',
                         date: '2025',
-                        downloads: 0,
                         uploader: 'Admin',
                         uploaderEmail: 'admin@gusofc.com'
                     }
@@ -2045,38 +1667,13 @@
 
             updateStats() {
                 const totalFiles = this.files.length;
-                const totalDownloads = this.files.reduce((total, file) => total + (file.downloads || 0), 0);
                 
                 document.getElementById('total-files').textContent = totalFiles;
-                document.getElementById('total-downloads').textContent = totalDownloads;
-            }
-
-            addFile(fileData) {
-                const newFile = {
-                    id: Date.now().toString(),
-                    ...fileData,
-                    downloads: 0,
-                    date: new Date().toLocaleDateString('id-ID'),
-                    uploader: localStorage.getItem('userName') || 'User',
-                    uploaderEmail: document.getElementById('user-email').textContent
-                };
-                
-                this.files.unshift(newFile);
-                this.saveFiles();
-                return newFile;
             }
 
             deleteFile(fileId) {
                 this.files = this.files.filter(file => file.id !== fileId);
                 this.saveFiles();
-            }
-
-            incrementDownload(fileId) {
-                const file = this.files.find(f => f.id === fileId);
-                if (file) {
-                    file.downloads = (file.downloads || 0) + 1;
-                    this.saveFiles();
-                }
             }
         }
 
@@ -2243,59 +1840,6 @@
             }
         }
 
-        // Upload functionality
-        const uploadToggle = document.getElementById('upload-toggle');
-        const uploadForm = document.getElementById('upload-form');
-        const submitUpload = document.getElementById('submit-upload');
-
-        uploadToggle.addEventListener('click', () => {
-            uploadForm.classList.toggle('active');
-        });
-
-        submitUpload.addEventListener('click', () => {
-            const fileUrl = document.getElementById('file-url-input').value.trim();
-            const fileName = document.getElementById('file-name-input').value.trim();
-            const fileDescription = document.getElementById('file-description-input').value.trim();
-            
-            if (!fileUrl || !fileName || !fileDescription) {
-                showNotification('Semua field harus diisi', 'error');
-                return;
-            }
-            
-            // Check file extension
-            const fileExtension = fileName.split('.').pop().toLowerCase();
-            if (fileExtension !== 'apk' && fileExtension !== 'html') {
-                showNotification('Hanya file APK dan HTML yang diperbolehkan', 'error');
-                return;
-            }
-            
-            submitUpload.disabled = true;
-            submitUpload.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengupload...</span>';
-            
-            setTimeout(() => {
-                const newFile = fileStorage.addFile({
-                    name: fileName,
-                    url: fileUrl,
-                    description: fileDescription,
-                    type: fileExtension
-                });
-                
-                addFileToList(newFile);
-                
-                // Reset form
-                document.getElementById('file-url-input').value = '';
-                document.getElementById('file-name-input').value = '';
-                document.getElementById('file-description-input').value = '';
-                uploadForm.classList.remove('active');
-                
-                submitUpload.disabled = false;
-                submitUpload.innerHTML = '<i class="fas fa-check"></i> <span>Submit</span>';
-                
-                // Show maintenance notification
-                showNotification('Maintenance akk*', 'warning');
-            }, 1000);
-        });
-
         // File list functions
         function loadFiles() {
             const fileList = document.getElementById('file-list');
@@ -2325,7 +1869,6 @@
                         <div class="file-meta">
                             <span><i class="fas fa-file"></i> ${file.type.toUpperCase()}</span>
                             <span><i class="fas fa-calendar"></i> ${file.date}</span>
-                            <span><i class="fas fa-download"></i> ${file.downloads || 0}</span>
                             <span><i class="fas fa-user"></i> ${file.uploader}</span>
                         </div>
                     </div>
@@ -2334,7 +1877,7 @@
                     ${file.description}
                 </div>
                 <div class="file-actions">
-                    <a href="${file.url}" target="_blank" class="download-btn" onclick="trackDownload('${file.id}')">
+                    <a href="${file.url}" target="_blank" class="download-btn">
                         <i class="fas fa-download"></i>
                         <span>Download</span>
                     </a>
@@ -2360,11 +1903,6 @@
             return icons[type] || icons.default;
         }
 
-        function trackDownload(fileId) {
-            fileStorage.incrementDownload(fileId);
-            loadFiles();
-        }
-
         function deleteFile(fileId) {
             if (!confirm('Apakah Anda yakin ingin menghapus file ini?')) {
                 return;
@@ -2375,66 +1913,7 @@
             showNotification('File berhasil dihapus', 'success');
         }
 
-        // Weather Functions
-        function loadWeather() {
-            // Simulate weather data
-            const weatherData = {
-                temp: '28°C',
-                desc: 'Cerah Berawan',
-                wind: '15 km/j',
-                humidity: '75%',
-                visibility: '10 km'
-            };
-
-            document.getElementById('weather-temp').textContent = weatherData.temp;
-            document.getElementById('weather-desc').textContent = weatherData.desc;
-            document.getElementById('wind-speed').textContent = weatherData.wind;
-            document.getElementById('humidity').textContent = weatherData.humidity;
-            document.getElementById('visibility').textContent = weatherData.visibility;
-            
-            // Load satellite image (updated every 30 minutes)
-            const now = new Date();
-            const timeStr = now.getFullYear() + 
-                           String(now.getMonth() + 1).padStart(2, '0') + 
-                           String(now.getDate()).padStart(2, '0') + 
-                           String(now.getHours()).padStart(2, '0') + 
-                           String(Math.floor(now.getMinutes() / 30) * 30).padStart(2, '0') + '00';
-            
-            document.getElementById('satellite-img').src = `https://satelit.bmkg.go.id/GMS_${timeStr}.png`;
-            
-            // Load forecast
-            loadForecast();
-            
-            // Load events
-            loadEvents();
-        }
-
-        function loadForecast() {
-            const forecastData = [
-                { day: 'Senin', icon: 'fa-sun', temp: '30°C' },
-                { day: 'Selasa', icon: 'fa-cloud-sun', temp: '28°C' },
-                { day: 'Rabu', icon: 'fa-cloud', temp: '27°C' },
-                { day: 'Kamis', icon: 'fa-cloud-rain', temp: '25°C' },
-                { day: 'Jumat', icon: 'fa-sun', temp: '29°C' },
-                { day: 'Sabtu', icon: 'fa-cloud-sun', temp: '28°C' },
-                { day: 'Minggu', icon: 'fa-sun', temp: '31°C' }
-            ];
-            
-            const forecastGrid = document.getElementById('forecast-grid');
-            forecastGrid.innerHTML = '';
-            
-            forecastData.forEach(item => {
-                const forecastItem = document.createElement('div');
-                forecastItem.className = 'forecast-item';
-                forecastItem.innerHTML = `
-                    <div class="forecast-day">${item.day}</div>
-                    <div class="forecast-icon"><i class="fas ${item.icon}"></i></div>
-                    <div class="forecast-temp">${item.temp}</div>
-                `;
-                forecastGrid.appendChild(forecastItem);
-            });
-        }
-
+        // Load events
         function loadEvents() {
             const eventsData = [
                 { name: 'Tahun Baru 2025', date: '1 Januari 2025', type: 'national', icon: 'fa-champagne-glasses' },
@@ -2464,16 +1943,6 @@
                 `;
                 eventsList.appendChild(eventItem);
             });
-        }
-
-        function refreshWeather() {
-            loadWeather();
-            showNotification('Cuaca diperbarui', 'success');
-        }
-
-        function changeRegion() {
-            const region = document.getElementById('region-select').value;
-            loadWeather();
         }
 
         // Prayer times functionality
@@ -2576,9 +2045,8 @@
                 appContainer.classList.add('active');
             }
             
-            // Load weather
-            loadWeather();
-            setInterval(loadWeather, 30 * 60 * 1000); // Refresh every 30 minutes
+            // Load events
+            loadEvents();
             
             // Update prayer times
             setInterval(updatePrayerTimes, 1000);
