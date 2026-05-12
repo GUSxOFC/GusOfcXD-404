@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrankPay - Fake Payment Generator</title>
+    <style>
+        :root {
+            --primary-color: #0081a7;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #777777;
+            --border-radius: 16px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            
+            /* Theme Colors */
+            --gopay: #00AED6;
+            --ovo: #4c3494;
+            --dana: #118eea;
+            --shopee: #ee4d2d;
+            --bca: #003cba;
+            --mandiri: #ffb81c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            background: #fff;
+            width: 1000px;
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+
+        /* Left Side: Controls */
+        .controls {
+            flex: 1;
+            padding: 40px;
+            background: #fff;
+            min-width: 300px;
+            border-right: 1px solid #eee;
+        }
+
+        .controls h2 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .controls p {
+            margin-bottom: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn-download {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #0081a7, #00afb9);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 128, 167, 0.4);
+        }
+
+        .btn-download:active {
+            transform: scale(0.98);
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: #999;
+            text-align: center;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Right Side: Preview */
+        .preview-area {
+            flex: 1;
+            padding: 40px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 320px;
+        }
+
+        .preview-label {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        /* The Receipt Card Design */
+        .receipt-card {
+            width: 320px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .receipt-header {
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            background: var(--primary-color); /* Default */
+            transition: background 0.3s;
+        }
+
+        /* Decorative circles in header */
+        .receipt-header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .receipt-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .status-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #2ecc71; /* Green check */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .receipt-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .receipt-date {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .receipt-body {
+            padding: 25px 20px;
+        }
+
+        .amount-display {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 20px;
+        }
+
+        .amount-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .amount-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+        }
+
+        .detail-value {
+            font-weight: 600;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .note-box {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #555;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .receipt-footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.7rem;
+            color: #aaa;
+            background: #fafafa;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                border-radius: 0;
+                height: 100vh;
+                overflow-y: auto;
+            }
+            .controls, .preview-area {
+                width: 100%;
+                border-right: none;
+                flex: none;
+            }
+            body {
+                padding: 0;
+            }
+        }
+
+        /* Hidden Canvas */
+        #generatorCanvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Editor Section -->
+    <div class="controls">
+        <h2>PrankPay Generator</h2>
+        <p>Buat bukti transfer "sukses" untuk prank teman yang lama TF.</p>
+
+        <div class="form-group">
+            <label>Metode Pembayaran</label>
+            <select id="providerSelect">
+                <option value="gopay">GoPay</option>
+                <option value="ovo">OVO</option>
+                <option value="dana">DANA</option>
+                <option value="shopee">ShopeePay</option>
+                <option value="bca">BCA Bank</option>
+                <option value="mandiri">Mandiri Bank</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Nama Penerima</label>
+            <input type="text" id="inputName" placeholder="Contoh: Budi Santoso" value="Budi Santoso">
+        </div>
+
+        <div class="form-group">
+            <label>Nomor Penerima / ID</label>
+            <input type="text" id="inputNumber" placeholder="0812xxxx" value="0812-3456-7890">
+        </div>
+
+        <div class="form-group">
+            <label>Nominal (Rp)</label>
+            <input type="number" id="inputAmount" placeholder="100000" value="500000">
+        </div>
+
+        <div class="form-group">
+            <label>Pesan / Catatan</label>
+            <input type="text" id="inputNote" placeholder="Lunas ya bro" value="Lunas ya bro, jgn lupa cek">
+        </div>
+        
+        <div class="form-group">
+            <label>Tanggal & Jam</label>
+            <input type="text" id="inputDate" value="">
+        </div>
+
+        <button class="btn-download" onclick="downloadReceipt()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download Foto
+        </button>
+
+        <div class="disclaimer">
+            ⚠ Disclaimer: Alat ini hanya untuk hiburan dan lelucon semata (prank). Jangan gunakan untuk penipuan atau kegiatan ilegal. Resiko ditanggung pengguna.
+        </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="preview-area">
+        <div class="preview-label">Live Preview</div>
+        
+        <div class="receipt-card" id="previewCard">
+            <div class="receipt-header" id="cardHeader">
+                <div class="status-icon">✓</div>
+                <div class="receipt-title">Transfer Berhasil</div>
+                <div class="receipt-date" id="previewDate">20 Okt 2023, 14:30</div>
+            </div>
+            <div class="receipt-body">
+                <div class="amount-display">
+                    <div class="amount-label">Total Transfer</div>
+                    <div class="amount-value" id="previewAmount">Rp 500.000</div>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Ke</span>
+                    <span class="detail-value" id="previewName">Budi Santoso</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Nomor/ID</span>
+                    <span class="detail-value" id="previewNumber">0812-3456-7890</span>
+                </div>
+                
+                <div class="note-box" id="previewNoteBox">
+                    <span id="previewNote">Lunas ya bro, jgn lupa cek</span>
+                </div>
+            </div>
+            <div class="receipt-footer">
+                Transaksi ini telah diverifikasi
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Canvas Element for Generating Image -->
+<canvas id="generatorCanvas"></canvas>
+
+<script>
+    // Elements
+    const providerSelect = document.getElementById('providerSelect');
+    const inputName = document.getElementById('inputName');
+    const inputNumber = document.getElementById('inputNumber');
+    const inputAmount = document.getElementById('inputAmount');
+    const inputNote = document.getElementById('inputNote');
+    const inputDate = document.getElementById('inputDate');
+
+    const previewHeader = document.getElementById('cardHeader');
+    const previewAmount = document.getElementById('previewAmount');
+    const previewName = document.getElementById('previewName');
+    const previewNumber = document.getElementById('previewNumber');
+    const previewNote = document.getElementById('previewNote');
+    const previewDate = document.getElementById('previewDate');
+    const previewNoteBox = document.getElementById('previewNoteBox');
+    const root = document.documentElement;
+
+    // Theme Configuration
+    const themes = {
+        gopay: { color: '#00AED6', text: 'GoPay' },
+        ovo: { color: '#4c3494', text: 'OVO' },
+        dana: { color: '#118eea', text: 'DANA' },
+        shopee: { color: '#ee4d2d', text: 'ShopeePay' },
+        bca: { color: '#003cba', text: 'BCA' },
+        mandiri: { color: '#ffb81c', text: 'Mandiri' } // Will handle text color logic specifically
+    };
+
+    // Initialize Date
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + ', ' + 
+                    now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    inputDate.value = dateStr;
+
+    // Format Currency Function
+    const formatRupiah = (number) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(number);
+    };
+
+    // Update Preview Logic
+    function updatePreview() {
+        // Update Texts
+        previewName.textContent = inputName.value || '-';
+        previewNumber.textContent = inputNumber.value || '-';
+        previewAmount.textContent = formatRupiah(inputAmount.value);
+        previewNote.textContent = inputNote.value;
+        previewDate.textContent = inputDate.value;
+
+        // Update Theme
+        const selected = providerSelect.value;
+        const theme = themes[selected];
+
+        // Update Header Color
+        previewHeader.style.background = theme.color;
+        
+        // Update Note Border Color
+        previewNoteBox.style.borderLeftColor = theme.color;
+
+        // Special handling for text color if needed (e.g. Mandiri yellow bg needs dark text, but here we use white header)
+        // Keeping it simple: White text on colored header for consistency.
+    }
+
+    // Event Listeners
+    [inputName, inputNumber, inputAmount, inputNote, inputDate, providerSelect].forEach(el => {
+        el.addEventListener('input', updatePreview);
+    });
+
+    // Initial call
+    updatePreview();
+
+    // --- Download Logic using Canvas (No External Library) ---
+    function downloadReceipt() {
+        const canvas = document.getElementById('generatorCanvas');
+        const ctx = canvas.getContext('2d');
+        const theme = themes[providerSelect.value];
+        
+        // High Resolution Setup
+        const width = 600;
+        const height = 800;
+        canvas.width = width;
+        canvas.height = height;
+
+        // 1. Draw Background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+
+        // 2. Draw Header (Colored Top)
+        const headerHeight = 300;
+        ctx.fillStyle = theme.color;
+        
+        // Rounded top rect logic
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(width, 0);
+        ctx.lineTo(width, headerHeight - 50);
+        ctx.quadraticCurveTo(width/2, headerHeight + 20, 0, headerHeight - 50);
+        ctx.lineTo(0, 0);
+        ctx.fill();
+
+        // Decorations (Circles)
+        ctx.fillStyle = "rgba(255,255,255,0.1)";
+        ctx.beginPath();
+        ctx.arc(-50, -50, 150, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(width + 50, headerHeight - 50, 120, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 3. Draw Success Icon
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(width/2, 120, 60, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Checkmark
+        ctx.strokeStyle = "#2ecc71";
+        ctx.lineWidth = 10;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        ctx.moveTo(width/2 - 25, 120);
+        ctx.lineTo(width/2 - 5, 145);
+        ctx.lineTo(width/2 + 30, 100);
+        ctx.stroke();
+
+        // 4. Draw Texts in Header
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "center";
+        
+        ctx.font = "bold 36px sans-serif";
+        ctx.fillText("Transfer Berhasil", width/2, 240);
+
+        ctx.font = "24px sans-serif";
+        ctx.globalAlpha = 0.9;
+        ctx.fillText(inputDate.value, width/2, 280);
+        ctx.globalAlpha = 1.0;
+
+        // 5. Draw Body Content
+        const startY = 380;
+        
+        // Amount
+        ctx.fillStyle = "#333333";
+        ctx.font = "24px sans-serif";
+        ctx.fillText("Total Transfer", width/2, startY);
+        
+        ctx.font = "bold 64px sans-serif";
+        ctx.fillText(formatRupiah(inputAmount.value), width/2, startY + 80);
+
+        // Divider Line
+        ctx.strokeStyle = "#dddddd";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([10, 10]);
+        ctx.beginPath();
+        ctx.moveTo(40, startY + 110);
+        ctx.lineTo(width - 40, startY + 110);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Details
+        ctx.textAlign = "left";
+        ctx.font = "28px sans-serif";
+        let currentY = startY + 170;
+        const leftMargin = 60;
+        const rightMargin = width - 60;
+
+        const drawDetail = (label, value) => {
+            ctx.fillStyle = "#888888";
+            ctx.fillText(label, leftMargin, currentY);
+            
+            ctx.fillStyle = "#333333";
+            ctx.textAlign = "right";
+            ctx.fillText(value, rightMargin, currentY);
+            ctx.textAlign = "left";
+            
+            currentY += 60;
+        };
+
+        drawDetail("Ke", inputName.value);
+        drawDetail("Nomor/ID", inputNumber.value);
+
+        // Note Box
+        if(inputNote.value) {
+            currentY += 20;
+            const noteX = 40;
+            const noteY = currentY - 30;
+            const noteW = width - 80;
+            const noteH = 100;
+            
+            ctx.fillStyle = "#f8f9fa";
+            ctx.fillRect(noteX, noteY, noteW, noteH);
+            
+            // Left border for note
+            ctx.fillStyle = theme.color;
+            ctx.fillRect(noteX, noteY, 8, noteH);
+
+            ctx.fillStyle = "#555555";
+            ctx.font = "24px sans-serif";
+            // Word wrap simple logic
+            wrapText(ctx, inputNote.value, noteX + 20, noteY + 45, noteW - 30, 30);
+        }
+
+        // Footer
+        ctx.fillStyle = "#aaaaaa";
+        ctx.font = "italic 20px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Transaksi ini telah diverifikasi", width/2, height - 40);
+
+        // Trigger Download
+        const link = document.createElement('a');
+        link.download = `BuktiTF_${inputName.value.replace(/\s+/g, '_')}.jpg`;
+        link.href = canvas.toDataURL('image/jpeg', 0.9);
+        link.click();
+    }
+
+    // Helper for Canvas Text Wrapping
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+        const words = text.split(' ');
+        let line = '';
+        let currentY = y;
+
+        for(let n = 0; n < words.length; n++) {
+            const testLine = line + words[n] + ' ';
+            const metrics = ctx.measureText(testLine);
+            const testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                ctx.fillText(line, x, currentY);
+                line = words[n] + ' ';
+                currentY += lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+        ctx.fillText(line, x, currentY);
+    }
+</script>
+
+</body>
+  </html>
