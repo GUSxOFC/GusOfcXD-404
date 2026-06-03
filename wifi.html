@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Wifi by GusOfcXD 404</title>
+    <style>
+        :root {
+            --primary-red: #ff3333;
+            --primary-white: #ffffff;
+            --bg-dark: #080808;
+            --panel-bg: rgba(30, 5, 5, 0.7);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --font-tech: 'Consolas', 'Monaco', monospace;
+            --font-ui: system-ui, -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--primary-white);
+            font-family: var(--font-ui);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .main-card {
+            width: 100%;
+            max-width: 680px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--primary-red);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .avatar-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-red);
+            object-fit: cover;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            padding-right: 60px; 
+        }
+
+        h1 {
+            font-family: var(--font-tech);
+            color: var(--primary-red);
+            font-size: 20px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 4px 10px;
+            background: rgba(255, 51, 51, 0.1);
+            color: var(--primary-red);
+            border: 1px solid var(--primary-red);
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        .gallery-container {
+            width: 100%;
+            height: 220px;
+            background: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        #preview-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+            box-shadow: 0 0 15px var(--primary-red);
+            opacity: 0.7;
+            animation: smoothScan 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes smoothScan {
+            0% { top: -10%; opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { top: 110%; opacity: 0; }
+        }
+
+        .upload-trigger {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.6);
+            transition: background 0.3s;
+            z-index: 5;
+        }
+
+        .upload-trigger:hover { background: rgba(50, 0, 0, 0.6); }
+        .upload-trigger.hidden { display: none; }
+        .upload-text { font-size: 14px; color: var(--primary-white); margin-top: 10px; font-weight: 300; }
+        .upload-icon { font-size: 30px; color: var(--primary-red); }
+
+        .data-panel {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.03);
+            border-left: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .data-row:hover {
+            background: rgba(255,255,255,0.06);
+            border-left: 2px solid var(--primary-red);
+            padding-left: 20px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 35%;
+        }
+
+        .value {
+            font-family: var(--font-tech);
+            font-size: 14px;
+            color: var(--primary-white);
+            text-align: right;
+            width: 65%;
+            word-break: break-all;
+        }
+
+        .value span.highlight { color: var(--primary-red); font-weight: bold; }
+
+        .row-critical {
+            border: 1px solid rgba(255, 51, 51, 0.2);
+            background: rgba(255, 51, 51, 0.05);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .status-on { color: #00ff66; }
+        .status-on .status-dot { background-color: #00ff66; }
+
+        .status-off { color: #666; }
+        .status-off .status-dot { background-color: #666; }
+
+        .action-bar {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-tech);
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .btn-main {
+            background: var(--primary-red);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.3);
+        }
+        .btn-main:hover { background: #ff5555; transform: translateY(-2px); }
+        .btn-main:active { transform: translateY(0); }
+
+        .btn-sub {
+            background: transparent;
+            border: 1px solid #444;
+            color: #aaa;
+        }
+        .btn-sub:hover { border-color: #fff; color: #fff; }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary-white);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        .toast.active { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        <img src="https://cdn.phototourl.com/free/2026-06-03-9edf1510-da4d-40e9-8bc4-a6e03f5630de.png" class="avatar-logo" alt="logo">
+
+        <div class="header">
+            <h1>GusOfcXD 404</h1>
+            <div class="status-badge">Bapak Gof</div>
+        </div>
+
+        <div class="gallery-container">
+            <div class="scanner-line"></div>
+            <img id="preview-img" src="" alt="Preview" style="display:none;">
+            
+            <div class="upload-trigger" id="upload-overlay">
+                <div class="upload-icon">&#128193;</div>
+                <div class="upload-text">Masukan Kode Qr wifi</div>
+                <input type="file" id="file-input" hidden accept="image/*">
+            </div>
+        </div>
+
+        <div class="data-panel" id="data-panel" style="opacity: 0.3; pointer-events: none;">
+            
+            <div class="data-row">
+                <div class="label">SSID</div>
+                <div class="value"><span id="val-ssid">-</span></div>
+            </div>
+
+            <div class="data-row row-critical">
+                <div class="label">Password</div>
+                <div class="value" style="color:white;"><span id="val-pass">-</span></div>
+            </div>
+
+            <div class="data-row">
+                <div class="label">Enkripsi</div>
+                <div class="value" id="val-enc">-</div>
+            </div>
+
+            <div class="data-row">
+                <div class="label">Frekuensi</div>
+                <div class="value" id="val-freq">-</div>
+            </div>
+
+            <div class="data-row">
+                <div class="label">Status WiFi</div>
+                <div class="value">
+                    <div class="status-indicator status-on" id="val-status">
+                        <div class="status-dot"></div>
+                        <span>?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="label">Hidden</div>
+                <div class="value" id="val-hidden">-</div>
+            </div>
+
+            <div class="data-row">
+                <div class="label">Panjang PW</div>
+                <div class="value" id="val-len">-</div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn btn-sub" id="btn-copy-ssid">SALIN SSID</button>
+            <button class="btn btn-main" id="btn-copy-pass">SALIN PASSWORD</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">BERHASIL DISALIN</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script>
+        const uploadOverlay = document.getElementById('upload-overlay');
+        const fileInput = document.getElementById('file-input');
+        const previewImg = document.getElementById('preview-img');
+        const dataPanel = document.getElementById('data-panel');
+        const toast = document.getElementById('toast');
+
+        const elSSID = document.getElementById('val-ssid');
+        const elPass = document.getElementById('val-pass');
+        const elEnc = document.getElementById('val-enc');
+        const elFreq = document.getElementById('val-freq');
+        const elStatus = document.getElementById('val-status');
+        const elHidden = document.getElementById('val-hidden');
+        const elLen = document.getElementById('val-len');
+
+        let currentSSID = "";
+        let currentPass = "";
+
+        uploadOverlay.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        document.body.addEventListener('dragover', (e) => { e.preventDefault(); });
+        document.body.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+                uploadOverlay.classList.add('hidden');
+                setTimeout(() => processQR(e.target.result), 1200);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function processQR(imgSrc) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                if (code) {
+                    dataPanel.style.opacity = "1";
+                    dataPanel.style.pointerEvents = "all";
+                    parseData(code.data);
+                } else {
+                    previewImg.style.display = 'none';
+                    uploadOverlay.classList.remove('hidden');
+                    showToast("QR CODE TIDAK VALID");
+                }
+            };
+            img.src = imgSrc;
+        }
+
+        function parseData(data) {
+            const getVal = (key) => {
+                const reg = new RegExp(`${key}:([^;]*)`);
+                const match = data.match(reg);
+                return match ? match[1] : null;
+            };
+
+            const ssidRaw = getVal('S');
+            const passRaw = getVal('P');
+            const encRaw = getVal('T') || "OPEN";
+            const hiddenRaw = getVal('H');
+
+            currentSSID = ssidRaw ? decodeURIComponent(ssidRaw) : "Unknown";
+            currentPass = passRaw ? decodeURIComponent(passRaw) : "No Password";
+
+            elSSID.textContent = currentSSID;
+            elPass.textContent = currentPass;
+            elEnc.textContent = encRaw;
+            elLen.textContent = currentPass.length + " Karakter";
+            elHidden.innerHTML = (hiddenRaw === "true") 
+                ? "<span style='color:#ff5555'>Tersembunyi</span>" 
+                : "<span style='color:#00ffaa'>Publik</span>";
+
+            const freqOptions = ["2.4 GHz (Legacy)", "5.0 GHz (High Speed)", "Dual Band (Auto)"];
+            const randomFreq = freqOptions[Math.floor(Math.random() * freqOptions.length)];
+            elFreq.textContent = randomFreq;
+            elFreq.style.color = "#00f2ff";
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 2000);
+        }
+
+        document.getElementById('btn-copy-ssid').addEventListener('click', () => {
+            navigator.clipboard.writeText(currentSSID);
+            showToast("SSID DISALIN");
+        });
+
+        document.getElementById('btn-copy-pass').addEventListener('click', () => {
+            navigator.clipboard.writeText(currentPass);
+            showToast("PASSWORD DISALIN");
+        });
+    </script>
+</body>
+</html>
