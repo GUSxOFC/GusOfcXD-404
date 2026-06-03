@@ -2,2057 +2,620 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GusOfcXD 404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>GusOfcXD iOS 26</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --bg-card: rgba(255, 255, 255, 0.05);
-            --bg-card-hover: rgba(255, 255, 255, 0.08);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --text-muted: rgba(255, 255, 255, 0.5);
-            --accent: #667eea;
-            --accent-hover: #764ba2;
-            --border: rgba(255, 255, 255, 0.1);
-            --gradient-1: #667eea;
-            --gradient-2: #764ba2;
-            --gradient-3: #f093fb;
-            --gradient-4: #f5576c;
-            --success: #51cf66;
-            --warning: #ffd43b;
-            --error: #ff6b6b;
-        }
-
-        [data-theme="light"] {
-            --bg-primary: #f5f5f5;
-            --bg-secondary: #e0e0e0;
-            --bg-card: rgba(0, 0, 0, 0.05);
-            --bg-card-hover: rgba(0, 0, 0, 0.08);
-            --text-primary: #121212;
-            --text-secondary: rgba(0, 0, 0, 0.7);
-            --text-muted: rgba(0, 0, 0, 0.5);
-            --accent: #4285f4;
-            --accent-hover: #1a73e8;
-            --border: rgba(0, 0, 0, 0.1);
+            --ios-bg: #000000;
+            --ios-card: rgba(28, 28, 30, 0.65);
+            --ios-card-hover: rgba(44, 44, 46, 0.8);
+            --ios-text: #ffffff;
+            --ios-text-sec: rgba(255, 255, 255, 0.6);
+            --ios-violet: #bf5af2;
+            --ios-pink: #ff375f;
+            --ios-indigo: #5e5ce6;
+            --ios-orange: #ff9f0a;
+            --ios-green: #30d158;
+            --ios-blue: #0a84ff; 
+            --ios-gray: #8e8e93;
+            --blur-amount: 40px;
+            --radius-l: 28px;
+            --radius-m: 18px;
+            --radius-s: 12px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            background-color: var(--ios-bg);
+            color: var(--ios-text);
+            line-height: 1.5;
             overflow-x: hidden;
             min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 120px;
         }
 
-        .quantum-field {
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ios-bg-gradient {
             position: fixed;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
-            z-index: -2;
-            background: linear-gradient(45deg, #0a0a0a, #1a1a1a, #0a0a0a, #1a1a1a);
-            background-size: 400% 400%;
-            animation: quantumShift 15s ease infinite;
-        }
-
-        @keyframes quantumShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .aurora-layer {
-            position: fixed;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
             z-index: -1;
-            opacity: 0.2;
-            background: linear-gradient(0deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            animation: auroraFlow 8s linear infinite;
-        }
-
-        .aurora-layer:nth-child(2) {
-            animation-delay: -2s;
-            background: linear-gradient(0deg, transparent, rgba(118, 75, 162, 0.1), transparent);
-        }
-
-        .aurora-layer:nth-child(3) {
-            animation-delay: -4s;
-            background: linear-gradient(0deg, transparent, rgba(240, 147, 251, 0.1), transparent);
-        }
-
-        @keyframes auroraFlow {
-            0% { transform: translateY(100%) rotate(0deg); }
-            100% { transform: translateY(-100%) rotate(360deg); }
-        }
-
-        .plasma-orb {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.4), transparent, rgba(118, 75, 162, 0.4));
-            filter: blur(60px);
-            animation: plasmaFloat 20s infinite ease-in-out;
-            z-index: -1;
-        }
-
-        .plasma-orb:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            animation-delay: -5s;
-            left: auto;
-            right: 10%;
-        }
-
-        .plasma-orb:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            animation-delay: -10s;
-            top: auto;
-            bottom: 20%;
-        }
-
-        @keyframes plasmaFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(100px, -50px) scale(1.2); }
-            50% { transform: translate(-50px, 100px) scale(0.8); }
-            75% { transform: translate(-100px, -30px) scale(1.1); }
-        }
-
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            position: relative;
-            z-index: 10;
-        }
-
-        .login-container.hidden {
-            opacity: 0;
-            transform: scale(0.9);
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(191, 90, 242, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 55, 95, 0.1) 0%, transparent 40%);
             pointer-events: none;
+        }
+
+        .dynamic-island {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-        }
-
-        .login-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 35px;
+            background: #000;
             border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 40px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: width 0.3s ease;
         }
 
-        .login-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        .dynamic-island:hover {
+            width: 350px;
+        }
+        
+        .di-time {
+            font-weight: 600;
+            font-size: 14px;
         }
 
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 2;
+        .di-icons {
+            display: flex;
+            gap: 6px;
+            font-size: 12px;
         }
 
-        .login-title {
-            font-size: 32px;
+        .ios-header {
+            padding: 60px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ios-greeting {
+            font-size: 40px;
             font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            background: linear-gradient(180deg, #fff, #8e8e93);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .login-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .google-login-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 14px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-        }
-
-        .google-login-btn:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .google-login-btn i {
-            font-size: 20px;
-            color: #4285f4;
-        }
-
-        .account-selector {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .account-selector.active {
-            display: block;
-        }
-
-        .account-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .account-item:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-2px);
-        }
-
-        .account-avatar {
-            width: 40px;
-            height: 40px;
+        .ios-avatar {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            background: linear-gradient(135deg, var(--ios-violet), var(--ios-indigo));
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-weight: 700;
-        }
-
-        .account-info {
-            flex: 1;
-        }
-
-        .account-name {
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .account-email {
-            font-size: 14px;
-            color: var(--text-muted);
+            box-shadow: 0 4px 10px rgba(191, 90, 242, 0.3);
         }
 
         .app-container {
-            opacity: 0;
-            transform: scale(0.9);
-            pointer-events: none;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            min-height: 100vh;
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--ios-gray);
+            margin-bottom: 12px;
+            margin-top: 30px;
+            padding-left: 5px;
+        }
+
+        .widgets-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .widget {
+            background: var(--ios-card);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border-radius: var(--radius-l);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s;
+        }
+
+        .widget:active {
+            transform: scale(0.96);
+        }
+
+        .widget-large {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(191, 90, 242, 0.2), rgba(255, 55, 95, 0.2));
+        }
+
+        .widget-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--ios-violet);
+        }
+
+        .widget-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .widget-label {
+            font-size: 13px;
+            color: var(--ios-text-sec);
+            margin-top: 2px;
+        }
+
+        .widget-welcome-text {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px 15px;
+        }
+
+        .app-icon-wrapper {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
 
-        .app-container.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: all;
+        .app-icon-wrapper:active {
+            transform: scale(0.9);
         }
 
-        .app-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-primary);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border);
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-m);
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .app-icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-m);
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+        }
+
+        .app-name {
+            font-size: 11px;
+            color: #fff;
+            text-align: center;
+            font-weight: 500;
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .ios-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            height: 85px;
+            background: rgba(28, 28, 30, 0.6);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-around;
             align-items: center;
             z-index: 100;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .app-title {
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .dock-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 22px;
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            background: linear-gradient(135deg, #3a3a3c, #2c2c2e);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .header-actions {
+        .dock-item:hover .dock-icon {
+            transform: translateY(-10px) scale(1.1);
+        }
+        
+        .dock-item:active .dock-icon {
+            transform: scale(0.9);
+        }
+
+        .dock-label {
+            font-size: 10px;
+            color: #fff;
+        }
+
+        .list-group {
+            background: var(--ios-card);
+            border-radius: var(--radius-l);
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .list-item {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item:active {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .list-left {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .list-icon-box {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 16px;
         }
 
-        .theme-toggle:hover {
-            background: var(--bg-card-hover);
-            transform: rotate(180deg);
+        .list-title {
+            font-size: 16px;
+            font-weight: 600;
         }
 
-        .user-menu {
-            position: relative;
+        .list-sub {
+            font-size: 13px;
+            color: var(--ios-gray);
         }
 
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .user-avatar:hover {
-            transform: scale(1.1);
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            width: 200px;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(-10px);
-            pointer-events: none;
-            transition: all 0.3s ease;
-            z-index: 101;
-            margin-top: 10px;
-        }
-
-        .user-dropdown.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-
-        .user-dropdown-item {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .user-dropdown-item:hover {
-            background: var(--bg-card);
-        }
-
-        .user-dropdown-item i {
-            width: 20px;
-            text-align: center;
-        }
-
-        .app-content {
-            flex: 1;
-            padding: 80px 20px 80px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-primary);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 100;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            padding: 10px 20px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .nav-item.active {
-            color: var(--accent);
-        }
-
-        .nav-item.active::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px;
-        }
-
-        .nav-item i {
-            font-size: 20px;
-        }
-
-        .nav-item span {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .content-section {
+        .section-page {
             display: none;
+            animation: fadeIn 0.4s ease;
         }
-
-        .content-section.active {
+        
+        .section-page.active {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .dashboard-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .dashboard-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .dashboard-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 800;
-            color: white;
-        }
-
-        .dashboard-welcome {
-            flex: 1;
-        }
-
-        .dashboard-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 5px;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .dashboard-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-
-        .dashboard-content {
-            margin-top: 20px;
-        }
-
-        .dashboard-message {
-            font-size: 16px;
-            line-height: 1.6;
-            color: var(--text-primary);
-            margin-bottom: 25px;
-        }
-
-        .dashboard-welcome-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 25px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .dashboard-welcome-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .welcome-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            margin: 0 auto 20px;
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .welcome-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .welcome-description {
-            font-size: 16px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 25px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .welcome-features {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .welcome-feature {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .welcome-feature i {
-            color: var(--accent);
-        }
-
-        .features-section {
-            margin-top: 20px;
-        }
-
-        .features-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-title i {
-            color: var(--accent);
-        }
-
-        .portal-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .portal-item {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            padding: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portal-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            background: var(--bg-card-hover);
-        }
-
-        .portal-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .portal-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .portal-description {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* Share Section Styles */
-        .share-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .share-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .share-title {
-            font-size: 24px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .share-title i {
-            color: var(--accent);
-        }
-
-        .file-list {
-            margin-top: 25px;
-        }
-
-        .file-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .file-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .file-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-
-        .file-info {
-            flex: 1;
-        }
-
-        .file-name {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        .file-meta {
-            display: flex;
-            gap: 15px;
-            font-size: 14px;
-            color: var(--text-muted);
-            flex-wrap: wrap;
-        }
-
-        .file-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .file-description {
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .file-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
-        .delete-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: #dc3545;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-            transform: translateY(-2px);
-        }
-
-        .file-type-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-        }
-
-        .file-type-apk {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-
-        .file-type-html {
-            background: linear-gradient(135deg, #FF5722, #f44336);
-        }
-
-        .file-type-zip {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
-        }
-
-        .file-type-default {
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-        }
-
-        .stats-container {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            flex: 1;
-            min-width: 150px;
-            background: var(--bg-primary);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        /* Events Card Styles */
-        .events-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .events-header {
-            margin-bottom: 20px;
-        }
-
-        .events-title {
-            font-size: 22px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .events-title i {
-            color: var(--accent);
-        }
-
-        .events-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .event-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .event-item:hover {
-            transform: translateX(5px);
-        }
-
-        .event-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .event-icon.religious {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-        }
-
-        .event-icon.national {
-            background: linear-gradient(135deg, #FF5722, #f44336);
-            color: white;
-        }
-
-        .event-icon.international {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-            color: white;
-        }
-
-        .event-info {
-            flex: 1;
-        }
-
-        .event-name {
-            font-weight: 700;
-            margin-bottom: 3px;
-            color: var(--text-primary);
-        }
-
-        .event-date {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Prayer Card Styles */
-        .prayer-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .prayer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .prayer-title {
-            font-size: 22px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .prayer-title i {
-            color: var(--accent);
-        }
-
-        .prayer-location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        .prayer-location i {
-            color: var(--accent);
-        }
-
-        .prayer-times-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .prayer-time-item {
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .prayer-time-item.active {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            border: 1px solid var(--accent);
-            transform: scale(1.05);
-        }
-
-        .prayer-name {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .prayer-time {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .prayer-time-item.active .prayer-time {
-            color: var(--accent);
-        }
-
-        .prayer-alert {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            border-radius: 12px;
-            margin-top: 15px;
-            border: 1px solid var(--accent);
-        }
-
-        .prayer-alert.active {
-            display: flex;
-        }
-
-        .prayer-alert i {
-            font-size: 20px;
-            color: var(--accent);
-        }
-
-        .prayer-alert-text {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .countdown {
-            margin-top: 5px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .social-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .social-title i {
-            color: var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-link {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-3px);
-        }
-
-        .social-link.telegram {
-            border-left: 3px solid #0088cc;
-        }
-
-        .social-link.tiktok {
-            border-left: 3px solid #ff0050;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: var(--success);
-        }
-
-        .notification.error {
-            background: var(--error);
-        }
-
-        .notification.warning {
-            background: var(--warning);
-            color: var(--bg-primary);
-        }
-
-        /* Visitor Counter Styles */
-        .visitor-counter {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .visitor-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .visitor-title i {
-            color: var(--accent);
-        }
-
-        .visitor-count {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-
-        .visitor-description {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 768px) {
-            .welcome-features {
-                flex-direction: column;
-                gap: 15px;
+        @media (max-width: 400px) {
+            .grid-container {
+                gap: 15px 10px;
             }
-            
-            .prayer-times-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .social-links {
-                flex-direction: column;
-            }
-
-            .portal-list {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .dashboard-avatar {
-                margin-bottom: 15px;
-            }
-
-            .share-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .file-header {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .file-actions {
-                flex-wrap: wrap;
-            }
-
-            .notification {
-                right: 10px;
-                left: 10px;
-                transform: translateY(-100px);
-            }
-
-            .notification.show {
-                transform: translateY(0);
+            .app-icon {
+                width: 55px;
+                height: 55px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="quantum-field"></div>
-    <div class="aurora-layer"></div>
-    <div class="aurora-layer"></div>
-    <div class="aurora-layer"></div>
-    <div class="plasma-orb" style="top: 20%; left: 10%;"></div>
-    <div class="plasma-orb"></div>
-    <div class="plasma-orb"></div>
+    <div class="ios-bg-gradient"></div>
 
-    <div class="login-container" id="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h1 class="login-title">GusOfcXD 404</h1>
-                <p class="login-subtitle">Selamat datang di website kami</p>
+    <div class="dynamic-island">
+        <div class="di-time" id="clock">12:00</div>
+        <div class="di-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <div class="ios-header">
+        <div>
+            <div style="font-size: 14px; color: var(--ios-text-sec); font-weight: 500;">Selamat Pagi,</div>
+            <div class="ios-greeting">Guest</div>
+        </div>
+        <div class="ios-avatar">G</div>
+    </div>
+
+    <main class="app-container">
+        
+        <div class="section-page active" id="home-page">
+            
+            <div class="section-title">Widgets</div>
+            <div class="widgets-row">
+                <div class="widget">
+                    <i class="fas fa-users widget-icon"></i>
+                    <div class="widget-value">15.2K</div>
+                    <div class="widget-label">Total Visitors</div>
+                </div>
+                <div class="widget" style="background: linear-gradient(135deg, rgba(255, 55, 95, 0.2), rgba(255, 159, 10, 0.2));">
+                    <i class="fas fa-wifi widget-icon" style="color: var(--ios-orange);"></i>
+                    <div class="widget-value">5G</div>
+                    <div class="widget-label">Network Status</div>
+                </div>
+                <div class="widget widget-large">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                            <div class="widget-welcome-text">GusOfcXD 404</div>
+                            <div style="font-size:14px; color:rgba(255,255,255,0.7);">Premium Tools & Entertainment</div>
+                        </div>
+                        <i class="fas fa-bolt" style="font-size:30px; color:var(--ios-pink);"></i>
+                    </div>
+                </div>
             </div>
-            
-            <button class="google-login-btn" id="google-login-btn">
-                <i class="fab fa-google"></i>
-                <span>Login dengan akun Google Anda</span>
-            </button>
-            
-            <div class="account-selector" id="account-selector">
-                <div class="account-item" data-email="user1@example.com" data-name="User One">
-                    <div class="account-avatar">U</div>
-                    <div class="account-info">
-                        <div class="account-name">User One</div>
-                        <div class="account-email">user1@example.com</div>
+
+            <div class="section-title">Apps</div>
+            <div class="grid-container">
+                <div class="app-icon-wrapper" onclick="window.location.href='fakepay.html'">
+                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-green), #28cd41);">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="app-name">FakePay</div>
+                </div>
+                <div class="app-icon-wrapper" onclick="window.location.href='wifi.html'">
+                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-blue), #5ac8fa);">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="app-name">Wifi Info</div>
+                </div>
+                <div class="app-icon-wrapper" onclick="window.open('trackip.html', '_blank')">
+                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-indigo), #5856d6);">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <div class="app-name">TrackIP</div>
+                </div>
+                <div class="app-icon-wrapper" onclick="window.open('ipqt.html', '_blank')">
+                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-pink), #ff2d55);">
+                        <i class="fab fa-apple-ios"></i>
+                    </div>
+                    <div class="app-name">IQC</div>
+                </div>
+                <div class="app-icon-wrapper" onclick="window.open('device-your-information.html', '_blank')">
+                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-orange), #ff9500);">
+                        <i class="fas fa-info"></i>
+                    </div>
+                    <div class="app-name">Device</div>
+                </div>
+                <div class="app-icon-wrapper" onclick="window.open('delrepostori.html', '_blank')">
+                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-gray), #8e8e93);">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="app-name">Repo</div>
+                </div>
+                <div class="app-icon-wrapper" onclick="window.open('https://xavaai.vercel.app/', '_blank')">
+                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-violet), #af52de);">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="app-name">XavAi</div>
+                </div>
+                <div class="app-icon-wrapper" onclick="window.open('create-website.html', '_blank')">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #007aff, #5ac8fa);">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="app-name">Web</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-page" id="files-page">
+            <div class="section-title">Shared Files</div>
+            <div class="list-group">
+                <div class="list-item">
+                    <div class="list-left">
+                        <div class="list-icon-box" style="color: #28cd41;"><i class="fab fa-android"></i></div>
+                        <div>
+                            <div class="list-title">APK Cek Banned</div>
+                            <div class="list-sub">4.2 MB • Admin</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--ios-gray);"></i>
+                </div>
+                <div class="list-item">
+                    <div class="list-left">
+                        <div class="list-icon-box" style="color: #ff9500;"><i class="fab fa-android"></i></div>
+                        <div>
+                            <div class="list-title">Minecraft Gratis</div>
+                            <div class="list-sub">120 MB • Admin</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--ios-gray);"></i>
+                </div>
+                <div class="list-item">
+                    <div class="list-left">
+                        <div class="list-icon-box" style="color: #ff2d55;"><i class="fab fa-android"></i></div>
+                        <div>
+                            <div class="list-title">Nekopoi Wibu</div>
+                            <div class="list-sub">15 MB • Admin</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--ios-gray);"></i>
+                </div>
+                <div class="list-item">
+                    <div class="list-left">
+                        <div class="list-icon-box" style="color: #007aff;"><i class="fab fa-html5"></i></div>
+                        <div>
+                            <div class="list-title">Payment Manual</div>
+                            <div class="list-sub">HTML • Admin</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--ios-gray);"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-page" id="jadwal-page">
+            <div class="section-title">Prayer Times (Makassar)</div>
+            <div class="list-group" style="padding: 10px;">
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; text-align:center;">
+                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
+                        <div style="font-size:12px; color:var(--ios-gray);">Subuh</div>
+                        <div style="font-size:16px; font-weight:700;">04:45</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
+                        <div style="font-size:12px; color:var(--ios-gray);">Dzuhur</div>
+                        <div style="font-size:16px; font-weight:700;">12:15</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
+                        <div style="font-size:12px; color:var(--ios-gray);">Ashar</div>
+                        <div style="font-size:16px; font-weight:700;">15:30</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
+                        <div style="font-size:12px; color:var(--ios-gray);">Maghrib</div>
+                        <div style="font-size:16px; font-weight:700;">18:15</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px; grid-column: span 2;">
+                        <div style="font-size:12px; color:var(--ios-gray);">Isya</div>
+                        <div style="font-size:16px; font-weight:700;">19:30</div>
                     </div>
                 </div>
-                <div class="account-item" data-email="user2@example.com" data-name="User Two">
-                    <div class="account-avatar">U</div>
-                    <div class="account-info">
-                        <div class="account-name">User Two</div>
-                        <div class="account-email">user2@example.com</div>
+            </div>
+
+            <div class="section-title">Events 2025</div>
+            <div class="list-group">
+                <div class="list-item">
+                    <div class="list-left">
+                        <div class="list-icon-box" style="background:var(--ios-green); color:#000;"><i class="fas fa-flag"></i></div>
+                        <div>
+                            <div class="list-title">Kemerdekaan RI</div>
+                            <div class="list-sub">17 Agustus 2025</div>
+                        </div>
                     </div>
                 </div>
-                <div class="account-item" id="add-account">
-                    <div class="account-avatar" style="background: var(--bg-primary); color: var(--text-primary);">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="account-info">
-                        <div class="account-name">Gunakan akun lain</div>
+                <div class="list-item">
+                    <div class="list-left">
+                        <div class="list-icon-box" style="background:var(--ios-pink); color:#fff;"><i class="fas fa-heart"></i></div>
+                        <div>
+                            <div class="list-title">Valentine Day</div>
+                            <div class="list-sub">14 Februari 2025</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="app-container" id="app-container">
-        <header class="app-header">
-            <h1 class="app-title">GusOfcXD 404</h1>
-            <div class="header-actions">
-                <button class="theme-toggle" id="theme-toggle">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </button>
-                <div class="user-menu">
-                    <div class="user-avatar" id="user-avatar">U</div>
-                    <div class="user-dropdown" id="user-dropdown">
-                        <a href="#" class="user-dropdown-item" id="logout-item">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Keluar</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+    </main>
 
-        <main class="app-content">
-            <div class="content-section active" id="home-section">
-                <div class="dashboard-card">
-                    <div class="dashboard-header">
-                        <div class="dashboard-avatar" id="dashboard-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="dashboard-welcome">
-                            <h2 class="dashboard-title">Dashboard</h2>
-                            <p class="dashboard-subtitle" id="welcome-message">Selamat datang di website GusOfcXD 404</p>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-content">
-                        <p class="dashboard-message">Hi <span id="user-email"></span> selamat datang di website GusOfcXD 404, apa yang dapat kami bantu?</p>
-                        
-                        <div class="dashboard-welcome-card">
-                            <div class="welcome-icon">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <h3 class="welcome-title">Jelajahi Dunia Digital</h3>
-                            <p class="welcome-description">
-                                Temukan berbagai fitur menarik dan tools canggih yang kami sediakan untuk memudahkan aktivitas digital Anda. Dari pelacakan IP hingga pembuatan website, semuanya ada di sini.
-                            </p>
-                            <div class="welcome-features">
-                                <div class="welcome-feature">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>Cepat & Mudah</span>
-                                </div>
-                                <div class="welcome-feature">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Aman & Terpercaya</span>
-                                </div>
-                                <div class="welcome-feature">
-                                    <i class="fas fa-star"></i>
-                                    <span>Fitur Lengkap</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Visitor Counter -->
-                <div class="visitor-counter">
-                    <h2 class="visitor-title">
-                        <i class="fas fa-users"></i>
-                        Total Pengunjung
-                    </h2>
-                    <div class="visitor-count" id="visitor-count">15,000</div>
-                    <div class="visitor-description">Terima kasih telah mengunjungi website kami</div>
-                </div>
-            </div>
-
-            <div class="content-section" id="features-section">
-                <h2 class="features-title">
-                    <i class="fas fa-th-large"></i>
-                    Fitur
-                </h2>
-                
-                <div class="portal-list">
-                    <div class="portal-item" onclick="window.open('trackip.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-globe-americas"></i>
-                        </div>
-                        <h3 class="portal-title">Track IP</h3>
-                        <p class="portal-description">Melacak informasi lokasi berdasarkan alamat IP dengan akurasi tinggi</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('ipqt.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3 class="portal-title">IQC</h3>
-                        <p class="portal-description">Informasi lengkap dan detail tentang perangkat iPhone</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('device-your-information.html', '_blank')">
-                        <div class="portal-icon">
-                            < <i class="fas fa-info-circle"></i>
-                        </div>
-                        <h3 class="portal-title">Device Info</h3>
-                        <p class="portal-description">Menampilkan informasi detail tentang perangkat yang sedang digunakan</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('delrepostori.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-trash-alt"></i>
-                        </div>
-                        <h3 class="portal-title">Del Repository</h3>
-                        <p class="portal-description">Akses langsung ke repositori GitHub untuk pengembangan</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('https://xavaai.vercel.app/', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3 class="portal-title">XavAi</h3>
-                        <p class="portal-description">Bot AI canggih untuk berbagai kebutuhan digital Anda</p>
-                    </div>
-
-                    <div class="portal-item" onclick="window.open('create-website.html', '_blank')">
-                        <div class="portal-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3 class="portal-title">Create Website</h3>
-                        <p class="portal-description">Buat website dengan mudah dan cepat menggunakan template yang tersedia</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-section" id="share-section">
-                <div class="share-card">
-                    <div class="share-header">
-                        <h2 class="share-title">
-                            <i class="fas fa-share-alt"></i>
-                            Share Files
-                        </h2>
-                    </div>
-                    
-                    <div class="stats-container">
-                        <div class="stat-item">
-                            <div class="stat-number" id="total-files">0</div>
-                            <div class="stat-label">Total Files</div>
-                        </div>
-                    </div>
-                    
-                    <div class="file-list" id="file-list">
-                        <!-- Files will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-section" id="prayer-section">
-                <!-- Events Calendar -->
-                <div class="events-card">
-                    <div class="events-header">
-                        <h2 class="events-title">
-                            <i class="fas fa-calendar-alt"></i>
-                            Kalender Hari Besar 2025
-                        </h2>
-                    </div>
-                    
-                    <div class="events-list" id="events-list">
-                        <!-- Events will be loaded here -->
-                    </div>
-                </div>
-
-                <!-- Prayer Times -->
-                <div class="prayer-card">
-                    <div class="prayer-header">
-                        <h2 class="prayer-title">
-                            <i class="fas fa-clock"></i>
-                            Waktu Sholat
-                        </h2>
-                        <div class="prayer-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Makassar</span>
-                        </div>
-                    </div>
-                    
-                    <div class="prayer-times-grid">
-                        <div class="prayer-time-item" id="subuh-time">
-                            <div class="prayer-name">Subuh</div>
-                            <div class="prayer-time">04:45</div>
-                        </div>
-                        <div class="prayer-time-item" id="dzuhur-time">
-                            <div class="prayer-name">Dzuhur</div>
-                            <div class="prayer-time">12:15</div>
-                        </div>
-                        <div class="prayer-time-item" id="ashar-time">
-                            <div class="prayer-name">Ashar</div>
-                            <div class="prayer-time">15:30</div>
-                        </div>
-                        <div class="prayer-time-item" id="maghrib-time">
-                            <div class="prayer-name">Maghrib</div>
-                            <div class="prayer-time">18:15</div>
-                        </div>
-                        <div class="prayer-time-item" id="isya-time">
-                            <div class="prayer-name">Isya</div>
-                            <div class="prayer-time">19:30</div>
-                        </div>
-                    </div>
-                    
-                    <div class="prayer-alert" id="prayer-alert">
-                        <i class="fas fa-bell"></i>
-                        <div>
-                            <div class="prayer-alert-text" id="prayer-alert-text">Waktu Sholat telah tiba!</div>
-                            <div class="countdown" id="countdown">00:00:00</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Social Card -->
-                <div class="social-card">
-                    <h2 class="social-title">
-                        <i class="fas fa-share-alt"></i>
-                        Media Sosial
-                    </h2>
-                    
-                    <div class="social-links">
-                        <a href="https://t.me/goofc404" target="_blank" class="social-link telegram">
-                            <i class="fab fa-telegram-plane"></i>
-                            <span>@goofc404</span>
-                        </a>
-                        <a href="https://www.tiktok.com/@gusofcxd.4.0.4" target="_blank" class="social-link tiktok">
-                            <i class="fab fa-tiktok"></i>
-                            <span>gusofcxd.4.0.4</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <nav class="bottom-nav">
-            <a class="nav-item active" data-section="home-section">
+    <div class="ios-dock">
+        <div class="dock-item" onclick="switchPage('home-page')">
+            <div class="dock-icon" style="background: linear-gradient(135deg, #FF9500, #FF5E3A);">
                 <i class="fas fa-home"></i>
-                <span>Home</span>
-            </a>
-            <a class="nav-item" data-section="features-section">
-                <i class="fas fa-th-large"></i>
-                <span>Fitur</span>
-            </a>
-            <a class="nav-item" data-section="share-section">
-                <i class="fas fa-share-alt"></i>
-                <span>Share</span>
-            </a>
-            <a class="nav-item" data-section="prayer-section">
+            </div>
+            <div class="dock-label">Home</div>
+        </div>
+        <div class="dock-item" onclick="switchPage('files-page')">
+            <div class="dock-icon" style="background: linear-gradient(135deg, #30D158, #25D366);">
+                <i class="fas fa-folder"></i>
+            </div>
+            <div class="dock-label">Files</div>
+        </div>
+        <div class="dock-item" onclick="switchPage('jadwal-page')">
+            <div class="dock-icon" style="background: linear-gradient(135deg, #0A84FF, #5E5CE6);">
                 <i class="fas fa-clock"></i>
-                <span>Jadwal</span>
-            </a>
-        </nav>
+            </div>
+            <div class="dock-label">Jadwal</div>
+        </div>
+        <div class="dock-item">
+            <div class="dock-icon" style="background: linear-gradient(135deg, #32D74B, #30D158);">
+                <i class="fas fa-phone"></i>
+            </div>
+            <div class="dock-label">Call</div>
+        </div>
     </div>
-
-    <div class="notification" id="notification"></div>
 
     <script>
-        // Visitor Counter
-        class VisitorCounter {
-            constructor() {
-                this.count = 15000; // Set to 15,000 as requested
-                this.updateDisplay();
-            }
-
-            updateDisplay() {
-                const display = document.getElementById('visitor-count');
-                if (display) {
-                    display.textContent = this.count.toLocaleString();
-                }
-            }
-        }
-
-        // Initialize visitor counter
-        const visitorCounter = new VisitorCounter();
-
-        // File Storage using localStorage
-        class FileStorage {
-            constructor() {
-                this.files = this.loadFiles();
-            }
-
-            loadFiles() {
-                const stored = localStorage.getItem('sharedFiles');
-                if (stored) {
-                    return JSON.parse(stored);
-                }
-                
-                // Default files
-                const defaultFiles = [
-                    {
-                        id: '1',
-                        name: 'APK Cek Banned WhatsApp',
-                        url: 'https://www.mediafire.com/file/pj2p9u4akt4f6jg/PrasszTzy_CekBand.apk/file',
-                        description: 'Aplikasi untuk mengecek status banned akun WhatsApp Anda dengan mudah dan cepat.',
-                        type: 'apk',
-                        date: '2025',
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '2',
-                        name: 'Minecraft Mojang Gratis',
-                        url: 'https://www.mediafire.com/file/cmj2wu5epw5uh0s/minecraft-apk-latest-version-november-2025.apk/file',
-                        description: 'Minecraft versi gratis dari Mojang dengan semua fitur premium terbuka. Mainkan tanpa batas!',
-                        type: 'apk',
-                        date: 'November 2025',
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '3',
-                        name: 'Nekopoi untuk Wibu',
-                        url: 'https://www.mediafire.com/file/vtmkstxz7cczqm2/Nekopoi_2.5.3_nekopoisapk.com.apk/file',
-                        description: 'Aplikasi khusus untuk wibu dengan koleksi anime terlengkap dan update setiap hari.',
-                        type: 'apk',
-                        date: 'v2.5.3',
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '4',
-                        name: 'HTML Cek Informasi Handphone',
-                        url: 'https://www.mediafire.com/file/5zhy3fajkn61lb3/cek_info_ip_addres.html/file',
-                        description: 'Tool HTML untuk mengecek informasi lengkap handphone Anda termasuk IP, lokasi, dan spesifikasi device.',
-                        type: 'html',
-                        date: '2025',
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '5',
-                        name: 'HTML Payment Manual',
-                        url: 'https://www.mediafire.com/file/458rtbs9087kv2e/html_payment.html/file',
-                        description: 'Template HTML untuk sistem payment manual yang bisa digunakan untuk berbagai keperluan transaksi online.',
-                        type: 'html',
-                        date: '2025',
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    },
-                    {
-                        id: '6',
-                        name: 'HTML Prank Teman',
-                        url: 'https://www.mediafire.com/file/806ej9vxwxlzjz4/html_prank_%2540gofcc404.html/file',
-                        description: 'HTML prank untuk menjahili teman-teman Anda dengan berbagai efek lucu dan mengejutkan.',
-                        type: 'html',
-                        date: '2025',
-                        uploader: 'Admin',
-                        uploaderEmail: 'admin@gusofc.com'
-                    }
-                ];
-                
-                this.saveFiles(defaultFiles);
-                return defaultFiles;
-            }
-
-            saveFiles(files = this.files) {
-                localStorage.setItem('sharedFiles', JSON.stringify(files));
-                this.updateStats();
-            }
-
-            updateStats() {
-                const totalFiles = this.files.length;
-                
-                document.getElementById('total-files').textContent = totalFiles;
-            }
-
-            deleteFile(fileId) {
-                this.files = this.files.filter(file => file.id !== fileId);
-                this.saveFiles();
-            }
-        }
-
-        // Initialize file storage
-        const fileStorage = new FileStorage();
-
-        // Notification system
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                <span>${message}</span>
-            `;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Login functionality
-        const loginContainer = document.getElementById('login-container');
-        const appContainer = document.getElementById('app-container');
-        const googleLoginBtn = document.getElementById('google-login-btn');
-        const accountSelector = document.getElementById('account-selector');
-        const accountItems = document.querySelectorAll('.account-item');
-        const userEmail = document.getElementById('user-email');
-        const dashboardAvatar = document.getElementById('dashboard-avatar');
-        const userAvatar = document.getElementById('user-avatar');
-        const logoutItem = document.getElementById('logout-item');
-        const userDropdown = document.getElementById('user-dropdown');
-
-        googleLoginBtn.addEventListener('click', () => {
-            accountSelector.classList.add('active');
-        });
-
-        accountItems.forEach(item => {
-            if (item.id !== 'add-account') {
-                item.addEventListener('click', () => {
-                    const email = item.dataset.email;
-                    const name = item.dataset.name;
-                    
-                    // Store user data
-                    localStorage.setItem('userEmail', email);
-                    localStorage.setItem('userName', name);
-                    
-                    // Update UI
-                    userEmail.textContent = email;
-                    dashboardAvatar.textContent = name.charAt(0).toUpperCase();
-                    userAvatar.textContent = name.charAt(0).toUpperCase();
-                    
-                    // Load files
-                    loadFiles();
-                    
-                    // Transition to app
-                    loginContainer.classList.add('hidden');
-                    setTimeout(() => {
-                        appContainer.classList.add('active');
-                    }, 300);
-                });
-            } else {
-                item.addEventListener('click', () => {
-                    const newEmail = prompt('Masukkan email Anda:');
-                    if (newEmail) {
-                        const newName = prompt('Masukkan nama Anda:');
-                        if (newName) {
-                            // Store user data
-                            localStorage.setItem('userEmail', newEmail);
-                            localStorage.setItem('userName', newName);
-                            
-                            // Update UI
-                            userEmail.textContent = newEmail;
-                            dashboardAvatar.textContent = newName.charAt(0).toUpperCase();
-                            userAvatar.textContent = newName.charAt(0).toUpperCase();
-                            
-                            // Load files
-                            loadFiles();
-                            
-                            // Transition to app
-                            loginContainer.classList.add('hidden');
-                            setTimeout(() => {
-                                appContainer.classList.add('active');
-                            }, 300);
-                        }
-                    }
-                });
-            }
-        });
-
-        userAvatar.addEventListener('click', () => {
-            userDropdown.classList.toggle('active');
-        });
-
-        logoutItem.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Clear stored user data
-            localStorage.removeItem('userEmail');
-            localStorage.removeItem('userName');
-            
-            // Transition to login
-            appContainer.classList.remove('active');
-            setTimeout(() => {
-                loginContainer.classList.remove('hidden');
-                accountSelector.classList.remove('active');
-            }, 300);
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!userAvatar.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('active');
-            }
-        });
-
-        // Navigation functionality
-        const navItems = document.querySelectorAll('.nav-item');
-        const contentSections = document.querySelectorAll('.content-section');
-
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                const targetSection = item.dataset.section;
-                
-                // Update active nav item
-                navItems.forEach(navItem => navItem.classList.remove('active'));
-                item.classList.add('active');
-                
-                // Show corresponding content section
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                    if (section.id === targetSection) {
-                        section.classList.add('active');
-                    }
-                });
-            });
-        });
-
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const htmlElement = document.documentElement;
-
-        // Check for saved theme preference or default to dark mode
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        htmlElement.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.className = 'fas fa-moon';
-            } else {
-                themeIcon.className = 'fas fa-sun';
-            }
-        }
-
-        // File list functions
-        function loadFiles() {
-            const fileList = document.getElementById('file-list');
-            fileList.innerHTML = '';
-            
-            fileStorage.files.forEach(file => {
-                addFileToList(file);
-            });
-        }
-
-        function addFileToList(file) {
-            const fileList = document.getElementById('file-list');
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-            fileItem.dataset.fileId = file.id;
-            
-            const fileTypeClass = `file-type-${file.type}`;
-            const fileIcon = getFileIcon(file.type);
-            
-            fileItem.innerHTML = `
-                <div class="file-header">
-                    <div class="file-type-icon ${fileTypeClass}">
-                        <i class="${fileIcon}"></i>
-                    </div>
-                    <div class="file-info">
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-meta">
-                            <span><i class="fas fa-file"></i> ${file.type.toUpperCase()}</span>
-                            <span><i class="fas fa-calendar"></i> ${file.date}</span>
-                            <span><i class="fas fa-user"></i> ${file.uploader}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="file-description">
-                    ${file.description}
-                </div>
-                <div class="file-actions">
-                    <a href="${file.url}" target="_blank" class="download-btn">
-                        <i class="fas fa-download"></i>
-                        <span>Download</span>
-                    </a>
-                    ${file.uploaderEmail === document.getElementById('user-email').textContent ? `
-                        <button class="delete-btn" onclick="deleteFile('${file.id}')">
-                            <i class="fas fa-trash"></i>
-                            <span>Hapus</span>
-                        </button>
-                    ` : ''}
-                </div>
-            `;
-            
-            fileList.insertBefore(fileItem, fileList.firstChild);
-        }
-
-        function getFileIcon(type) {
-            const icons = {
-                'apk': 'fab fa-android',
-                'html': 'fas fa-code',
-                'zip': 'fas fa-file-archive',
-                'default': 'fas fa-file'
-            };
-            return icons[type] || icons.default;
-        }
-
-        function deleteFile(fileId) {
-            if (!confirm('Apakah Anda yakin ingin menghapus file ini?')) {
-                return;
-            }
-            
-            fileStorage.deleteFile(fileId);
-            loadFiles();
-            showNotification('File berhasil dihapus', 'success');
-        }
-
-        // Load events
-        function loadEvents() {
-            const eventsData = [
-                { name: 'Tahun Baru 2025', date: '1 Januari 2025', type: 'national', icon: 'fa-champagne-glasses' },
-                { name: 'Isra Miraj', date: '8 Februari 2025', type: 'religious', icon: 'fa-moon' },
-                { name: 'Natal', date: '25 Desember 2025', type: 'religious', icon: 'fa-christmas-tree' },
-                { name: 'Idul Fitri', date: '10 April 2025', type: 'religious', icon: 'fa-mosque' },
-                { name: 'Kemerdekaan RI', date: '17 Agustus 2025', type: 'national', icon: 'fa-flag' },
-                { name: 'Halloween', date: '31 Oktober 2025', type: 'international', icon: 'fa-ghost' },
-                { name: 'Tahun Baru Islam', date: '10 Juli 2025', type: 'religious', icon: 'fa-crescent' },
-                { name: 'Valentine Day', date: '14 Februari 2025', type: 'international', icon: 'fa-heart' }
-            ];
-            
-            const eventsList = document.getElementById('events-list');
-            eventsList.innerHTML = '';
-            
-            eventsData.forEach(event => {
-                const eventItem = document.createElement('div');
-                eventItem.className = 'event-item';
-                eventItem.innerHTML = `
-                    <div class="event-icon ${event.type}">
-                        <i class="fas ${event.icon}"></i>
-                    </div>
-                    <div class="event-info">
-                        <div class="event-name">${event.name}</div>
-                        <div class="event-date">${event.date}</div>
-                    </div>
-                `;
-                eventsList.appendChild(eventItem);
-            });
-        }
-
-        // Prayer times functionality
-        const prayerTimes = {
-            Subuh: { time: '04:45', nextPrayer: 'Dzuhur' },
-            Dzuhur: { time: '12:15', nextPrayer: 'Ashar' },
-            Ashar: { time: '15:30', nextPrayer: 'Maghrib' },
-            Maghrib: { time: '18:15', nextPrayer: 'Isya' },
-            Isya: { time: '19:30', nextPrayer: 'Subuh' }
-        };
-
-        const prayerNames = Object.keys(prayerTimes);
-        let currentPrayerIndex = 0;
-
-        function getCurrentTime() {
+        function updateClock() {
             const now = new Date();
-            return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
         }
 
-        function timeToMinutes(timeStr) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            return hours * 60 + minutes;
-        }
+        setInterval(updateClock, 1000);
+        updateClock();
 
-        function minutesToTime(minutes) {
-            const hours = Math.floor(minutes / 60);
-            const mins = minutes % 60;
-            return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-        }
-
-        function updatePrayerTimes() {
-            const now = new Date();
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-            const currentSeconds = now.getSeconds();
-            
-            for (let i = 0; i < prayerNames.length; i++) {
-                const prayerTime = prayerTimes[prayerNames[i]];
-                const prayerMinutes = timeToMinutes(prayerTime.time);
-                
-                if (currentMinutes < prayerMinutes || (i === prayerNames.length - 1 && currentMinutes >= prayerMinutes)) {
-                    currentPrayerIndex = i;
-                    break;
-                }
-            }
-            
-            const currentPrayerName = prayerNames[currentPrayerIndex];
-            const currentPrayerTime = prayerTimes[currentPrayerName].time;
-            const nextPrayerName = prayerTimes[currentPrayerName].nextPrayer;
-            const nextPrayerTime = prayerTimes[nextPrayerName].time;
-            
-            const nextPrayerMinutes = timeToMinutes(nextPrayerTime);
-            let countdownMinutes;
-            
-            if (nextPrayerMinutes > currentMinutes) {
-                countdownMinutes = nextPrayerMinutes - currentMinutes;
-            } else {
-                countdownMinutes = (24 * 60) - currentMinutes + nextPrayerMinutes;
-            }
-            
-            const totalSeconds = countdownMinutes * 60 - currentSeconds;
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            
-            const countdownStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            document.getElementById('countdown').textContent = countdownStr;
-            
-            const prayerMinutes = timeToMinutes(currentPrayerTime);
-            const timeDiff = Math.abs(currentMinutes - prayerMinutes);
-            
-            document.querySelectorAll('.prayer-time-item').forEach(item => {
-                item.classList.remove('active');
+        function switchPage(pageId) {
+            document.querySelectorAll('.section-page').forEach(el => {
+                el.classList.remove('active');
             });
-            document.getElementById(`${currentPrayerName.toLowerCase()}-time`).classList.add('active');
-            
-            if (timeDiff < 2) {
-                document.getElementById('prayer-alert').classList.add('active');
-                document.getElementById('prayer-alert-text').textContent = `Waktu ${currentPrayerName} telah tiba!`;
-            } else {
-                document.getElementById('prayer-alert').classList.remove('active');
-            }
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        // Initialize
-        window.addEventListener('load', () => {
-            const storedEmail = localStorage.getItem('userEmail');
-            const storedName = localStorage.getItem('userName');
-            
-            if (storedEmail && storedName) {
-                // Update UI with stored user data
-                userEmail.textContent = storedEmail;
-                dashboardAvatar.textContent = storedName.charAt(0).toUpperCase();
-                userAvatar.textContent = storedName.charAt(0).toUpperCase();
-                
-                // Load files
-                loadFiles();
-                
-                // Skip login screen
-                loginContainer.classList.add('hidden');
-                appContainer.classList.add('active');
-            }
-            
-            // Load events
-            loadEvents();
-            
-            // Update prayer times
-            setInterval(updatePrayerTimes, 1000);
-            updatePrayerTimes();
-        });
     </script>
-
 </body>
 </html>
