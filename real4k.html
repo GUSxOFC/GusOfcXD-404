@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GusOfcXD 404 Hd 4k</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #bc13fe;
+            --dark-void: #050505;
+            --panel-bg: rgba(20, 20, 20, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--dark-void);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            margin-top: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-shadow: 0 0 20px var(--neon-cyan);
+            color: #fff;
+        }
+
+        h1 span {
+            color: var(--neon-cyan);
+        }
+
+        .status-line {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--neon-purple);
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* --- MAIN WRAPPER --- */
+        .engine-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        /* --- UPLOAD ZONE --- */
+        .upload-trigger {
+            position: relative;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .upload-trigger:hover .btn-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            letter-spacing: 6px;
+        }
+
+        .btn-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--neon-cyan);
+            padding-bottom: 5px;
+            transition: 0.3s;
+        }
+
+        .sub-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* --- CONTROLS --- */
+        .controls-panel {
+            display: flex;
+            gap: 3rem;
+            background: var(--panel-bg);
+            padding: 1.5rem 3rem;
+            border-radius: 0; 
+            opacity: 0.3;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .controls-panel.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 150px;
+        }
+
+        label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--neon-purple);
+            font-weight: 700;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 10px;
+            background: var(--neon-cyan);
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: #333;
+        }
+
+        /* --- THE IMAGE CONTAINER --- */
+        .visual-stage {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            display: none; 
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .visual-stage.visible {
+            display: flex;
+            animation: stageIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Kotak Futuristik (Container) */
+        .holo-frame {
+            position: relative;
+            clip-path: polygon(
+                5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%
+            );
+            filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.3));
+            background: #000;
+            border: 1px solid #333; /* Border tipis agar kelihatan kotaknya */
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.6;
+        }
+
+        .holo-frame::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .res-tag {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: #000;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 10;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        /* --- DOWNLOAD --- */
+        .action-area {
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.5s;
+            margin-top: 2rem;
+        }
+
+        .action-area.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .download-btn {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 30px #fff;
+        }
+
+        @keyframes stageIn {
+            0% { transform: scale(0.9) rotateX(10deg); opacity: 0; }
+            100% { transform: scale(1) rotateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .controls-panel { flex-direction: column; gap: 1.5rem; padding: 1rem; }
+            h1 { font-size: 2rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ULTRA <span>HD</span> ENGINE</h1>
+        <div class="status-line">GusOfcXD 404</div>
+    </header>
+
+    <main class="engine-container">
+
+        <!-- Upload -->
+        <div class="upload-trigger" onclick="document.getElementById('fileInput').click()">
+            <div class="btn-text">[ DROP IMAGE FILE ]</div>
+            <div class="sub-text">GAMBAR AKAN PAS DI TENGAH (TIDAK DIPANJANGKAN)</div>
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-panel" id="controls">
+            <div class="control-group">
+                <label>BRIGHTNESS</label>
+                <input type="range" id="brightness" min="50" max="150" value="105">
+            </div>
+            <div class="control-group">
+                <label>CONTRAST</label>
+                <input type="range" id="contrast" min="50" max="200" value="130">
+            </div>
+            <div class="control-group">
+                <label>SATURATION</label>
+                <input type="range" id="saturation" min="50" max="200" value="140">
+            </div>
+        </div>
+
+        <!-- Visual Stage -->
+        <div class="visual-stage" id="visualStage">
+            <div class="res-tag">4K UHD (3840x2160)</div>
+            
+            <div class="holo-frame">
+                <canvas id="canvas"></canvas>
+                <div class="scanlines"></div>
+            </div>
+        </div>
+
+        <!-- Action -->
+        <div class="action-area" id="actionArea">
+            <button class="download-btn" id="downloadBtn">DOWNLOAD RESULT</button>
+        </div>
+
+    </main>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const controls = document.getElementById('controls');
+        const visualStage = document.getElementById('visualStage');
+        const actionArea = document.getElementById('actionArea');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        let originalImage = new Image();
+        let fileName = 'ultra_hd_output';
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if(!file) return;
+
+            fileName = file.name.split('.')[0] + '_4K';
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                originalImage = new Image();
+                originalImage.onload = () => {
+                    controls.classList.add('active');
+                    visualStage.classList.add('visible');
+                    actionArea.classList.add('active');
+                    processImage();
+                };
+                originalImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.querySelectorAll('input[type=range]').forEach(input => {
+            input.addEventListener('input', processImage);
+        });
+
+        function processImage() {
+            // 1. Set Target Canvas ke 4K Full
+            canvas.width = 3840;
+            canvas.height = 2160;
+
+            // 2. Bersihkan Canvas (Isi Hitam agar jadi bingkai kotak)
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 3. Terapkan Filter
+            const b = document.getElementById('brightness').value;
+            const c = document.getElementById('contrast').value;
+            const s = document.getElementById('saturation').value;
+
+            ctx.filter = `brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+
+            // 4. LOGIKA "SMART FIT" (Supaya tidak gepeng/panjang)
+            // Kita cari skala terkecil agar gambar masuk semua ke dalam canvas
+            const scale = Math.min(canvas.width / originalImage.width, canvas.height / originalImage.height);
+            
+            // Hitung ukuran baru berdasarkan skala
+            const newWidth = originalImage.width * scale;
+            const newHeight = originalImage.height * scale;
+
+            // Hitung posisi tengah agar pas di kotak
+            const offsetX = (canvas.width - newWidth) / 2;
+            const offsetY = (canvas.height - newHeight) / 2;
+
+            // Gambar di posisi tengah
+            ctx.drawImage(originalImage, offsetX, offsetY, newWidth, newHeight);
+        }
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = fileName + '.png';
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+        });
+
+    </script>
+</body>
+</html>
