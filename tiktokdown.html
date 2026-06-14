@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Downloader Real API</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00f2ea;
+            --secondary: #ff0050;
+            --bg: #0f0f12;
+            --card-bg: #1e1e24;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .input-box {
+            position: relative;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #111;
+            color: white;
+            outline: none;
+        }
+
+        button.btn-main {
+            padding: 0 20px;
+            background: linear-gradient(90deg, var(--secondary), #d60045);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Loading & Error */
+        .status-msg {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            min-height: 20px;
+            color: #aaa;
+        }
+
+        /* Result Card */
+        .result-card {
+            display: none;
+            background: #111;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .video-preview {
+            width: 100%;
+            aspect-ratio: 9/16;
+            background: black;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info {
+            padding: 15px;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .desc {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .dl-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #333;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .dl-btn:hover { background: #444; }
+        .dl-btn.nowm {
+            background: linear-gradient(90deg, var(--primary), #00c2bb);
+            color: black;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2><i class="fab fa-tiktok"></i> TikTok Downloader</h2>
+    
+    <div class="input-box">
+        <input type="text" id="urlInput" placeholder="Tempel link TikTok disini...">
+        <button class="btn-main" onclick="fetchVideo()"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="status-msg" id="status"></div>
+
+    <!-- Area Hasil -->
+    <div class="result-card" id="resultArea">
+        <div class="video-preview">
+            <!-- Video element untuk memutar hasil asli -->
+            <video id="videoPlayer" controls playsinline loop></video>
+        </div>
+        
+        <div class="info">
+            <div class="user">
+                <i class="fas fa-user-circle"></i> <span id="username">@username</span>
+            </div>
+            <div class="desc" id="caption">Deskripsi video...</div>
+            
+            <a href="#" class="dl-btn" id="dlNoWatermark" target="_blank">
+                <i class="fas fa-download"></i> Download Tanpa Watermark
+            </a>
+            <a href="#" class="dl-btn" id="dlOriginal" target="_blank">
+                <i class="fas fa-file-video"></i> Download Original
+            </a>
+            <a href="#" class="dl-btn" id="dlAudio" target="_blank">
+                <i class="fas fa-music"></i> Download MP3
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const statusEl = document.getElementById('status');
+    const resultArea = document.getElementById('resultArea');
+    const videoPlayer = document.getElementById('videoPlayer');
+    
+    // Elements to update
+    const elUsername = document.getElementById('username');
+    const elCaption = document.getElementById('caption');
+    const elDlNoWm = document.getElementById('dlNoWatermark');
+    const elDlOrig = document.getElementById('dlOriginal');
+    const elDlAudio = document.getElementById('dlAudio');
+
+    async function fetchVideo() {
+        const url = document.getElementById('urlInput').value.trim();
+        
+        if(!url) {
+            alert("Masukkan link dulu!");
+            return;
+        }
+
+        statusEl.innerText = "Sedang mengambil data dari server...";
+        resultArea.style.display = 'none';
+        videoPlayer.pause();
+
+        try {
+            // Menggunakan API Publik TikWM (Agar bisa ambil data asli tanpa Backend sendiri)
+            const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
+            
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.code === 0 && data.data) {
+                const v = data.data; // Video data object
+
+                // 1. Update Player Video (Direct Link)
+                videoPlayer.src = v.play;
+                // Optional: Autoplay sedikit (bisa di-block browser)
+                videoPlayer.play().catch(e => console.log("Autoplay dicegah browser"));
+
+                // 2. Update Info
+                elUsername.innerText = v.author.nickname ? `@${v.author.unique_id} (${v.author.nickname})` : `@${v.author.unique_id}`;
+                elCaption.innerText = v.title || "Tidak ada caption";
+
+                // 3. Update Link Download
+                elDlNoWm.href = v.play; // Link biasanya sudah tanpa watermark di API ini
+                elDlOrig.href = v.wmplay || v.play; // Fallback ke play jika wmplay kosong
+                elDlAudio.href = v.music;
+
+                // Tampilkan hasil
+                statusEl.innerText = "";
+                resultArea.style.display = 'block';
+
+            } else {
+                statusEl.innerText = "Gagal! Video mungkin diprivasi atau link salah.";
+                statusEl.style.color = "var(--secondary)";
+            }
+
+        } catch (error) {
+            console.error(error);
+            statusEl.innerText = "Error koneksi. API mungkin sedang sibuk.";
+            statusEl.style.color = "var(--secondary)";
+        }
+    }
+
+    // Paste Otomatis saat klik input (jika ada di clipboard)
+    document.getElementById('urlInput').addEventListener('focus', async () => {
+        try {
+            const text = await navigator.clipboard.readText();
+            if(text.includes('tiktok.com')) {
+                document.getElementById('urlInput').value = text;
+            }
+        } catch (err) {}
+    });
+</script>
+
+</body>
+</html>
