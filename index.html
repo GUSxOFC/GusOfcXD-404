@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>GusOfcXD 404</title>
+    <title>GusOfcXD 404 Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --ios-bg: #000000;
-            --ios-card: rgba(28, 28, 30, 0.65);
-            --ios-card-hover: rgba(44, 44, 46, 0.8);
+            /* Glass Effect Upgrade */
+            --ios-card: rgba(20, 20, 20, 0.4);
+            --ios-card-hover: rgba(255, 255, 255, 0.1);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            
             --ios-text: #ffffff;
-            --ios-text-sec: rgba(255, 255, 255, 0.6);
-            --ios-violet: #bf5af2;
-            --ios-pink: #ff375f;
-            --ios-indigo: #5e5ce6;
-            --ios-orange: #ff9f0a;
-            --ios-green: #30d158;
-            --ios-blue: #0a84ff; 
-            --ios-gray: #8e8e93;
-            --blur-amount: 40px;
-            --radius-l: 28px;
-            --radius-m: 18px;
+            --ios-text-sec: rgba(255, 255, 255, 0.7);
+            
+            --ios-violet: #d68fff;
+            --ios-pink: #ff6b8b;
+            --ios-indigo: #7d7fff;
+            --ios-orange: #ffb340;
+            --ios-green: #4cfd6e;
+            --ios-blue: #40a3ff; 
+            --ios-gray: #a1a1a6;
+            
+            --blur-amount: 25px;
+            --radius-l: 24px;
+            --radius-m: 16px;
             --radius-s: 12px;
+            
+            --neon-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -30,7 +37,7 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -39,11 +46,23 @@
             line-height: 1.5;
             overflow-x: hidden;
             min-height: 100vh;
-            padding-bottom: 120px;
+            padding-bottom: 110px;
+            position: relative;
         }
 
         body::-webkit-scrollbar {
             display: none;
+        }
+
+        /* --- PARTICLES CANVAS --- */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* Background Video Styling */
@@ -61,145 +80,142 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.4); /* Gelapkan video agar teks terbaca */
+            /* Optimasi pencahayaan video agar tidak gelap gulita */
+            filter: brightness(0.6) contrast(1.2) saturate(1.1);
+            transform: scale(1.05);
         }
 
-        /* Overlay untuk memastikan teks kontras */
+        /* Overlay Gradient Artistik */
         .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Overlay hitam transparan */
+            background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.95) 100%);
             z-index: -1;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(1px);
+            pointer-events: none;
         }
 
-        /* Menghilangkan gradient lama karena diganti video */
-        .ios-bg-gradient {
-            display: none; 
-        }
-
+        /* Dynamic Island */
         .dynamic-island {
             position: fixed;
-            top: 10px;
+            top: 12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 35px;
+            width: 100px;
+            height: 32px;
             background: #000;
-            border-radius: 20px;
+            border-radius: 16px;
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: width 0.3s ease;
+            padding: 0 14px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid rgba(255,255,255,0.15);
         }
 
         .dynamic-island:hover {
-            width: 350px;
+            width: 340px;
+            border-radius: 22px;
+            background: rgba(20,20,20,0.95);
         }
         
         .di-time {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
         }
 
         .di-icons {
             display: flex;
-            gap: 6px;
-            font-size: 12px;
+            gap: 5px;
+            font-size: 11px;
+            color: #fff;
         }
 
+        /* Header */
         .ios-header {
-            padding: 60px 20px 10px;
+            padding: 65px 24px 10px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            align-items: flex-end;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-text h4 {
+            font-size: 13px;
+            color: var(--ios-text-sec);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
         }
 
         .ios-greeting {
-            font-size: 40px;
+            font-size: 38px;
             font-weight: 800;
-            background: linear-gradient(180deg, #fff, #8e8e93);
+            background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
         .ios-avatar {
-            width: 45px;
-            height: 45px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--ios-violet), var(--ios-indigo));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            box-shadow: 0 4px 10px rgba(191, 90, 242, 0.3);
+            box-shadow: 0 0 20px rgba(191, 90, 242, 0.4);
+            font-size: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .app-container {
             padding: 0 20px;
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        /* Featured Video Section */
-        .featured-video-wrapper {
-            width: 100%;
-            margin-bottom: 25px;
             position: relative;
-            border-radius: var(--radius-l);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            background: #000;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .featured-video-wrapper video {
-            width: 100%;
-            aspect-ratio: 16/9;
-            object-fit: contain; /* Agar seluruh video terlihat */
-            display: block;
-        }
-        
-        .featured-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 10px 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-            pointer-events: none;
+            z-index: 5;
         }
 
         .section-title {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 700;
             text-transform: uppercase;
-            color: var(--ios-gray);
-            margin-bottom: 12px;
-            margin-top: 20px;
-            padding-left: 5px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            color: var(--ios-text-sec);
+            margin-bottom: 14px;
+            margin-top: 30px;
+            padding-left: 4px;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 14px;
+            background: var(--ios-blue);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--ios-blue);
+        }
+
+        /* Widgets */
         .widgets-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .widget {
@@ -210,8 +226,15 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.2s;
+            border: var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .widget:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4), var(--neon-shadow);
         }
 
         .widget:active {
@@ -220,47 +243,72 @@
 
         .widget-large {
             grid-column: span 2;
-            background: linear-gradient(135deg, rgba(191, 90, 242, 0.2), rgba(255, 55, 95, 0.2));
+            background: linear-gradient(135deg, rgba(191, 90, 242, 0.1), rgba(94, 92, 230, 0.1));
+            border: 1px solid rgba(191, 90, 242, 0.3);
+        }
+
+        /* Glow Effect Inside Widget */
+        .widget-large::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+            transform: rotate(45deg);
+            pointer-events: none;
         }
 
         .widget-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 8px;
             color: var(--ios-violet);
+            filter: drop-shadow(0 0 5px var(--ios-violet));
         }
 
         .widget-value {
-            font-size: 32px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             color: #fff;
+            letter-spacing: -0.5px;
         }
 
         .widget-label {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--ios-text-sec);
-            margin-top: 2px;
+            margin-top: 4px;
+            font-weight: 500;
         }
 
         .widget-welcome-text {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             color: #fff;
+            background: linear-gradient(90deg, #fff, #dcdcdc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
+        /* Grid Apps */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px 15px;
+            gap: 22px 18px;
         }
 
         .app-icon-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .app-icon-wrapper:hover {
+            transform: translateY(-5px);
         }
 
         .app-icon-wrapper:active {
@@ -268,16 +316,22 @@
         }
 
         .app-icon {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             border-radius: var(--radius-m);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 30px;
             color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             position: relative;
+            transition: box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .app-icon-wrapper:hover .app-icon {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.2);
         }
 
         .app-icon::after {
@@ -285,66 +339,73 @@
             position: absolute;
             inset: 0;
             border-radius: var(--radius-m);
-            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+            background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%);
+            pointer-events: none;
         }
 
         .app-name {
-            font-size: 11px;
-            color: #fff;
+            font-size: 11.5px;
+            color: rgba(255,255,255,0.9);
             text-align: center;
-            font-weight: 500;
-            max-width: 70px;
+            font-weight: 600;
+            max-width: 75px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 4px rgba(0,0,0,1);
         }
 
+        /* iOS Dock */
         .ios-dock {
             position: fixed;
-            bottom: 20px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            height: 85px;
-            background: rgba(28, 28, 30, 0.6);
-            backdrop-filter: blur(var(--blur-amount));
-            -webkit-backdrop-filter: blur(var(--blur-amount));
-            border-radius: 35px;
+            width: 92%;
+            max-width: 420px;
+            height: 90px;
+            background: rgba(30, 30, 30, 0.5);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 40px;
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 100;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 0 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 0 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
         }
 
         .dock-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             cursor: pointer;
+            width: 60px;
         }
 
         .dock-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             color: white;
-            background: linear-gradient(135deg, #3a3a3c, #2c2c2e);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: linear-gradient(145deg, #3a3a3c, #252527);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .dock-item:hover .dock-icon {
-            transform: translateY(-10px) scale(1.1);
+            transform: translateY(-15px) scale(1.15);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,255,255,0.1);
+            z-index: 2;
         }
         
         .dock-item:active .dock-icon {
@@ -353,22 +414,33 @@
 
         .dock-label {
             font-size: 10px;
-            color: #fff;
+            color: rgba(255,255,255,0.8);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.3s ease;
         }
 
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* List Group */
         .list-group {
             background: var(--ios-card);
             border-radius: var(--radius-l);
             overflow: hidden;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             backdrop-filter: blur(var(--blur-amount));
             -webkit-backdrop-filter: blur(var(--blur-amount));
-            border: 1px solid rgba(255,255,255,0.1);
+            border: var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .list-item {
-            padding: 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -381,24 +453,25 @@
         }
 
         .list-item:active {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
         }
 
         .list-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
         .list-icon-box {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             background: rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 18px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         }
 
         .list-title {
@@ -407,45 +480,52 @@
         }
 
         .list-sub {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--ios-gray);
+            margin-top: 2px;
         }
 
         .section-page {
             display: none;
-            animation: fadeIn 0.4s ease;
+            animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         
         .section-page.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 400px) {
             .grid-container {
-                gap: 15px 10px;
+                gap: 18px 12px;
             }
             .app-icon {
-                width: 55px;
-                height: 55px;
+                width: 58px;
+                height: 58px;
+            }
+            .ios-greeting {
+                font-size: 32px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Video (Fixed) -->
+    <!-- Canvas untuk Efek Partikel (Bintang Jatuh) -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Background Video (Link User) -->
     <div class="video-bg-container">
-        <!-- Video User Pertama -->
         <video class="bg-video" autoplay muted loop playsinline>
             <source src="https://www.image2url.com/r2/default/videos/1781137527324-37b3043f-c800-4774-9824-a747b8e0a13b.mp4" type="video/mp4">
         </video>
     </div>
-    <!-- Overlay Hitam Transparan -->
+    
+    <!-- Overlay Gradient -->
     <div class="bg-overlay"></div>
 
     <div class="dynamic-island">
@@ -453,14 +533,14 @@
         <div class="di-icons">
             <i class="fas fa-signal"></i>
             <i class="fas fa-wifi"></i>
-            <i class="fas fa-battery-full"></i>
+            <i class="fas fa-battery-three-quarters"></i>
         </div>
     </div>
 
     <div class="ios-header">
-        <div>
-            <div style="font-size: 14px; color: var(--ios-text-sec); font-weight: 500;">Selamat Pagi,</div>
-            <div class="ios-greeting">Guest</div>
+        <div class="header-text">
+            <h4>Welcome Back</h4>
+            <div class="ios-greeting">GusOfcXD</div>
         </div>
         <div class="ios-avatar">G</div>
     </div>
@@ -469,96 +549,128 @@
         
         <div class="section-page active" id="home-page">
             
-            <!-- Video Featured Utama (Paling Atas) -->
-            <!-- Video User Kedua -->
-            <div class="featured-video-wrapper">
-                <video controls playsinline poster="https://picsum.photos/seed/ios/800/450">
-                    <source src="https://www.image2url.com/r2/default/videos/1781137600565-ee6497fb-094c-4067-931f-878b2cf6a9ef.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="featured-label">
-                    <i class="fas fa-play-circle"></i> Featured Content
-                </div>
-            </div>
-
-            <div class="section-title">Widgets</div>
+            <div class="section-title">Status Widget</div>
             <div class="widgets-row">
                 <div class="widget">
                     <i class="fas fa-users widget-icon"></i>
                     <div class="widget-value">15.2K</div>
-                    <div class="widget-label">Total Visitors</div>
+                    <div class="widget-label">Visitors Online</div>
                 </div>
-                <div class="widget" style="background: linear-gradient(135deg, rgba(255, 55, 95, 0.2), rgba(255, 159, 10, 0.2));">
+                <div class="widget" style="background: linear-gradient(135deg, rgba(255, 159, 10, 0.1), rgba(255, 55, 95, 0.1)); border: 1px solid rgba(255, 159, 10, 0.2);">
                     <i class="fas fa-wifi widget-icon" style="color: var(--ios-orange);"></i>
-                    <div class="widget-value">5G</div>
-                    <div class="widget-label">Network Status</div>
+                    <div class="widget-value">5G+</div>
+                    <div class="widget-label">Ultra Network</div>
                 </div>
                 <div class="widget widget-large">
                     <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                         <div>
                             <div class="widget-welcome-text">GusOfcXD 404</div>
-                            <div style="font-size:14px; color:rgba(255,255,255,0.7);">Premium Tools & Entertainment</div>
+                            <div style="font-size:13px; color:rgba(255,255,255,0.6); font-weight: 500;">Premium Tools & Entertainment Hub</div>
                         </div>
-                        <i class="fas fa-bolt" style="font-size:30px; color:var(--ios-pink);"></i>
+                        <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 12px; backdrop-filter: blur(10px);">
+                            <i class="fas fa-bolt" style="font-size:24px; color:var(--ios-pink);"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="section-title">Apps</div>
+            <div class="section-title">Premium Tools</div>
             <div class="grid-container">
+                <!-- TikTok Downloader -->
+                <div class="app-icon-wrapper" onclick="window.location.href='tiktokdown.html'">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #121212, #fe2c55);">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="app-name">TikTok DL</div>
+                </div>
+
+                <!-- Fake Pay -->
                 <div class="app-icon-wrapper" onclick="window.location.href='fakepay.html'">
-                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-green), #28cd41);">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #1c5c36, #28cd41);">
                         <i class="fas fa-money-bill-wave"></i>
                     </div>
                     <div class="app-name">FakePay</div>
                 </div>
+
+                <!-- Tanda Tangan -->
+                <div class="app-icon-wrapper" onclick="window.location.href='tandatangan.html'">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #004a99, #5ac8fa);">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <div class="app-name">Signature</div>
+                </div>
+
+                <!-- Wifi Info -->
                 <div class="app-icon-wrapper" onclick="window.location.href='wifi.html'">
-                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-blue), #5ac8fa);">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #0056b3, #0a84ff);">
                         <i class="fas fa-wifi"></i>
                     </div>
                     <div class="app-name">Wifi Info</div>
                 </div>
+
+                <!-- Real 4K -->
+                <div class="app-icon-wrapper" onclick="window.location.href='real4k.html'">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #008f7a, #30d158);">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <div class="app-name">Real 4K</div>
+                </div>
+
+                <!-- TrackIP -->
                 <div class="app-icon-wrapper" onclick="window.open('trackip.html', '_blank')">
-                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-indigo), #5856d6);">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #3a36d6, #5e5ce6);">
                         <i class="fas fa-globe-asia"></i>
                     </div>
                     <div class="app-name">TrackIP</div>
                 </div>
+
+                <!-- IQC -->
                 <div class="app-icon-wrapper" onclick="window.open('ipqt.html', '_blank')">
-                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-pink), #ff2d55);">
-                        <i class="fab fa-apple-ios"></i>
+                    <div class="app-icon" style="background: linear-gradient(135deg, #d61c4e, #ff375f);">
+                        <i class="fab fa-apple"></i>
                     </div>
                     <div class="app-name">IQC</div>
                 </div>
+
+                <!-- Device Info -->
                 <div class="app-icon-wrapper" onclick="window.open('device-your-information.html', '_blank')">
-                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-orange), #ff9500);">
-                        <i class="fas fa-info"></i>
+                    <div class="app-icon" style="background: linear-gradient(135deg, #c66900, #ff9f0a);">
+                        <i class="fas fa-info-circle"></i>
                     </div>
                     <div class="app-name">Device</div>
                 </div>
+            </div>
+            
+            <div class="section-title">Utilities</div>
+            <div class="grid-container">
+                <!-- Repo -->
                 <div class="app-icon-wrapper" onclick="window.open('delrepostori.html', '_blank')">
-                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-gray), #8e8e93);">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #333333, #555555);">
                         <i class="fab fa-github"></i>
                     </div>
                     <div class="app-name">Repo</div>
                 </div>
+
+                <!-- XavAi -->
                 <div class="app-icon-wrapper" onclick="window.open('https://xavaai.vercel.app/', '_blank')">
-                    <div class="app-icon" style="background: linear-gradient(135deg, var(--ios-violet), #af52de);">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #9b30d9, #bf5af2);">
                         <i class="fas fa-robot"></i>
                     </div>
                     <div class="app-name">XavAi</div>
                 </div>
+
+                <!-- Create Website -->
                 <div class="app-icon-wrapper" onclick="window.open('create-website.html', '_blank')">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #007aff, #5ac8fa);">
+                    <div class="app-icon" style="background: linear-gradient(135deg, #0062cc, #40a3ff);">
                         <i class="fas fa-code"></i>
                     </div>
-                    <div class="app-name">Web</div>
+                    <div class="app-name">Web Dev</div>
                 </div>
             </div>
+
         </div>
 
         <div class="section-page" id="files-page">
-            <!-- Video Featured tidak dimunculkan di halaman Files agar lebih bersih -->
             <div class="section-title">Shared Files</div>
             <div class="list-group">
                 <div class="list-item">
@@ -606,27 +718,27 @@
 
         <div class="section-page" id="jadwal-page">
             <div class="section-title">Prayer Times (Makassar)</div>
-            <div class="list-group" style="padding: 10px;">
-                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; text-align:center;">
-                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
-                        <div style="font-size:12px; color:var(--ios-gray);">Subuh</div>
-                        <div style="font-size:16px; font-weight:700;">04:45</div>
+            <div class="list-group" style="padding: 15px;">
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; text-align:center;">
+                    <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,0.1);">
+                        <div style="font-size:11px; color:var(--ios-gray); font-weight:600;">Subuh</div>
+                        <div style="font-size:18px; font-weight:800; color:#fff;">04:45</div>
                     </div>
-                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
-                        <div style="font-size:12px; color:var(--ios-gray);">Dzuhur</div>
-                        <div style="font-size:16px; font-weight:700;">12:15</div>
+                    <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,0.1);">
+                        <div style="font-size:11px; color:var(--ios-gray); font-weight:600;">Dzuhur</div>
+                        <div style="font-size:18px; font-weight:800; color:#fff;">12:15</div>
                     </div>
-                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
-                        <div style="font-size:12px; color:var(--ios-gray);">Ashar</div>
-                        <div style="font-size:16px; font-weight:700;">15:30</div>
+                    <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,0.1);">
+                        <div style="font-size:11px; color:var(--ios-gray); font-weight:600;">Ashar</div>
+                        <div style="font-size:18px; font-weight:800; color:#fff;">15:30</div>
                     </div>
-                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px;">
-                        <div style="font-size:12px; color:var(--ios-gray);">Maghrib</div>
-                        <div style="font-size:16px; font-weight:700;">18:15</div>
+                    <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,0.1);">
+                        <div style="font-size:11px; color:var(--ios-gray); font-weight:600;">Maghrib</div>
+                        <div style="font-size:18px; font-weight:800; color:#fff;">18:15</div>
                     </div>
-                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:12px; grid-column: span 2;">
-                        <div style="font-size:12px; color:var(--ios-gray);">Isya</div>
-                        <div style="font-size:16px; font-weight:700;">19:30</div>
+                    <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,0.1); grid-column: span 2;">
+                        <div style="font-size:11px; color:var(--ios-gray); font-weight:600;">Isya</div>
+                        <div style="font-size:18px; font-weight:800; color:#fff;">19:30</div>
                     </div>
                 </div>
             </div>
@@ -684,16 +796,17 @@
     </div>
 
     <script>
+        // --- Jam Digital ---
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             document.getElementById('clock').textContent = `${hours}:${minutes}`;
         }
-
         setInterval(updateClock, 1000);
         updateClock();
 
+        // --- Page Switcher ---
         function switchPage(pageId) {
             document.querySelectorAll('.section-page').forEach(el => {
                 el.classList.remove('active');
@@ -701,6 +814,61 @@
             document.getElementById(pageId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // --- Efek Partikel (Stars) ---
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < 60; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
