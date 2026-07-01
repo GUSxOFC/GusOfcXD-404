@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SnapCam — Kamera Foto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #06060c;
+            --card: #111120;
+            --card2: #16162a;
+            --border: #1c1c30;
+            --fg: #eaeaf2;
+            --muted: #5e5e78;
+            --accent: #ff2d55;
+            --accent-soft: rgba(255,45,85,0.12);
+            --green: #00e676;
+            --yellow: #ffca28;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            min-height: 100dvh;
+            overflow-x: hidden;
+        }
+
+        .bg-blob {
+            position: fixed; border-radius: 50%; filter: blur(100px);
+            pointer-events: none; z-index: 0;
+        }
+        .bg-blob.a { width:400px; height:400px; top:-15%; left:-10%; background: rgba(255,45,85,0.05); }
+        .bg-blob.b { width:300px; height:300px; bottom:-10%; right:-8%; background: rgba(0,230,118,0.04); }
+
+        /* ===== PERMISSION SCREEN ===== */
+        .perm-screen {
+            position: fixed; inset:0; z-index:500;
+            display:flex; align-items:center; justify-content:center;
+            background: var(--bg);
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .perm-screen.gone { opacity:0; visibility:hidden; pointer-events:none; }
+
+        .perm-card {
+            width: 90%; max-width: 400px;
+            text-align: center;
+            padding: 44px 28px 36px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            position: relative; overflow: hidden;
+        }
+        .perm-card::before {
+            content:''; position:absolute;
+            top:-60%; left:-30%; width:160%; height:100%;
+            background: radial-gradient(ellipse, rgba(255,45,85,0.07), transparent 70%);
+            pointer-events:none;
+        }
+
+        .perm-icon {
+            width:84px; height:84px; border-radius:50%;
+            background: var(--accent-soft);
+            border: 2px solid rgba(255,45,85,0.2);
+            display:flex; align-items:center; justify-content:center;
+            margin: 0 auto 22px; font-size:32px; color:var(--accent);
+            animation: float-ico 3s ease-in-out infinite;
+            position: relative; z-index:1;
+        }
+        @keyframes float-ico {
+            0%,100% { transform:translateY(0); }
+            50% { transform:translateY(-7px); }
+        }
+
+        .perm-card h2 {
+            font-size:21px; font-weight:800; margin-bottom:8px;
+            letter-spacing:-0.4px; position:relative; z-index:1;
+        }
+        .perm-card > p {
+            font-size:13.5px; color:var(--muted); line-height:1.65;
+            margin-bottom:28px; position:relative; z-index:1;
+        }
+
+        .perm-btn {
+            width:100%; padding:15px; border:none; border-radius:14px;
+            background:var(--accent); color:#fff;
+            font-family:inherit; font-size:15px; font-weight:700;
+            cursor:pointer; transition:all 0.2s;
+            display:flex; align-items:center; justify-content:center; gap:9px;
+            position:relative; z-index:1;
+        }
+        .perm-btn:hover { background:#ff4466; transform:translateY(-2px); box-shadow:0 8px 30px rgba(255,45,85,0.35); }
+        .perm-btn:active { transform:translateY(0) scale(0.97); }
+        .perm-btn.loading { pointer-events:none; opacity:0.65; }
+
+        /* ===== ERROR PANEL ===== */
+        .err-panel {
+            display:none; margin-top:20px; text-align:left;
+            background:var(--card2); border:1px solid var(--border);
+            border-radius:14px; padding:18px; position:relative; z-index:1;
+        }
+        .err-panel.show { display:block; animation: fadeUp 0.3s ease-out; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+        .err-panel .err-title {
+            font-size:13px; font-weight:700; color:#ff6b6b;
+            display:flex; align-items:center; gap:7px; margin-bottom:10px;
+        }
+
+        .err-panel .err-msg {
+            font-size:12.5px; color:var(--muted); line-height:1.6; margin-bottom:14px;
+        }
+
+        .err-panel .fix-title {
+            font-size:11.5px; font-weight:700; color:var(--yellow);
+            text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;
+        }
+
+        .err-panel .fix-steps {
+            list-style:none; counter-reset:step;
+        }
+        .err-panel .fix-steps li {
+            counter-increment:step;
+            font-size:12px; color:var(--fg);
+            padding: 6px 0 6px 32px; position:relative; line-height:1.5;
+        }
+        .err-panel .fix-steps li::before {
+            content: counter(step);
+            position:absolute; left:0; top:6px;
+            width:22px; height:22px; border-radius:50%;
+            background:var(--accent-soft); color:var(--accent);
+            font-size:11px; font-weight:700;
+            display:flex; align-items:center; justify-content:center;
+        }
+
+        .err-panel code {
+            background:rgba(255,255,255,0.06);
+            padding:2px 7px; border-radius:5px;
+            font-family:'Space Grotesk',monospace;
+            font-size:11.5px; color:var(--accent);
+            word-break:break-all;
+        }
+
+        .err-panel .copy-cmd {
+            display:inline-flex; align-items:center; gap:6px;
+            margin-top:12px; padding:8px 16px; border-radius:8px;
+            background:var(--accent-soft); border:1px solid rgba(255,45,85,0.2);
+            color:var(--accent); font-family:inherit;
+            font-size:12px; font-weight:600; cursor:pointer;
+            transition:all 0.2s;
+        }
+        .err-panel .copy-cmd:hover { background:rgba(255,45,85,0.2); }
+
+        .perm-note {
+            margin-top:16px; font-size:10.5px; color:var(--muted);
+            opacity:0.5; position:relative; z-index:1;
+        }
+
+        /* ===== STATUS CHECK ===== */
+        .checks {
+            display:flex; gap:6px; justify-content:center;
+            margin-bottom:22px; position:relative; z-index:1; flex-wrap:wrap;
+        }
+        .check-tag {
+            font-size:10.5px; font-weight:600; padding:4px 10px;
+            border-radius:8px; display:flex; align-items:center; gap:5px;
+        }
+        .check-tag.ok { background:rgba(0,230,118,0.08); color:var(--green); border:1px solid rgba(0,230,118,0.15); }
+        .check-tag.fail { background:rgba(255,45,85,0.08); color:#ff6b6b; border:1px solid rgba(255,45,85,0.15); }
+        .check-tag.warn { background:rgba(255,202,40,0.08); color:var(--yellow); border:1px solid rgba(255,202,40,0.15); }
+
+        /* ===== MAIN APP ===== */
+        .app {
+            display:none; flex-direction:column; align-items:center;
+            min-height:100dvh; position:relative; z-index:1;
+        }
+        .app.active { display:flex; }
+
+        .hdr {
+            width:100%; max-width:520px; padding:14px 16px 8px;
+            display:flex; align-items:center; justify-content:space-between;
+        }
+        .hdr-brand { font-size:17px; font-weight:800; letter-spacing:-0.5px; }
+        .hdr-brand span { color:var(--accent); }
+        .live-tag {
+            display:flex; align-items:center; gap:6px;
+            font-size:10px; font-weight:700; text-transform:uppercase;
+            letter-spacing:0.8px; color:var(--green);
+            background:rgba(0,230,118,0.08); border:1px solid rgba(0,230,118,0.15);
+            padding:4px 10px; border-radius:20px;
+        }
+        .live-dot {
+            width:6px; height:6px; background:var(--green);
+            border-radius:50%; animation:blink 1.4s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+        .cam-wrap { width:100%; max-width:520px; padding:0 12px; }
+        .cam-frame {
+            position:relative; width:100%; aspect-ratio:3/4;
+            border-radius:22px; overflow:hidden; background:#000;
+            border:2px solid var(--border);
+            box-shadow:0 0 0 1px rgba(255,255,255,0.02), 0 24px 80px rgba(0,0,0,0.7);
+            transition:box-shadow 0.3s;
+        }
+        .cam-frame.flash-on {
+            box-shadow:0 0 0 2px rgba(255,255,255,0.6), 0 0 140px rgba(255,255,255,0.7);
+        }
+        video { width:100%; height:100%; object-fit:cover; display:block; }
+
+        .grid-ov {
+            position:absolute; inset:0; pointer-events:none;
+            z-index:2; opacity:0; transition:opacity 0.25s;
+        }
+        .grid-ov.on { opacity:1; }
+        .grid-ov .ln { position:absolute; background:rgba(255,255,255,0.12); }
+        .grid-ov .ln.h { width:100%; height:1px; }
+        .grid-ov .ln.v { height:100%; width:1px; }
+        .grid-ov .ln:nth-child(1){top:33.33%}
+        .grid-ov .ln:nth-child(2){top:66.66%}
+        .grid-ov .ln:nth-child(3){left:33.33%}
+        .grid-ov .ln:nth-child(4){left:66.66%}
+
+        .crn { position:absolute; width:22px; height:22px; z-index:3; pointer-events:none; }
+        .crn::before,.crn::after { content:''; position:absolute; background:var(--accent); border-radius:1px; }
+        .crn.tl{top:10px;left:10px;} .crn.tl::before{width:22px;height:2px;top:0;left:0;} .crn.tl::after{width:2px;height:22px;top:0;left:0;}
+        .crn.tr{top:10px;right:10px;} .crn.tr::before{width:22px;height:2px;top:0;right:0;} .crn.tr::after{width:2px;height:22px;top:0;right:0;}
+        .crn.bl{bottom:10px;left:10px;} .crn.bl::before{width:22px;height:2px;bottom:0;left:0;} .crn.bl::after{width:2px;height:22px;bottom:0;left:0;}
+        .crn.br{bottom:10px;right:10px;} .crn.br::before{width:22px;height:2px;bottom:0;right:0;} .crn.br::after{width:2px;height:22px;bottom:0;right:0;}
+
+        .flash-ov {
+            position:absolute; inset:0; background:#fff; opacity:0;
+            z-index:10; pointer-events:none; border-radius:22px;
+        }
+        .flash-ov.fire { animation:flash-anim 0.4s ease-out forwards; }
+        @keyframes flash-anim { 0%{opacity:0.95;} 15%{opacity:0.85;} 100%{opacity:0;} }
+
+        .info-strip {
+            position:absolute; bottom:0; left:0; right:0; z-index:4;
+            padding:36px 14px 12px;
+            background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);
+            display:flex; justify-content:space-between;
+            font-size:11px; font-weight:600; color:rgba(255,255,255,0.55);
+        }
+
+        .timer-display {
+            position:absolute; inset:0; z-index:8;
+            display:flex; align-items:center; justify-content:center;
+            pointer-events:none; opacity:0; transition:opacity 0.15s;
+        }
+        .timer-display.on { opacity:1; }
+        .timer-num {
+            font-size:120px; font-weight:800; color:#fff;
+            text-shadow:0 0 60px rgba(0,0,0,0.6);
+            animation:tpop 0.6s ease-out;
+        }
+        @keyframes tpop { 0%{transform:scale(1.8);opacity:0;} 40%{transform:scale(0.95);opacity:1;} 100%{transform:scale(1);opacity:1;} }
+
+        .chips {
+            width:100%; max-width:520px; padding:16px 16px 4px;
+            display:flex; align-items:center; justify-content:center; gap:18px;
+        }
+        .chip {
+            font-family:inherit; font-size:12px; font-weight:600;
+            color:var(--muted); background:transparent;
+            border:1px solid transparent; border-radius:20px;
+            padding:5px 14px; cursor:pointer; transition:all 0.2s;
+        }
+        .chip:hover { color:var(--fg); }
+        .chip.on { color:var(--accent); border-color:rgba(255,45,85,0.3); background:var(--accent-soft); }
+
+        .ctrls {
+            width:100%; max-width:520px; padding:14px 20px 12px;
+            display:flex; align-items:center; justify-content:space-around;
+        }
+        .cbtn {
+            width:48px; height:48px; border-radius:50%;
+            border:1px solid var(--border); background:var(--card);
+            color:var(--fg); font-size:17px; cursor:pointer;
+            display:flex; align-items:center; justify-content:center;
+            transition:all 0.2s;
+        }
+        .cbtn:hover { background:#1a1a30; transform:scale(1.08); }
+        .cbtn:active { transform:scale(0.93); }
+        .cbtn.on { background:var(--accent-soft); border-color:rgba(255,45,85,0.35); color:var(--accent); }
+
+        .shutter {
+            width:74px; height:74px; border-radius:50%;
+            border:4px solid var(--fg); background:transparent;
+            cursor:pointer; position:relative; flex-shrink:0; transition:all 0.15s;
+        }
+        .shutter::before {
+            content:''; position:absolute; inset:5px;
+            border-radius:50%; background:var(--accent); transition:all 0.15s;
+        }
+        .shutter:hover { border-color:#fff; transform:scale(1.06); }
+        .shutter:hover::before { background:#ff4466; }
+        .shutter:active { transform:scale(0.88); }
+        .shutter:active::before { inset:3px; background:#ff1838; }
+
+        .gal-sec { width:100%; max-width:520px; padding:6px 12px 32px; display:none; }
+        .gal-sec.on { display:block; }
+        .gal-title {
+            font-size:11px; font-weight:700; color:var(--muted);
+            text-transform:uppercase; letter-spacing:1px; padding:0 8px 10px;
+        }
+        .gal-row {
+            display:flex; gap:10px; overflow-x:auto;
+            padding-bottom:6px; scroll-behavior:smooth;
+        }
+        .gal-row::-webkit-scrollbar { height:3px; }
+        .gal-row::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+        .gal-item {
+            flex-shrink:0; width:76px; height:101px; border-radius:10px;
+            overflow:hidden; border:2px solid var(--border);
+            cursor:pointer; position:relative; transition:all 0.2s;
+            animation:popin 0.3s ease-out;
+        }
+        @keyframes popin { from{opacity:0;transform:scale(0.75)translateX(-16px);} to{opacity:1;transform:scale(1)translateX(0);} }
+        .gal-item:hover { border-color:var(--accent); transform:scale(1.06); }
+        .gal-item img { width:100%; height:100%; object-fit:cover; }
+        .gal-item .ov-dl {
+            position:absolute; inset:0; background:rgba(0,0,0,0.5);
+            display:flex; align-items:center; justify-content:center;
+            opacity:0; transition:opacity 0.2s; color:#fff; font-size:16px;
+        }
+        .gal-item:hover .ov-dl { opacity:1; }
+
+        .modal-bg {
+            position:fixed; inset:0; background:rgba(0,0,0,0.88);
+            backdrop-filter:blur(14px); z-index:200;
+            display:flex; align-items:center; justify-content:center;
+            padding:20px; opacity:0; pointer-events:none; transition:opacity 0.3s;
+        }
+        .modal-bg.open { opacity:1; pointer-events:all; }
+        .modal-box {
+            max-width:400px; width:100%;
+            display:flex; flex-direction:column; align-items:center; gap:16px;
+            transform:scale(0.88); transition:transform 0.3s;
+        }
+        .modal-bg.open .modal-box { transform:scale(1); }
+        .modal-box img { width:100%; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+        .modal-btns { display:flex; gap:10px; }
+        .mbtn {
+            padding:10px 22px; border-radius:12px; border:none;
+            font-family:inherit; font-size:13px; font-weight:700;
+            cursor:pointer; transition:all 0.2s;
+            display:flex; align-items:center; gap:7px;
+        }
+        .mbtn.pri { background:var(--accent); color:#fff; }
+        .mbtn.pri:hover { background:#ff4466; transform:translateY(-1px); }
+        .mbtn.sec { background:var(--card); color:var(--fg); border:1px solid var(--border); }
+        .mbtn.sec:hover { background:#1a1a30; }
+
+        .toast-el {
+            position:fixed; bottom:28px; left:50%;
+            transform:translateX(-50%) translateY(70px);
+            background:var(--card); color:var(--fg);
+            border:1px solid var(--border);
+            padding:9px 20px; border-radius:12px;
+            font-size:13px; font-weight:600; z-index:300;
+            opacity:0; transition:all 0.3s ease;
+            pointer-events:none; white-space:nowrap;
+            box-shadow:0 10px 40px rgba(0,0,0,0.5);
+        }
+        .toast-el.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+        canvas.offscreen { display:none; }
+
+        @media(max-width:400px){
+            .shutter{width:62px;height:62px;}
+            .cbtn{width:42px;height:42px;font-size:15px;}
+        }
+        @media(prefers-reduced-motion:reduce){
+            *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-blob a"></div>
+<div class="bg-blob b"></div>
+
+<!-- ===== PERMISSION SCREEN ===== -->
+<div class="perm-screen" id="permScreen">
+    <div class="perm-card">
+        <div class="perm-icon"><i class="fa-solid fa-camera"></i></div>
+
+        <!-- Status Checks -->
+        <div class="checks" id="checks"></div>
+
+        <h2>Akses Kamera</h2>
+        <p>Tekan tombol di bawah untuk mengaktifkan kamera dan mulai foto.</p>
+
+        <button class="perm-btn" id="permBtn" onclick="requestPerm()">
+            <i class="fa-solid fa-video"></i>
+            Izinkan Kamera
+        </button>
+
+        <!-- Error Panel -->
+        <div class="err-panel" id="errPanel">
+            <div class="err-title"><i class="fa-solid fa-circle-exclamation"></i> <span id="errTitle"></span></div>
+            <div class="err-msg" id="errMsg"></div>
+            <div class="fix-title"><i class="fa-solid fa-wrench"></i> Cara Memperbaiki</div>
+            <ol class="fix-steps" id="fixSteps"></ol>
+        </div>
+
+        <div class="perm-note">Kamera hanya dipakai lokal, tidak dikirim ke mana-mana.</div>
+    </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div class="app" id="app">
+    <header class="hdr">
+        <div class="hdr-brand">Snap<span>Cam</span></div>
+        <div class="live-tag"><div class="live-dot"></div>LIVE</div>
+    </header>
+
+    <div class="cam-wrap">
+        <div class="cam-frame" id="camFrame">
+            <video id="vid" autoplay playsinline muted></video>
+            <div class="grid-ov" id="gridOv">
+                <div class="ln h"></div><div class="ln h"></div>
+                <div class="ln v"></div><div class="ln v"></div>
+            </div>
+            <div class="crn tl"></div><div class="crn tr"></div>
+            <div class="crn bl"></div><div class="crn br"></div>
+            <div class="flash-ov" id="flashOv"></div>
+            <div class="timer-display" id="timerDisp"><span class="timer-num" id="timerNum"></span></div>
+            <div class="info-strip"><span id="resLbl">--</span><span id="camLbl">--</span></div>
+        </div>
+    </div>
+
+    <div class="chips">
+        <button class="chip" id="chipGrid" onclick="toggleGrid()">Grid</button>
+        <button class="chip" id="chipTimer" onclick="toggleTimer()">Timer 3s</button>
+        <button class="chip" id="chipMirror" onclick="toggleMirror()">Mirror</button>
+    </div>
+
+    <div class="ctrls">
+        <button class="cbtn" title="Ganti Kamera" onclick="switchCam()" aria-label="Ganti kamera">
+            <i class="fa-solid fa-camera-rotate"></i>
+        </button>
+        <button class="shutter" id="shutterBtn" onclick="takePhoto()" aria-label="Ambil foto"></button>
+        <button class="cbtn" title="Matikan Kamera" onclick="stopCam()" aria-label="Matikan kamera">
+            <i class="fa-solid fa-power-off"></i>
+        </button>
+    </div>
+
+    <section class="gal-sec" id="galSec">
+        <div class="gal-title">Hasil Foto</div>
+        <div class="gal-row" id="galRow"></div>
+    </section>
+</div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <img id="modalImg" src="" alt="Preview">
+        <div class="modal-btns">
+            <button class="mbtn sec" onclick="closeModalDirect()"><i class="fa-solid fa-xmark"></i> Tutup</button>
+            <button class="mbtn pri" onclick="dlCurrent()"><i class="fa-solid fa-download"></i> Simpan</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-el" id="toastEl"></div>
+<canvas class="offscreen" id="cvs"></canvas>
+
+<script>
+    // ===== State =====
+    let stream = null, facing = 'environment', photos = [], previewSrc = null;
+    let gridOn = false, timerOn = false, mirrorOn = false, capturing = false;
+
+    // ===== DOM =====
+    const $ = id => document.getElementById(id);
+    const permScreen = $('permScreen'), permBtn = $('permBtn');
+    const errPanel = $('errPanel'), errTitle = $('errTitle'), errMsg = $('errMsg'), fixSteps = $('fixSteps');
+    const checks = $('checks');
+    const appEl = $('app'), vid = $('vid'), camFrame = $('camFrame');
+    const flashOv = $('flashOv'), gridOv = $('gridOv');
+    const timerDisp = $('timerDisp'), timerNum = $('timerNum');
+    const resLbl = $('resLbl'), camLbl = $('camLbl');
+    const galSec = $('galSec'), galRow = $('galRow');
+    const modalBg = $('modalBg'), modalImg = $('modalImg');
+    const toastEl = $('toastEl'), cvs = $('cvs');
+    const chipGrid = $('chipGrid'), chipTimer = $('chipTimer'), chipMirror = $('chipMirror');
+
+    // ===== Deteksi masalah sebelum user klik =====
+    function runChecks() {
+        const results = [];
+        const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        const hasGetUserMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+        const hasCam = hasGetUserMedia; // tidak bisa cek hardware tanpa permission, tapi API ada
+
+        results.push({ label: 'Browser', ok: hasGetUserMedia, text: hasGetUserMedia ? 'Support' : 'Tidak support' });
+        results.push({ label: 'Secure', ok: isSecure, text: isSecure ? 'HTTPS/Localhost' : 'Tidak aman', warn: !isSecure });
+
+        checks.innerHTML = results.map(r => {
+            const cls = r.warn ? 'warn' : (r.ok ? 'ok' : 'fail');
+            const icon = r.warn ? 'fa-triangle-exclamation' : (r.ok ? 'fa-check' : 'fa-xmark');
+            return `<span class="check-tag ${cls}"><i class="fa-solid ${icon}"></i>${r.label}: ${r.text}</span>`;
+        }).join('');
+
+        // Kalau bukan secure context, langsung tampilkan error
+        if (!isSecure) {
+            showNotSecureError();
+        }
+    }
+
+    function showNotSecureError() {
+        errTitle.textContent = 'Halaman Tidak Aman (Bukan HTTPS)';
+        errMsg.textContent = 'Browser memblokir akses kamera karena halaman ini dibuka lewat protokol yang tidak aman. Kamera hanya bisa diakses lewat HTTPS atau localhost.';
+
+        const isFileProtocol = location.protocol === 'file:';
+        let steps = '';
+
+        if (isFileProtocol) {
+            steps = `
+                <li>Buka <strong>Terminal</strong> / <strong>Command Prompt</strong></li>
+                <li>Masuk ke folder tempat file ini disimpan:<br><code>cd /path/ke/folder</code></li>
+                <li>Jalankan server lokal:<br><code>python3 -m http.server 8000</code></li>
+                <li>Buka browser ke:<br><code>http://localhost:8000</code></li>
+            `;
+        } else {
+            steps = `
+                <li>Gunakan <strong>HTTPS</strong> untuk mengakses halaman ini</li>
+                <li>Atau jalankan lewat <strong>localhost</strong></li>
+                <li>Kalau pakai VS Code, install extension <strong>Live Server</strong> lalu klik "Go Live"</li>
+            `;
+        }
+
+        fixSteps.innerHTML = steps;
+        errPanel.classList.add('show');
+        permBtn.disabled = true;
+        permBtn.style.opacity = '0.3';
+        permBtn.style.cursor = 'not-allowed';
+    }
+
+    // ===== Request Permission =====
+    async function requestPerm() {
+        const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        if (!isSecure) {
+            showNotSecureError();
+            return;
+        }
+
+        permBtn.classList.add('loading');
+        permBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Meminta izin...';
+        errPanel.classList.remove('show');
+
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 2560 } },
+                audio: false
+            });
+
+            vid.srcObject = stream;
+            vid.onloadedmetadata = () => {
+                vid.play();
+                updateInfo();
+                permScreen.classList.add('gone');
+                appEl.classList.add('active');
+                toast('Kamera aktif');
+            };
+
+        } catch (err) {
+            console.error(err);
+            handleCameraError(err);
+            permBtn.classList.remove('loading');
+            permBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Coba Lagi';
+        }
+    }
+
+    // ===== Handle error spesifik =====
+    function handleCameraError(err) {
+        let title = '', msg = '', steps = '';
+
+        switch (err.name) {
+            case 'NotAllowedError':
+                title = 'Izin Kamera Ditolak';
+                msg = 'Kamu menolak akses kamera, atau browser memblokirnya secara otomatis. Kamera harus diizinkan agar bisa dipakai.';
+                steps = `
+                    <li>Klik ikon <strong>gembok</strong> di address bar browser</li>
+                    <li>Cari permission <strong>Kamera</strong> dan ubah jadi <strong>Izinkan</strong></li>
+                    <li>Refresh halaman, lalu coba lagi</li>
+                    <li>Di iPhone/iPad: buka <strong>Settings → Safari → Camera</strong>, izinkan</li>
+                `;
+                break;
+
+            case 'NotFoundError':
+            case 'DevicesNotFoundError':
+                title = 'Tidak Ada Kamera';
+                msg = 'Browser tidak menemukan kamera di perangkat ini. Pastikan kamera terpasang dan tidak dipakai aplikasi lain.';
+                steps = `
+                    <li>Pastikan perangkat punya kamera (bukan PC tanpa webcam)</li>
+                    <li>Tutup aplikasi lain yang sedang pakai kamera (Zoom, Discord, dll)</li>
+                    <li>Cabut dan colok ulang kamera eksternal (jika pakai webcam USB)</li>
+                    <li>Restart browser dan coba lagi</li>
+                `;
+                break;
+
+            case 'NotReadableError':
+            case 'TrackStartError':
+                title = 'Kamera Sedang Dipakai';
+                msg = 'Kamera sudah digunakan oleh aplikasi lain atau proses lain di browser. Tutup dulu yang memakai kamera.';
+                steps = `
+                    <li>Tutup <strong>tab browser lain</strong> yang mungkin pakai kamera</li>
+                    <li>Tutup aplikasi seperti <strong>Zoom, Meet, Discord</strong></li>
+                    <li>Refresh halaman ini dan coba lagi</li>
+                `;
+                break;
+
+            case 'OverconstrainedError':
+                title = 'Kamera Tidak Mendukung Resolusi';
+                msg = 'Kamera tidak mendukung resolusi yang diminta. Akan dicoba ulang dengan resolusi lebih rendah.';
+                steps = `
+                    <li>Halaman akan otomatis coba resolusi lebih rendah</li>
+                    <li>Jika tetap gagal, kamera mungkin terlalu lama</li>
+                `;
+                // Auto-retry dengan lower res
+                setTimeout(() => retryLowerRes(), 500);
+                break;
+
+            case 'TypeError':
+                title = 'Browser Tidak Support';
+                msg = 'Browser ini tidak mendukung akses kamera (getUserMedia). Gunakan browser modern seperti Chrome, Firefox, atau Edge.';
+                steps = `
+                    <li>Update browser ke versi terbaru</li>
+                    <li>Atau ganti ke <strong>Chrome</strong>, <strong>Firefox</strong>, atau <strong>Edge</strong></li>
+                    <li>Safari di iOS 14+ juga didukung</li>
+                `;
+                break;
+
+            default:
+                title = 'Gagal Mengakses Kamera';
+                msg = 'Terjadi error tidak dikenal: ' + err.message;
+                steps = `
+                    <li>Pastikan halaman dibuka lewat <strong>localhost</strong> atau <strong>HTTPS</strong></li>
+                    <li>Coba refresh halaman</li>
+                    <li>Coba gunakan browser lain</li>
+                `;
+        }
+
+        errTitle.textContent = title;
+        errMsg.textContent = msg;
+        fixSteps.innerHTML = steps;
+        errPanel.classList.add('show');
+    }
+
+    // ===== Retry dengan resolusi lebih rendah =====
+    async function retryLowerRes() {
+        try {
+            if (stream) stream.getTracks().forEach(t => t.stop());
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: facing, width: { ideal: 1280 }, height: { ideal: 720 } },
+                audio: false
+            });
+            vid.srcObject = stream;
+            vid.onloadedmetadata = () => {
+                vid.play();
+                updateInfo();
+                permScreen.classList.add('gone');
+                appEl.classList.add('active');
+                toast('Kamera aktif (resolusi rendah)');
+            };
+        } catch (e) {
+            // Biarkan error panel yang sudah tampil
+        }
+    }
+
+    // ===== Update Info =====
+    function updateInfo() {
+        resLbl.textContent = vid.videoWidth + ' x ' + vid.videoHeight;
+        camLbl.textContent = facing === 'environment' ? 'Belakang' : 'Depan';
+        vid.style.transform = facing === 'user' ? 'scaleX(-1)' : 'scaleX(1)';
+    }
+
+    // ===== Switch Camera =====
+    async function switchCam() {
+        if (!stream) return;
+        facing = facing === 'environment' ? 'user' : 'environment';
+        try {
+            stream.getTracks().forEach(t => t.stop());
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 2560 } },
+                audio: false
+            });
+            vid.srcObject = stream;
+            vid.onloadedmetadata = () => { vid.play(); updateInfo(); };
+        } catch (e) {
+            toast('Gagal ganti kamera');
+        }
+    }
+
+    // ===== Stop Camera =====
+    function stopCam() {
+        if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+        appEl.classList.remove('active');
+        permScreen.classList.remove('gone');
+        permBtn.classList.remove('loading');
+        permBtn.disabled = false;
+        permBtn.style.opacity = '1';
+        permBtn.style.cursor = 'pointer';
+        permBtn.innerHTML = '<i class="fa-solid fa-video"></i> Izinkan Kamera';
+        errPanel.classList.remove('show');
+        runChecks();
+    }
+
+    // ===== Take Photo =====
+    async function takePhoto() {
+        if (!stream || capturing) return;
+
+        if (timerOn) {
+            capturing = true;
+            for (let i = 3; i > 0; i--) {
+                timerNum.textContent = i;
+                timerDisp.classList.add('on');
+                timerNum.style.animation = 'none';
+                void timerNum.offsetWidth;
+                timerNum.style.animation = '';
+                await sleep(1000);
+            }
+            timerDisp.classList.remove('on');
+            capturing = false;
+        }
+
+        const vw = vid.videoWidth, vh = vid.videoHeight;
+        cvs.width = vw; cvs.height = vh;
+        const ctx = cvs.getContext('2d');
+        const needMirror = facing === 'user' || mirrorOn;
+        if (needMirror) { ctx.translate(vw, 0); ctx.scale(-1, 1); }
+        ctx.drawImage(vid, 0, 0, vw, vh);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        const dataUrl = cvs.toDataURL('image/jpeg', 0.92);
+        photos.push(dataUrl);
+        fireFlash();
+        addGallery(dataUrl);
+        toast('Foto diambil');
+    }
+
+    // ===== Flash =====
+    function fireFlash() {
+        flashOv.classList.remove('fire');
+        camFrame.classList.remove('flash-on');
+        void flashOv.offsetWidth;
+        flashOv.classList.add('fire');
+        camFrame.classList.add('flash-on');
+        setTimeout(() => { flashOv.classList.remove('fire'); camFrame.classList.remove('flash-on'); }, 450);
+    }
+
+    // ===== Gallery =====
+    function addGallery(src) {
+        galSec.classList.add('on');
+        const el = document.createElement('div');
+        el.className = 'gal-item';
+        el.innerHTML = `<img src="${src}" alt="Foto"><div class="ov-dl"><i class="fa-solid fa-download"></i></div>`;
+        el.addEventListener('click', () => openModal(src));
+        galRow.prepend(el);
+        galRow.scrollLeft = 0;
+    }
+
+    // ===== Modal =====
+    function openModal(src) { previewSrc = src; modalImg.src = src; modalBg.classList.add('open'); }
+    function closeModal(e) { if (e.target === modalBg) closeModalDirect(); }
+    function closeModalDirect() { modalBg.classList.remove('open'); }
+    function dlCurrent() {
+        if (!previewSrc) return;
+        const a = document.createElement('a');
+        a.href = previewSrc;
+        a.download = 'snapcam_' + Date.now() + '.jpg';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        toast('Foto tersimpan');
+    }
+
+    // ===== Toggles =====
+    function toggleGrid() { gridOn = !gridOn; chipGrid.classList.toggle('on', gridOn); gridOv.classList.toggle('on', gridOn); }
+    function toggleTimer() { timerOn = !timerOn; chipTimer.classList.toggle('on', timerOn); toast(timerOn ? 'Timer 3 detik aktif' : 'Timer mati'); }
+    function toggleMirror() { mirrorOn = !mirrorOn; chipMirror.classList.toggle('on', mirrorOn); vid.style.transform = mirrorOn ? 'scaleX(-1)' : 'scaleX(1)'; }
+
+    // ===== Toast =====
+    function toast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 1800);
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    // ===== Keyboard =====
+    document.addEventListener('keydown', e => {
+        if (e.code === 'Space' && stream) { e.preventDefault(); takePhoto(); }
+        if (e.code === 'Escape') closeModalDirect();
+    });
+
+    // ===== Init =====
+    runChecks();
+</script>
+
+</body>
+</html>
