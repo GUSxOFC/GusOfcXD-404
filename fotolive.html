@@ -3,805 +3,575 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>SnapCam — Kamera Foto</title>
+    <title>SnapCam Live — Foto Live 4K</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --bg: #06060c;
-            --card: #111120;
-            --card2: #16162a;
-            --border: #1c1c30;
-            --fg: #eaeaf2;
-            --muted: #5e5e78;
-            --accent: #ff2d55;
-            --accent-soft: rgba(255,45,85,0.12);
-            --green: #00e676;
-            --yellow: #ffca28;
+            --bg:#06060c; --card:#111120; --card2:#16162a;
+            --border:#1c1c30; --fg:#eaeaf2; --muted:#5e5e78;
+            --accent:#ff2d55; --accent-soft:rgba(255,45,85,0.12);
+            --green:#00e676; --yellow:#ffca28;
         }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--fg);min-height:100dvh;overflow-x:hidden;}
+        .bg-b{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+        .bg-b.a{width:400px;height:400px;top:-15%;left:-10%;background:rgba(255,45,85,0.05);}
+        .bg-b.b{width:300px;height:300px;bottom:-10%;right:-8%;background:rgba(0,230,118,0.04);}
 
-        * { margin:0; padding:0; box-sizing:border-box; }
+        /* Permission */
+        .perm{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;background:var(--bg);transition:opacity .5s,visibility .5s;}
+        .perm.gone{opacity:0;visibility:hidden;pointer-events:none;}
+        .perm-card{width:90%;max-width:400px;text-align:center;padding:40px 26px 34px;background:var(--card);border:1px solid var(--border);border-radius:24px;position:relative;overflow:hidden;}
+        .perm-card::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:100%;background:radial-gradient(ellipse,rgba(255,45,85,0.07),transparent 70%);pointer-events:none;}
+        .p-ico{width:80px;height:80px;border-radius:50%;background:var(--accent-soft);border:2px solid rgba(255,45,85,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:30px;color:var(--accent);animation:fico 3s ease-in-out infinite;position:relative;z-index:1;}
+        @keyframes fico{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+        .perm-card h2{font-size:20px;font-weight:800;margin-bottom:8px;letter-spacing:-.4px;position:relative;z-index:1;}
+        .perm-card>p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:24px;position:relative;z-index:1;}
+        .checks{display:flex;gap:5px;justify-content:center;margin-bottom:18px;position:relative;z-index:1;flex-wrap:wrap;}
+        .ck{font-size:10px;font-weight:600;padding:3px 9px;border-radius:7px;display:flex;align-items:center;gap:4px;}
+        .ck.ok{background:rgba(0,230,118,0.08);color:var(--green);border:1px solid rgba(0,230,118,0.15);}
+        .ck.fail{background:rgba(255,45,85,0.08);color:#ff6b6b;border:1px solid rgba(255,45,85,0.15);}
+        .ck.warn{background:rgba(255,202,40,0.08);color:var(--yellow);border:1px solid rgba(255,202,40,0.15);}
+        .p-btn{width:100%;padding:14px;border:none;border-radius:14px;background:var(--accent);color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:9px;position:relative;z-index:1;}
+        .p-btn:hover{background:#ff4466;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,45,85,0.35);}
+        .p-btn:active{transform:translateY(0) scale(.97);}
+        .p-btn.loading{pointer-events:none;opacity:.6;}
+        .p-btn:disabled{opacity:.3;cursor:not-allowed;transform:none!important;box-shadow:none!important;}
+        .err-p{display:none;margin-top:18px;text-align:left;background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:16px;position:relative;z-index:1;}
+        .err-p.show{display:block;animation:fu .3s ease-out;}
+        @keyframes fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+        .err-p .et{font-size:12.5px;font-weight:700;color:#ff6b6b;display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+        .err-p .em{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:12px;}
+        .err-p .ft{font-size:11px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+        .err-p ol{list-style:none;counter-reset:s;}
+        .err-p ol li{counter-increment:s;font-size:11.5px;color:var(--fg);padding:5px 0 5px 28px;position:relative;line-height:1.5;}
+        .err-p ol li::before{content:counter(s);position:absolute;left:0;top:5px;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+        .err-p code{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:5px;font-family:'Space Grotesk',monospace;font-size:11px;color:var(--accent);word-break:break-all;}
+        .p-note{margin-top:14px;font-size:10px;color:var(--muted);opacity:.45;position:relative;z-index:1;}
 
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg);
-            color: var(--fg);
-            min-height: 100dvh;
-            overflow-x: hidden;
-        }
+        /* App */
+        .app{display:none;flex-direction:column;align-items:center;min-height:100dvh;position:relative;z-index:1;}
+        .app.on{display:flex;}
+        .hdr{width:100%;max-width:680px;padding:12px 16px 6px;display:flex;align-items:center;justify-content:space-between;}
+        .hdr-b{font-size:17px;font-weight:800;letter-spacing:-.5px;}
+        .hdr-b span{color:var(--accent);}
+        .lt{display:flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--green);background:rgba(0,230,118,0.08);border:1px solid rgba(0,230,118,0.15);padding:3px 9px;border-radius:20px;}
+        .ld{width:5px;height:5px;background:var(--green);border-radius:50%;animation:bk 1.4s ease-in-out infinite;}
+        @keyframes bk{0%,100%{opacity:1;}50%{opacity:.2;}}
 
-        .bg-blob {
-            position: fixed; border-radius: 50%; filter: blur(100px);
-            pointer-events: none; z-index: 0;
-        }
-        .bg-blob.a { width:400px; height:400px; top:-15%; left:-10%; background: rgba(255,45,85,0.05); }
-        .bg-blob.b { width:300px; height:300px; bottom:-10%; right:-8%; background: rgba(0,230,118,0.04); }
+        /* Camera 16:9 */
+        .cw{width:100%;max-width:680px;padding:0 10px;}
+        .cf{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;border:2px solid var(--border);box-shadow:0 0 0 1px rgba(255,255,255,.02),0 24px 80px rgba(0,0,0,.7);transition:box-shadow .3s;}
+        .cf.fo{box-shadow:0 0 0 2px rgba(255,255,255,.6),0 0 140px rgba(255,255,255,.7);}
+        video{width:100%;height:100%;object-fit:cover;display:block;}
 
-        /* ===== PERMISSION SCREEN ===== */
-        .perm-screen {
-            position: fixed; inset:0; z-index:500;
-            display:flex; align-items:center; justify-content:center;
-            background: var(--bg);
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        .perm-screen.gone { opacity:0; visibility:hidden; pointer-events:none; }
+        .go{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:0;transition:opacity .25s;}
+        .go.on{opacity:1;}
+        .go .ln{position:absolute;background:rgba(255,255,255,.1);}
+        .go .ln.h{width:100%;height:1px;}
+        .go .ln.v{height:100%;width:1px;}
+        .go .ln:nth-child(1){top:33.33%}.go .ln:nth-child(2){top:66.66%}
+        .go .ln:nth-child(3){left:33.33%}.go .ln:nth-child(4){left:66.66%}
 
-        .perm-card {
-            width: 90%; max-width: 400px;
-            text-align: center;
-            padding: 44px 28px 36px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            position: relative; overflow: hidden;
-        }
-        .perm-card::before {
-            content:''; position:absolute;
-            top:-60%; left:-30%; width:160%; height:100%;
-            background: radial-gradient(ellipse, rgba(255,45,85,0.07), transparent 70%);
-            pointer-events:none;
-        }
+        .cr{position:absolute;width:20px;height:20px;z-index:3;pointer-events:none;}
+        .cr::before,.cr::after{content:'';position:absolute;background:var(--accent);border-radius:1px;}
+        .cr.tl{top:8px;left:8px;}.cr.tl::before{width:20px;height:2px;top:0;left:0;}.cr.tl::after{width:2px;height:20px;top:0;left:0;}
+        .cr.tr{top:8px;right:8px;}.cr.tr::before{width:20px;height:2px;top:0;right:0;}.cr.tr::after{width:2px;height:20px;top:0;right:0;}
+        .cr.bl{bottom:8px;left:8px;}.cr.bl::before{width:20px;height:2px;bottom:0;left:0;}.cr.bl::after{width:2px;height:20px;bottom:0;left:0;}
+        .cr.br{bottom:8px;right:8px;}.cr.br::before{width:20px;height:2px;bottom:0;right:0;}.cr.br::after{width:2px;height:20px;bottom:0;right:0;}
 
-        .perm-icon {
-            width:84px; height:84px; border-radius:50%;
-            background: var(--accent-soft);
-            border: 2px solid rgba(255,45,85,0.2);
-            display:flex; align-items:center; justify-content:center;
-            margin: 0 auto 22px; font-size:32px; color:var(--accent);
-            animation: float-ico 3s ease-in-out infinite;
-            position: relative; z-index:1;
-        }
-        @keyframes float-ico {
-            0%,100% { transform:translateY(0); }
-            50% { transform:translateY(-7px); }
-        }
+        .fo2{position:absolute;inset:0;background:#fff;opacity:0;z-index:10;pointer-events:none;border-radius:18px;}
+        .fo2.fire{animation:fl .4s ease-out forwards;}
+        @keyframes fl{0%{opacity:.95;}15%{opacity:.85;}100%{opacity:0;}}
 
-        .perm-card h2 {
-            font-size:21px; font-weight:800; margin-bottom:8px;
-            letter-spacing:-0.4px; position:relative; z-index:1;
-        }
-        .perm-card > p {
-            font-size:13.5px; color:var(--muted); line-height:1.65;
-            margin-bottom:28px; position:relative; z-index:1;
-        }
+        .ri{position:absolute;top:12px;right:12px;z-index:5;display:flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;color:#ff3b3b;letter-spacing:.6px;opacity:0;transition:opacity .3s;}
+        .ri.on{opacity:1;}
+        .rd2{width:6px;height:6px;background:#ff3b3b;border-radius:50%;animation:bk 1s ease-in-out infinite;}
 
-        .perm-btn {
-            width:100%; padding:15px; border:none; border-radius:14px;
-            background:var(--accent); color:#fff;
-            font-family:inherit; font-size:15px; font-weight:700;
-            cursor:pointer; transition:all 0.2s;
-            display:flex; align-items:center; justify-content:center; gap:9px;
-            position:relative; z-index:1;
-        }
-        .perm-btn:hover { background:#ff4466; transform:translateY(-2px); box-shadow:0 8px 30px rgba(255,45,85,0.35); }
-        .perm-btn:active { transform:translateY(0) scale(0.97); }
-        .perm-btn.loading { pointer-events:none; opacity:0.65; }
+        .td{position:absolute;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .15s;}
+        .td.on{opacity:1;}
+        .tn{font-size:100px;font-weight:800;color:#fff;text-shadow:0 0 60px rgba(0,0,0,.6);animation:tp .6s ease-out;}
+        @keyframes tp{0%{transform:scale(1.8);opacity:0;}40%{transform:scale(.95);opacity:1;}100%{transform:scale(1);opacity:1;}}
 
-        /* ===== ERROR PANEL ===== */
-        .err-panel {
-            display:none; margin-top:20px; text-align:left;
-            background:var(--card2); border:1px solid var(--border);
-            border-radius:14px; padding:18px; position:relative; z-index:1;
-        }
-        .err-panel.show { display:block; animation: fadeUp 0.3s ease-out; }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+        .is2{position:absolute;bottom:0;left:0;right:0;z-index:4;padding:28px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);display:flex;justify-content:space-between;font-size:10.5px;font-weight:600;color:rgba(255,255,255,.5);}
 
-        .err-panel .err-title {
-            font-size:13px; font-weight:700; color:#ff6b6b;
-            display:flex; align-items:center; gap:7px; margin-bottom:10px;
-        }
+        .chips{width:100%;max-width:680px;padding:14px 16px 2px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+        .chip{font-family:inherit;font-size:11px;font-weight:600;color:var(--muted);background:transparent;border:1px solid transparent;border-radius:20px;padding:4px 12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px;}
+        .chip:hover{color:var(--fg);}
+        .chip.on{color:var(--accent);border-color:rgba(255,45,85,.3);background:var(--accent-soft);}
+        .chip .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:none;}
+        .chip.on .dot{display:block;}
 
-        .err-panel .err-msg {
-            font-size:12.5px; color:var(--muted); line-height:1.6; margin-bottom:14px;
-        }
+        .ctrls{width:100%;max-width:680px;padding:12px 20px 10px;display:flex;align-items:center;justify-content:space-around;}
+        .cbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--fg);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+        .cbtn:hover{background:#1a1a30;transform:scale(1.08);}
+        .cbtn:active{transform:scale(.93);}
 
-        .err-panel .fix-title {
-            font-size:11.5px; font-weight:700; color:var(--yellow);
-            text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;
-        }
+        .sh{width:70px;height:70px;border-radius:50%;border:4px solid var(--fg);background:transparent;cursor:pointer;position:relative;flex-shrink:0;transition:all .15s;}
+        .sh::before{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--accent);transition:all .15s;}
+        .sh:hover{border-color:#fff;transform:scale(1.06);}
+        .sh:hover::before{background:#ff4466;}
+        .sh:active{transform:scale(.88);}
+        .sh:active::before{inset:3px;background:#ff1838;}
+        .sh.cap{opacity:.5;pointer-events:none;}
+        .sh.cap::after{content:'';position:absolute;inset:-10px;border-radius:50%;border:3px solid var(--accent);animation:cring 1.5s ease-out forwards;}
+        @keyframes cring{0%{transform:scale(.9);opacity:.8;}100%{transform:scale(1.4);opacity:0;}}
 
-        .err-panel .fix-steps {
-            list-style:none; counter-reset:step;
-        }
-        .err-panel .fix-steps li {
-            counter-increment:step;
-            font-size:12px; color:var(--fg);
-            padding: 6px 0 6px 32px; position:relative; line-height:1.5;
-        }
-        .err-panel .fix-steps li::before {
-            content: counter(step);
-            position:absolute; left:0; top:6px;
-            width:22px; height:22px; border-radius:50%;
-            background:var(--accent-soft); color:var(--accent);
-            font-size:11px; font-weight:700;
-            display:flex; align-items:center; justify-content:center;
-        }
+        /* Gallery */
+        .gs{width:100%;max-width:680px;padding:4px 10px 30px;display:none;}
+        .gs.on{display:block;}
+        .gt{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:0 6px 8px;}
+        .gr{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scroll-behavior:smooth;}
+        .gr::-webkit-scrollbar{height:3px;}
+        .gr::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+        .gi{flex-shrink:0;width:140px;height:79px;border-radius:10px;overflow:hidden;border:2px solid var(--border);cursor:pointer;position:relative;transition:all .2s;animation:pi .3s ease-out;}
+        @keyframes pi{from{opacity:0;transform:scale(.75)translateX(-16px);}to{opacity:1;transform:scale(1)translateX(0);}}
+        .gi:hover{border-color:var(--accent);transform:scale(1.05);}
+        .gi img{width:100%;height:100%;object-fit:cover;}
 
-        .err-panel code {
-            background:rgba(255,255,255,0.06);
-            padding:2px 7px; border-radius:5px;
-            font-family:'Space Grotesk',monospace;
-            font-size:11.5px; color:var(--accent);
-            word-break:break-all;
-        }
+        .lb{position:absolute;top:4px;left:4px;display:flex;align-items:center;gap:3px;font-size:7.5px;font-weight:800;color:#fff;background:rgba(0,0,0,.55);padding:2px 5px 2px 3px;border-radius:4px;letter-spacing:.4px;backdrop-filter:blur(4px);z-index:2;}
+        .lb .lr{position:relative;width:10px;height:10px;flex-shrink:0;}
+        .lb .lr i{position:absolute;inset:0;border:1.5px solid rgba(255,255,255,.7);border-radius:50%;animation:ro 2s ease-out infinite;}
+        .lb .lr i:nth-child(2){animation-delay:.65s;}
+        .lb .lr i:nth-child(3){animation-delay:1.3s;}
+        @keyframes ro{0%{transform:scale(.4);opacity:1;}100%{transform:scale(2);opacity:0;}}
 
-        .err-panel .copy-cmd {
-            display:inline-flex; align-items:center; gap:6px;
-            margin-top:12px; padding:8px 16px; border-radius:8px;
-            background:var(--accent-soft); border:1px solid rgba(255,45,85,0.2);
-            color:var(--accent); font-family:inherit;
-            font-size:12px; font-weight:600; cursor:pointer;
-            transition:all 0.2s;
-        }
-        .err-panel .copy-cmd:hover { background:rgba(255,45,85,0.2); }
+        .gi.live::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.05) 44%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.05) 56%,transparent 62%);animation:shm 3.5s ease-in-out infinite;border-radius:8px;pointer-events:none;z-index:1;}
+        @keyframes shm{0%,100%{transform:translateX(-120%);}50%{transform:translateX(120%);}}
 
-        .perm-note {
-            margin-top:16px; font-size:10.5px; color:var(--muted);
-            opacity:0.5; position:relative; z-index:1;
-        }
+        .gi .ov-dl{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;color:#fff;font-size:15px;z-index:3;}
+        .gi:hover .ov-dl{opacity:1;}
 
-        /* ===== STATUS CHECK ===== */
-        .checks {
-            display:flex; gap:6px; justify-content:center;
-            margin-bottom:22px; position:relative; z-index:1; flex-wrap:wrap;
-        }
-        .check-tag {
-            font-size:10.5px; font-weight:600; padding:4px 10px;
-            border-radius:8px; display:flex; align-items:center; gap:5px;
-        }
-        .check-tag.ok { background:rgba(0,230,118,0.08); color:var(--green); border:1px solid rgba(0,230,118,0.15); }
-        .check-tag.fail { background:rgba(255,45,85,0.08); color:#ff6b6b; border:1px solid rgba(255,45,85,0.15); }
-        .check-tag.warn { background:rgba(255,202,40,0.08); color:var(--yellow); border:1px solid rgba(255,202,40,0.15); }
+        /* Modal */
+        .mbg{position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(16px);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s;}
+        .mbg.open{opacity:1;pointer-events:all;}
+        .mbox{max-width:640px;width:100%;display:flex;flex-direction:column;align-items:center;gap:14px;transform:scale(.88);transition:transform .3s;}
+        .mbg.open .mbox{transform:scale(1);}
 
-        /* ===== MAIN APP ===== */
-        .app {
-            display:none; flex-direction:column; align-items:center;
-            min-height:100dvh; position:relative; z-index:1;
-        }
-        .app.active { display:flex; }
+        .pc{position:relative;width:100%;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,0,0,.5);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;cursor:pointer;}
+        .pc .si{width:100%;display:block;transition:opacity .3s;}
+        .pc .lv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;pointer-events:none;}
+        .pc.playing .lv{opacity:1;}
+        .pc.playing .si{opacity:0;}
 
-        .hdr {
-            width:100%; max-width:520px; padding:14px 16px 8px;
-            display:flex; align-items:center; justify-content:space-between;
-        }
-        .hdr-brand { font-size:17px; font-weight:800; letter-spacing:-0.5px; }
-        .hdr-brand span { color:var(--accent); }
-        .live-tag {
-            display:flex; align-items:center; gap:6px;
-            font-size:10px; font-weight:700; text-transform:uppercase;
-            letter-spacing:0.8px; color:var(--green);
-            background:rgba(0,230,118,0.08); border:1px solid rgba(0,230,118,0.15);
-            padding:4px 10px; border-radius:20px;
-        }
-        .live-dot {
-            width:6px; height:6px; background:var(--green);
-            border-radius:50%; animation:blink 1.4s ease-in-out infinite;
-        }
-        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+        .lpi{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px 4px 6px;border-radius:8px;letter-spacing:.5px;opacity:0;transition:opacity .25s;backdrop-filter:blur(6px);z-index:2;}
+        .lpi .lr2{position:relative;width:12px;height:12px;}
+        .lpi .lr2 i{position:absolute;inset:0;border:2px solid rgba(255,255,255,.8);border-radius:50%;animation:ro 1.5s ease-out infinite;}
+        .lpi .lr2 i:nth-child(2){animation-delay:.5s;}
+        .lpi .lr2 i:nth-child(3){animation-delay:1s;}
+        .pc.playing .lpi{opacity:1;}
 
-        .cam-wrap { width:100%; max-width:520px; padding:0 12px; }
-        .cam-frame {
-            position:relative; width:100%; aspect-ratio:3/4;
-            border-radius:22px; overflow:hidden; background:#000;
-            border:2px solid var(--border);
-            box-shadow:0 0 0 1px rgba(255,255,255,0.02), 0 24px 80px rgba(0,0,0,0.7);
-            transition:box-shadow 0.3s;
-        }
-        .cam-frame.flash-on {
-            box-shadow:0 0 0 2px rgba(255,255,255,0.6), 0 0 140px rgba(255,255,255,0.7);
-        }
-        video { width:100%; height:100%; object-fit:cover; display:block; }
+        .lhint{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px;transition:opacity .25s;}
+        .lhint.hide{opacity:0;}
+        .lhint i{font-size:13px;color:var(--accent);}
 
-        .grid-ov {
-            position:absolute; inset:0; pointer-events:none;
-            z-index:2; opacity:0; transition:opacity 0.25s;
-        }
-        .grid-ov.on { opacity:1; }
-        .grid-ov .ln { position:absolute; background:rgba(255,255,255,0.12); }
-        .grid-ov .ln.h { width:100%; height:1px; }
-        .grid-ov .ln.v { height:100%; width:1px; }
-        .grid-ov .ln:nth-child(1){top:33.33%}
-        .grid-ov .ln:nth-child(2){top:66.66%}
-        .grid-ov .ln:nth-child(3){left:33.33%}
-        .grid-ov .ln:nth-child(4){left:66.66%}
+        .mbtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+        .mbtn{padding:9px 18px;border-radius:11px;border:none;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;}
+        .mbtn.pri{background:var(--accent);color:#fff;}
+        .mbtn.pri:hover{background:#ff4466;transform:translateY(-1px);}
+        .mbtn.sec{background:var(--card);color:var(--fg);border:1px solid var(--border);}
+        .mbtn.sec:hover{background:#1a1a30;}
 
-        .crn { position:absolute; width:22px; height:22px; z-index:3; pointer-events:none; }
-        .crn::before,.crn::after { content:''; position:absolute; background:var(--accent); border-radius:1px; }
-        .crn.tl{top:10px;left:10px;} .crn.tl::before{width:22px;height:2px;top:0;left:0;} .crn.tl::after{width:2px;height:22px;top:0;left:0;}
-        .crn.tr{top:10px;right:10px;} .crn.tr::before{width:22px;height:2px;top:0;right:0;} .crn.tr::after{width:2px;height:22px;top:0;right:0;}
-        .crn.bl{bottom:10px;left:10px;} .crn.bl::before{width:22px;height:2px;bottom:0;left:0;} .crn.bl::after{width:2px;height:22px;bottom:0;left:0;}
-        .crn.br{bottom:10px;right:10px;} .crn.br::before{width:22px;height:2px;bottom:0;right:0;} .crn.br::after{width:2px;height:22px;bottom:0;right:0;}
+        .te{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--card);color:var(--fg);border:1px solid var(--border);padding:8px 18px;border-radius:11px;font-size:12.5px;font-weight:600;z-index:300;opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap;box-shadow:0 10px 40px rgba(0,0,0,.5);}
+        .te.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-        .flash-ov {
-            position:absolute; inset:0; background:#fff; opacity:0;
-            z-index:10; pointer-events:none; border-radius:22px;
-        }
-        .flash-ov.fire { animation:flash-anim 0.4s ease-out forwards; }
-        @keyframes flash-anim { 0%{opacity:0.95;} 15%{opacity:0.85;} 100%{opacity:0;} }
+        canvas.off{display:none;}
 
-        .info-strip {
-            position:absolute; bottom:0; left:0; right:0; z-index:4;
-            padding:36px 14px 12px;
-            background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);
-            display:flex; justify-content:space-between;
-            font-size:11px; font-weight:600; color:rgba(255,255,255,0.55);
-        }
-
-        .timer-display {
-            position:absolute; inset:0; z-index:8;
-            display:flex; align-items:center; justify-content:center;
-            pointer-events:none; opacity:0; transition:opacity 0.15s;
-        }
-        .timer-display.on { opacity:1; }
-        .timer-num {
-            font-size:120px; font-weight:800; color:#fff;
-            text-shadow:0 0 60px rgba(0,0,0,0.6);
-            animation:tpop 0.6s ease-out;
-        }
-        @keyframes tpop { 0%{transform:scale(1.8);opacity:0;} 40%{transform:scale(0.95);opacity:1;} 100%{transform:scale(1);opacity:1;} }
-
-        .chips {
-            width:100%; max-width:520px; padding:16px 16px 4px;
-            display:flex; align-items:center; justify-content:center; gap:18px;
-        }
-        .chip {
-            font-family:inherit; font-size:12px; font-weight:600;
-            color:var(--muted); background:transparent;
-            border:1px solid transparent; border-radius:20px;
-            padding:5px 14px; cursor:pointer; transition:all 0.2s;
-        }
-        .chip:hover { color:var(--fg); }
-        .chip.on { color:var(--accent); border-color:rgba(255,45,85,0.3); background:var(--accent-soft); }
-
-        .ctrls {
-            width:100%; max-width:520px; padding:14px 20px 12px;
-            display:flex; align-items:center; justify-content:space-around;
-        }
-        .cbtn {
-            width:48px; height:48px; border-radius:50%;
-            border:1px solid var(--border); background:var(--card);
-            color:var(--fg); font-size:17px; cursor:pointer;
-            display:flex; align-items:center; justify-content:center;
-            transition:all 0.2s;
-        }
-        .cbtn:hover { background:#1a1a30; transform:scale(1.08); }
-        .cbtn:active { transform:scale(0.93); }
-        .cbtn.on { background:var(--accent-soft); border-color:rgba(255,45,85,0.35); color:var(--accent); }
-
-        .shutter {
-            width:74px; height:74px; border-radius:50%;
-            border:4px solid var(--fg); background:transparent;
-            cursor:pointer; position:relative; flex-shrink:0; transition:all 0.15s;
-        }
-        .shutter::before {
-            content:''; position:absolute; inset:5px;
-            border-radius:50%; background:var(--accent); transition:all 0.15s;
-        }
-        .shutter:hover { border-color:#fff; transform:scale(1.06); }
-        .shutter:hover::before { background:#ff4466; }
-        .shutter:active { transform:scale(0.88); }
-        .shutter:active::before { inset:3px; background:#ff1838; }
-
-        .gal-sec { width:100%; max-width:520px; padding:6px 12px 32px; display:none; }
-        .gal-sec.on { display:block; }
-        .gal-title {
-            font-size:11px; font-weight:700; color:var(--muted);
-            text-transform:uppercase; letter-spacing:1px; padding:0 8px 10px;
-        }
-        .gal-row {
-            display:flex; gap:10px; overflow-x:auto;
-            padding-bottom:6px; scroll-behavior:smooth;
-        }
-        .gal-row::-webkit-scrollbar { height:3px; }
-        .gal-row::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
-        .gal-item {
-            flex-shrink:0; width:76px; height:101px; border-radius:10px;
-            overflow:hidden; border:2px solid var(--border);
-            cursor:pointer; position:relative; transition:all 0.2s;
-            animation:popin 0.3s ease-out;
-        }
-        @keyframes popin { from{opacity:0;transform:scale(0.75)translateX(-16px);} to{opacity:1;transform:scale(1)translateX(0);} }
-        .gal-item:hover { border-color:var(--accent); transform:scale(1.06); }
-        .gal-item img { width:100%; height:100%; object-fit:cover; }
-        .gal-item .ov-dl {
-            position:absolute; inset:0; background:rgba(0,0,0,0.5);
-            display:flex; align-items:center; justify-content:center;
-            opacity:0; transition:opacity 0.2s; color:#fff; font-size:16px;
-        }
-        .gal-item:hover .ov-dl { opacity:1; }
-
-        .modal-bg {
-            position:fixed; inset:0; background:rgba(0,0,0,0.88);
-            backdrop-filter:blur(14px); z-index:200;
-            display:flex; align-items:center; justify-content:center;
-            padding:20px; opacity:0; pointer-events:none; transition:opacity 0.3s;
-        }
-        .modal-bg.open { opacity:1; pointer-events:all; }
-        .modal-box {
-            max-width:400px; width:100%;
-            display:flex; flex-direction:column; align-items:center; gap:16px;
-            transform:scale(0.88); transition:transform 0.3s;
-        }
-        .modal-bg.open .modal-box { transform:scale(1); }
-        .modal-box img { width:100%; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
-        .modal-btns { display:flex; gap:10px; }
-        .mbtn {
-            padding:10px 22px; border-radius:12px; border:none;
-            font-family:inherit; font-size:13px; font-weight:700;
-            cursor:pointer; transition:all 0.2s;
-            display:flex; align-items:center; gap:7px;
-        }
-        .mbtn.pri { background:var(--accent); color:#fff; }
-        .mbtn.pri:hover { background:#ff4466; transform:translateY(-1px); }
-        .mbtn.sec { background:var(--card); color:var(--fg); border:1px solid var(--border); }
-        .mbtn.sec:hover { background:#1a1a30; }
-
-        .toast-el {
-            position:fixed; bottom:28px; left:50%;
-            transform:translateX(-50%) translateY(70px);
-            background:var(--card); color:var(--fg);
-            border:1px solid var(--border);
-            padding:9px 20px; border-radius:12px;
-            font-size:13px; font-weight:600; z-index:300;
-            opacity:0; transition:all 0.3s ease;
-            pointer-events:none; white-space:nowrap;
-            box-shadow:0 10px 40px rgba(0,0,0,0.5);
-        }
-        .toast-el.show { opacity:1; transform:translateX(-50%) translateY(0); }
-
-        canvas.offscreen { display:none; }
-
-        @media(max-width:400px){
-            .shutter{width:62px;height:62px;}
-            .cbtn{width:42px;height:42px;font-size:15px;}
-        }
-        @media(prefers-reduced-motion:reduce){
-            *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}
-        }
+        @media(max-width:400px){.sh{width:60px;height:60px;}.cbtn{width:40px;height:40px;font-size:14px;}.gi{width:110px;height:62px;}}
+        @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
     </style>
 </head>
 <body>
 
-<div class="bg-blob a"></div>
-<div class="bg-blob b"></div>
+<div class="bg-b a"></div>
+<div class="bg-b b"></div>
 
-<!-- ===== PERMISSION SCREEN ===== -->
-<div class="perm-screen" id="permScreen">
+<!-- Permission Screen -->
+<div class="perm" id="perm">
     <div class="perm-card">
-        <div class="perm-icon"><i class="fa-solid fa-camera"></i></div>
-
-        <!-- Status Checks -->
-        <div class="checks" id="checks"></div>
-
+        <div class="p-ico"><i class="fa-solid fa-camera"></i></div>
+        <div class="checks" id="cks"></div>
         <h2>Akses Kamera</h2>
-        <p>Tekan tombol di bawah untuk mengaktifkan kamera dan mulai foto.</p>
-
-        <button class="perm-btn" id="permBtn" onclick="requestPerm()">
-            <i class="fa-solid fa-video"></i>
-            Izinkan Kamera
-        </button>
-
-        <!-- Error Panel -->
-        <div class="err-panel" id="errPanel">
-            <div class="err-title"><i class="fa-solid fa-circle-exclamation"></i> <span id="errTitle"></span></div>
-            <div class="err-msg" id="errMsg"></div>
-            <div class="fix-title"><i class="fa-solid fa-wrench"></i> Cara Memperbaiki</div>
-            <ol class="fix-steps" id="fixSteps"></ol>
+        <p>SnapCam Live butuh kamera untuk merekam foto live berbasis video pendek. Tekan tombol untuk mengizinkan.</p>
+        <button class="p-btn" id="pBtn" onclick="reqPerm()"><i class="fa-solid fa-video"></i> Izinkan Kamera</button>
+        <div class="err-p" id="errP">
+            <div class="et"><i class="fa-solid fa-circle-exclamation"></i> <span id="eT"></span></div>
+            <div class="em" id="eM"></div>
+            <div class="ft"><i class="fa-solid fa-wrench"></i> Cara Memperbaiki</div>
+            <ol id="eS"></ol>
         </div>
-
-        <div class="perm-note">Kamera hanya dipakai lokal, tidak dikirim ke mana-mana.</div>
+        <div class="p-note">Kamera hanya dipakai lokal, tidak dikirim ke mana-mana.</div>
     </div>
 </div>
 
-<!-- ===== APP ===== -->
+<!-- App Utama -->
 <div class="app" id="app">
     <header class="hdr">
-        <div class="hdr-brand">Snap<span>Cam</span></div>
-        <div class="live-tag"><div class="live-dot"></div>LIVE</div>
+        <div class="hdr-b">Snap<span>Cam</span> Live</div>
+        <div class="lt"><div class="ld"></div>LIVE</div>
     </header>
 
-    <div class="cam-wrap">
-        <div class="cam-frame" id="camFrame">
+    <div class="cw">
+        <div class="cf" id="cF">
             <video id="vid" autoplay playsinline muted></video>
-            <div class="grid-ov" id="gridOv">
-                <div class="ln h"></div><div class="ln h"></div>
-                <div class="ln v"></div><div class="ln v"></div>
-            </div>
-            <div class="crn tl"></div><div class="crn tr"></div>
-            <div class="crn bl"></div><div class="crn br"></div>
-            <div class="flash-ov" id="flashOv"></div>
-            <div class="timer-display" id="timerDisp"><span class="timer-num" id="timerNum"></span></div>
-            <div class="info-strip"><span id="resLbl">--</span><span id="camLbl">--</span></div>
+            <div class="go" id="gO"><div class="ln h"></div><div class="ln h"></div><div class="ln v"></div><div class="ln v"></div></div>
+            <div class="cr tl"></div><div class="cr tr"></div><div class="cr bl"></div><div class="cr br"></div>
+            <div class="fo2" id="fO"></div>
+            <div class="ri" id="rI"><span class="rd2"></span>REC</div>
+            <div class="td" id="tD"><span class="tn" id="tN"></span></div>
+            <div class="is2"><span id="rL">--</span><span id="cL">--</span></div>
         </div>
     </div>
 
     <div class="chips">
-        <button class="chip" id="chipGrid" onclick="toggleGrid()">Grid</button>
-        <button class="chip" id="chipTimer" onclick="toggleTimer()">Timer 3s</button>
-        <button class="chip" id="chipMirror" onclick="toggleMirror()">Mirror</button>
+        <button class="chip on" id="cLive" onclick="togLive()"><span class="dot"></span>LIVE</button>
+        <button class="chip" id="cGrid" onclick="togGrid()">Grid</button>
+        <button class="chip" id="cTimer" onclick="togTimer()">Timer 3s</button>
+        <button class="chip" id="cMirror" onclick="togMirror()">Mirror</button>
     </div>
 
     <div class="ctrls">
-        <button class="cbtn" title="Ganti Kamera" onclick="switchCam()" aria-label="Ganti kamera">
-            <i class="fa-solid fa-camera-rotate"></i>
-        </button>
-        <button class="shutter" id="shutterBtn" onclick="takePhoto()" aria-label="Ambil foto"></button>
-        <button class="cbtn" title="Matikan Kamera" onclick="stopCam()" aria-label="Matikan kamera">
-            <i class="fa-solid fa-power-off"></i>
-        </button>
+        <button class="cbtn" onclick="swCam()" aria-label="Ganti kamera"><i class="fa-solid fa-camera-rotate"></i></button>
+        <button class="sh" id="shB" onclick="takeShot()" aria-label="Ambil foto"></button>
+        <button class="cbtn" onclick="stopC()" aria-label="Matikan kamera"><i class="fa-solid fa-power-off"></i></button>
     </div>
 
-    <section class="gal-sec" id="galSec">
-        <div class="gal-title">Hasil Foto</div>
-        <div class="gal-row" id="galRow"></div>
+    <section class="gs" id="gS">
+        <div class="gt">Hasil Foto Live</div>
+        <div class="gr" id="gR"></div>
     </section>
 </div>
 
-<!-- Modal -->
-<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
-    <div class="modal-box" onclick="event.stopPropagation()">
-        <img id="modalImg" src="" alt="Preview">
-        <div class="modal-btns">
-            <button class="mbtn sec" onclick="closeModalDirect()"><i class="fa-solid fa-xmark"></i> Tutup</button>
-            <button class="mbtn pri" onclick="dlCurrent()"><i class="fa-solid fa-download"></i> Simpan</button>
+<!-- Modal Preview -->
+<div class="mbg" id="mBg" onclick="cMod(event)">
+    <div class="mbox" onclick="event.stopPropagation()">
+        <div class="pc" id="pC">
+            <img class="si" id="mImg" src="" alt="Preview">
+            <video class="lv" id="mVid" src="" loop playsinline muted preload="auto"></video>
+            <div class="lpi"><span class="lr2"><i></i><i></i><i></i></span>LIVE</div>
+        </div>
+        <p class="lhint" id="lH"><i class="fa-solid fa-hand-pointer"></i> Tahan untuk melihat Live Photo</p>
+        <div class="mbtns">
+            <button class="mbtn sec" onclick="cModD()"><i class="fa-solid fa-xmark"></i> Tutup</button>
+            <button class="mbtn sec" id="bDlImg" onclick="dlImg()"><i class="fa-solid fa-image"></i> Foto</button>
+            <button class="mbtn pri" id="bDlVid" onclick="dlVid()"><i class="fa-solid fa-video"></i> Video Live</button>
         </div>
     </div>
 </div>
 
-<div class="toast-el" id="toastEl"></div>
-<canvas class="offscreen" id="cvs"></canvas>
+<div class="te" id="tE"></div>
+<canvas class="off" id="cvs"></canvas>
 
 <script>
-    // ===== State =====
-    let stream = null, facing = 'environment', photos = [], previewSrc = null;
-    let gridOn = false, timerOn = false, mirrorOn = false, capturing = false;
+/* ===== STATE ===== */
+let stream=null, facing='environment', photos=[], curPhoto=null;
+let gridOn=false, timerOn=false, mirrorOn=false, liveOn=true, capturing=false;
+let mediaRecorder=null, chunks=[], MAX_CH=5;
+let liveOk=false, recMime='';
 
-    // ===== DOM =====
-    const $ = id => document.getElementById(id);
-    const permScreen = $('permScreen'), permBtn = $('permBtn');
-    const errPanel = $('errPanel'), errTitle = $('errTitle'), errMsg = $('errMsg'), fixSteps = $('fixSteps');
-    const checks = $('checks');
-    const appEl = $('app'), vid = $('vid'), camFrame = $('camFrame');
-    const flashOv = $('flashOv'), gridOv = $('gridOv');
-    const timerDisp = $('timerDisp'), timerNum = $('timerNum');
-    const resLbl = $('resLbl'), camLbl = $('camLbl');
-    const galSec = $('galSec'), galRow = $('galRow');
-    const modalBg = $('modalBg'), modalImg = $('modalImg');
-    const toastEl = $('toastEl'), cvs = $('cvs');
-    const chipGrid = $('chipGrid'), chipTimer = $('chipTimer'), chipMirror = $('chipMirror');
+/* ===== DOM ===== */
+const $=id=>document.getElementById(id);
+const perm=$('perm'),pBtn=$('pBtn'),errP=$('errP'),eT=$('eT'),eM=$('eM'),eS=$('eS'),cks=$('cks');
+const app=$('app'),vid=$('vid'),cF=$('cF'),fO=$('fO'),gO=$('gO');
+const rI=$('rI'),tD=$('tD'),tN=$('tN'),rL=$('rL'),cL=$('cL');
+const shB=$('shB'),gS=$('gS'),gR=$('gR');
+const mBg=$('mBg'),mImg=$('mImg'),mVid=$('mVid'),pC=$('pC'),lH=$('lH');
+const bDlVid=$('bDlVid');
+const tE=$('tE'),cvs=$('cvs');
+const cLive=$('cLive'),cGrid=$('cGrid'),cTimer=$('cTimer'),cMirror=$('cMirror');
 
-    // ===== Deteksi masalah sebelum user klik =====
-    function runChecks() {
-        const results = [];
-        const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-        const hasGetUserMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-        const hasCam = hasGetUserMedia; // tidak bisa cek hardware tanpa permission, tapi API ada
+/* ===== CEK LINGKUNGAN ===== */
+function runCks(){
+    const sec=location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
+    const hasMR=!!window.MediaRecorder;
+    const hasGUM=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia);
+    let h='';
+    h+=`<span class="ck ${hasGUM?'ok':'fail'}"><i class="fa-solid ${hasGUM?'fa-check':'fa-xmark'}"></i>${hasGUM?'Kamera':'No API'}</span>`;
+    h+=`<span class="ck ${sec?'ok':'warn'}"><i class="fa-solid ${sec?'fa-check':'fa-triangle-exclamation'}"></i>${sec?'Secure':'Tidak Aman'}</span>`;
+    h+=`<span class="ck ${hasMR?'ok':'warn'}"><i class="fa-solid ${hasMR?'fa-check':'fa-triangle-exclamation'}"></i>Recorder</span>`;
+    cks.innerHTML=h;
+    if(!sec) showSecErr();
+}
 
-        results.push({ label: 'Browser', ok: hasGetUserMedia, text: hasGetUserMedia ? 'Support' : 'Tidak support' });
-        results.push({ label: 'Secure', ok: isSecure, text: isSecure ? 'HTTPS/Localhost' : 'Tidak aman', warn: !isSecure });
+function showSecErr(){
+    eT.textContent='Halaman Tidak Aman';
+    eM.textContent='Browser memblokir kamera karena bukan HTTPS/localhost.';
+    const fp=location.protocol==='file:';
+    eS.innerHTML=fp
+        ?`<li>Buka Terminal / CMD</li><li>cd ke folder file ini</li><li>Jalankan: <code>python3 -m http.server 8000</code></li><li>Buka: <code>http://localhost:8000</code></li>`
+        :`<li>Pakai <strong>HTTPS</strong></li><li>Atau jalankan via <strong>localhost</strong></li><li>VS Code? Pakai extension <strong>Live Server</strong></li>`;
+    errP.classList.add('show');
+    pBtn.disabled=true;
+}
 
-        checks.innerHTML = results.map(r => {
-            const cls = r.warn ? 'warn' : (r.ok ? 'ok' : 'fail');
-            const icon = r.warn ? 'fa-triangle-exclamation' : (r.ok ? 'fa-check' : 'fa-xmark');
-            return `<span class="check-tag ${cls}"><i class="fa-solid ${icon}"></i>${r.label}: ${r.text}</span>`;
-        }).join('');
+/* ===== MIME TYPE ===== */
+function getMime(){
+    const t=['video/webm;codecs=vp9,opus','video/webm;codecs=vp9','video/webm;codecs=vp8,opus','video/webm;codecs=vp8','video/webm','video/mp4'];
+    for(const m of t) if(MediaRecorder.isTypeSupported(m)) return m;
+    return '';
+}
 
-        // Kalau bukan secure context, langsung tampilkan error
-        if (!isSecure) {
-            showNotSecureError();
-        }
+/* ===== MINTA IZIN ===== */
+async function reqPerm(){
+    const sec=location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
+    if(!sec){showSecErr();return;}
+    pBtn.classList.add('loading');
+    pBtn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Meminta izin...';
+    errP.classList.remove('show');
+    try{
+        stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:3840},height:{ideal:2160}},audio:false});
+        vid.srcObject=stream;
+        vid.onloadedmetadata=()=>{
+            vid.play(); updInfo();
+            perm.classList.add('gone'); app.classList.add('on');
+            initLive(); toast('Kamera 4K aktif');
+        };
+    }catch(e){
+        handleErr(e);
+        pBtn.classList.remove('loading');
+        pBtn.innerHTML='<i class="fa-solid fa-rotate-right"></i> Coba Lagi';
     }
+}
 
-    function showNotSecureError() {
-        errTitle.textContent = 'Halaman Tidak Aman (Bukan HTTPS)';
-        errMsg.textContent = 'Browser memblokir akses kamera karena halaman ini dibuka lewat protokol yang tidak aman. Kamera hanya bisa diakses lewat HTTPS atau localhost.';
-
-        const isFileProtocol = location.protocol === 'file:';
-        let steps = '';
-
-        if (isFileProtocol) {
-            steps = `
-                <li>Buka <strong>Terminal</strong> / <strong>Command Prompt</strong></li>
-                <li>Masuk ke folder tempat file ini disimpan:<br><code>cd /path/ke/folder</code></li>
-                <li>Jalankan server lokal:<br><code>python3 -m http.server 8000</code></li>
-                <li>Buka browser ke:<br><code>http://localhost:8000</code></li>
-            `;
-        } else {
-            steps = `
-                <li>Gunakan <strong>HTTPS</strong> untuk mengakses halaman ini</li>
-                <li>Atau jalankan lewat <strong>localhost</strong></li>
-                <li>Kalau pakai VS Code, install extension <strong>Live Server</strong> lalu klik "Go Live"</li>
-            `;
-        }
-
-        fixSteps.innerHTML = steps;
-        errPanel.classList.add('show');
-        permBtn.disabled = true;
-        permBtn.style.opacity = '0.3';
-        permBtn.style.cursor = 'not-allowed';
+function handleErr(e){
+    let t='',m='',s='';
+    switch(e.name){
+        case'NotAllowedError':t='Izin Ditolak';m='Kamu menolak akses kamera.';s=`<li>Klik <strong>gembok</strong> di address bar</li><li>Ubah permission Kamera jadi <strong>Izinkan</strong></li><li>Refresh & coba lagi</li><li>iPhone: <strong>Settings → Safari → Camera</strong></li>`;break;
+        case'NotFoundError':t='Tidak Ada Kamera';m='Tidak ada kamera terdeteksi.';s=`<li>Pastikan perangkat punya kamera</li><li>Tutup Zoom/Discord dulu</li><li>Cabut & colok ulang webcam USB</li>`;break;
+        case'NotReadableError':t='Kamera Dipakai';m='Kamera sedang dipakai aplikasi lain.';s=`<li>Tutup tab lain yang pakai kamera</li><li>Tutup Zoom/Meet/Discord</li><li>Refresh & coba lagi</li>`;break;
+        case'OverconstrainedError':t='4K Tidak Didukung';m='Kamera tidak mendukung 4K, coba resolusi lebih rendah.';s=`<li>Otomatis dicoba ulang resolusi lebih rendah</li>`;setTimeout(retryLow,500);break;
+        default:t='Error';m=e.message;s=`<li>Pastikan buka via <strong>localhost/HTTPS</strong></li><li>Refresh halaman</li><li>Coba browser lain</li>`;
     }
+    eT.textContent=t;eM.textContent=m;eS.innerHTML=s;errP.classList.add('show');
+}
 
-    // ===== Request Permission =====
-    async function requestPerm() {
-        const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-        if (!isSecure) {
-            showNotSecureError();
-            return;
-        }
+async function retryLow(){
+    try{
+        if(stream)stream.getTracks().forEach(t=>t.stop());
+        stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080}},audio:false});
+        vid.srcObject=stream;
+        vid.onloadedmetadata=()=>{vid.play();updInfo();perm.classList.add('gone');app.classList.add('on');initLive();toast('Kamera aktif (HD)');};
+    }catch(e){}
+}
 
-        permBtn.classList.add('loading');
-        permBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Meminta izin...';
-        errPanel.classList.remove('show');
+function updInfo(){
+    rL.textContent=vid.videoWidth+' x '+vid.videoHeight;
+    cL.textContent=facing==='environment'?'Belakang':'Depan';
+    vid.style.transform=facing==='user'?'scaleX(-1)':'scaleX(1)';
+}
 
-        try {
-            stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 2560 } },
-                audio: false
-            });
+/* ===== LIVE RECORDING ===== */
+function initLive(){
+    if(!window.MediaRecorder){liveOk=false;cLive.classList.remove('on');liveOn=false;toast('Live Photo tidak didukung browser ini');return;}
+    recMime=getMime();
+    if(!recMime){liveOk=false;cLive.classList.remove('on');liveOn=false;toast('Live Photo tidak didukung browser ini');return;}
+    liveOk=true;
+    if(liveOn) startRec();
+}
 
-            vid.srcObject = stream;
-            vid.onloadedmetadata = () => {
-                vid.play();
-                updateInfo();
-                permScreen.classList.add('gone');
-                appEl.classList.add('active');
-                toast('Kamera aktif');
-            };
-
-        } catch (err) {
-            console.error(err);
-            handleCameraError(err);
-            permBtn.classList.remove('loading');
-            permBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Coba Lagi';
-        }
-    }
-
-    // ===== Handle error spesifik =====
-    function handleCameraError(err) {
-        let title = '', msg = '', steps = '';
-
-        switch (err.name) {
-            case 'NotAllowedError':
-                title = 'Izin Kamera Ditolak';
-                msg = 'Kamu menolak akses kamera, atau browser memblokirnya secara otomatis. Kamera harus diizinkan agar bisa dipakai.';
-                steps = `
-                    <li>Klik ikon <strong>gembok</strong> di address bar browser</li>
-                    <li>Cari permission <strong>Kamera</strong> dan ubah jadi <strong>Izinkan</strong></li>
-                    <li>Refresh halaman, lalu coba lagi</li>
-                    <li>Di iPhone/iPad: buka <strong>Settings → Safari → Camera</strong>, izinkan</li>
-                `;
-                break;
-
-            case 'NotFoundError':
-            case 'DevicesNotFoundError':
-                title = 'Tidak Ada Kamera';
-                msg = 'Browser tidak menemukan kamera di perangkat ini. Pastikan kamera terpasang dan tidak dipakai aplikasi lain.';
-                steps = `
-                    <li>Pastikan perangkat punya kamera (bukan PC tanpa webcam)</li>
-                    <li>Tutup aplikasi lain yang sedang pakai kamera (Zoom, Discord, dll)</li>
-                    <li>Cabut dan colok ulang kamera eksternal (jika pakai webcam USB)</li>
-                    <li>Restart browser dan coba lagi</li>
-                `;
-                break;
-
-            case 'NotReadableError':
-            case 'TrackStartError':
-                title = 'Kamera Sedang Dipakai';
-                msg = 'Kamera sudah digunakan oleh aplikasi lain atau proses lain di browser. Tutup dulu yang memakai kamera.';
-                steps = `
-                    <li>Tutup <strong>tab browser lain</strong> yang mungkin pakai kamera</li>
-                    <li>Tutup aplikasi seperti <strong>Zoom, Meet, Discord</strong></li>
-                    <li>Refresh halaman ini dan coba lagi</li>
-                `;
-                break;
-
-            case 'OverconstrainedError':
-                title = 'Kamera Tidak Mendukung Resolusi';
-                msg = 'Kamera tidak mendukung resolusi yang diminta. Akan dicoba ulang dengan resolusi lebih rendah.';
-                steps = `
-                    <li>Halaman akan otomatis coba resolusi lebih rendah</li>
-                    <li>Jika tetap gagal, kamera mungkin terlalu lama</li>
-                `;
-                // Auto-retry dengan lower res
-                setTimeout(() => retryLowerRes(), 500);
-                break;
-
-            case 'TypeError':
-                title = 'Browser Tidak Support';
-                msg = 'Browser ini tidak mendukung akses kamera (getUserMedia). Gunakan browser modern seperti Chrome, Firefox, atau Edge.';
-                steps = `
-                    <li>Update browser ke versi terbaru</li>
-                    <li>Atau ganti ke <strong>Chrome</strong>, <strong>Firefox</strong>, atau <strong>Edge</strong></li>
-                    <li>Safari di iOS 14+ juga didukung</li>
-                `;
-                break;
-
-            default:
-                title = 'Gagal Mengakses Kamera';
-                msg = 'Terjadi error tidak dikenal: ' + err.message;
-                steps = `
-                    <li>Pastikan halaman dibuka lewat <strong>localhost</strong> atau <strong>HTTPS</strong></li>
-                    <li>Coba refresh halaman</li>
-                    <li>Coba gunakan browser lain</li>
-                `;
-        }
-
-        errTitle.textContent = title;
-        errMsg.textContent = msg;
-        fixSteps.innerHTML = steps;
-        errPanel.classList.add('show');
-    }
-
-    // ===== Retry dengan resolusi lebih rendah =====
-    async function retryLowerRes() {
-        try {
-            if (stream) stream.getTracks().forEach(t => t.stop());
-            stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: facing, width: { ideal: 1280 }, height: { ideal: 720 } },
-                audio: false
-            });
-            vid.srcObject = stream;
-            vid.onloadedmetadata = () => {
-                vid.play();
-                updateInfo();
-                permScreen.classList.add('gone');
-                appEl.classList.add('active');
-                toast('Kamera aktif (resolusi rendah)');
-            };
-        } catch (e) {
-            // Biarkan error panel yang sudah tampil
-        }
-    }
-
-    // ===== Update Info =====
-    function updateInfo() {
-        resLbl.textContent = vid.videoWidth + ' x ' + vid.videoHeight;
-        camLbl.textContent = facing === 'environment' ? 'Belakang' : 'Depan';
-        vid.style.transform = facing === 'user' ? 'scaleX(-1)' : 'scaleX(1)';
-    }
-
-    // ===== Switch Camera =====
-    async function switchCam() {
-        if (!stream) return;
-        facing = facing === 'environment' ? 'user' : 'environment';
-        try {
-            stream.getTracks().forEach(t => t.stop());
-            stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 2560 } },
-                audio: false
-            });
-            vid.srcObject = stream;
-            vid.onloadedmetadata = () => { vid.play(); updateInfo(); };
-        } catch (e) {
-            toast('Gagal ganti kamera');
-        }
-    }
-
-    // ===== Stop Camera =====
-    function stopCam() {
-        if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-        appEl.classList.remove('active');
-        permScreen.classList.remove('gone');
-        permBtn.classList.remove('loading');
-        permBtn.disabled = false;
-        permBtn.style.opacity = '1';
-        permBtn.style.cursor = 'pointer';
-        permBtn.innerHTML = '<i class="fa-solid fa-video"></i> Izinkan Kamera';
-        errPanel.classList.remove('show');
-        runChecks();
-    }
-
-    // ===== Take Photo =====
-    async function takePhoto() {
-        if (!stream || capturing) return;
-
-        if (timerOn) {
-            capturing = true;
-            for (let i = 3; i > 0; i--) {
-                timerNum.textContent = i;
-                timerDisp.classList.add('on');
-                timerNum.style.animation = 'none';
-                void timerNum.offsetWidth;
-                timerNum.style.animation = '';
-                await sleep(1000);
+function startRec(){
+    if(!liveOk||!stream)return;
+    try{
+        chunks=[];
+        mediaRecorder=new MediaRecorder(stream,{mimeType:recMime,videoBitsPerSecond:30000000});
+        mediaRecorder.ondataavailable=e=>{
+            if(e.data&&e.data.size>0){
+                chunks.push(e.data);
+                if(chunks.length>MAX_CH)chunks.shift();
             }
-            timerDisp.classList.remove('on');
-            capturing = false;
+        };
+        mediaRecorder.onerror=()=>{liveOk=false;cLive.classList.remove('on');liveOn=false;rI.classList.remove('on');};
+        mediaRecorder.start(1000);
+        rI.classList.add('on');
+    }catch(e){liveOk=false;cLive.classList.remove('on');liveOn=false;toast('Gagal mulai rekaman');}
+}
+
+function stopRec(){
+    if(mediaRecorder&&mediaRecorder.state==='recording') try{mediaRecorder.stop();}catch(e){}
+    rI.classList.remove('on');
+}
+
+/* ===== AMBIL FOTO LIVE ===== */
+async function takeShot(){
+    if(!stream||capturing)return;
+
+    /* Timer countdown */
+    if(timerOn){
+        capturing=true; shB.classList.add('cap');
+        for(let i=3;i>0;i--){
+            tN.textContent=i; tD.classList.add('on');
+            tN.style.animation='none'; void tN.offsetWidth; tN.style.animation='';
+            await slp(1000);
         }
+        tD.classList.remove('on');
+    }
 
-        const vw = vid.videoWidth, vh = vid.videoHeight;
-        cvs.width = vw; cvs.height = vh;
-        const ctx = cvs.getContext('2d');
-        const needMirror = facing === 'user' || mirrorOn;
-        if (needMirror) { ctx.translate(vw, 0); ctx.scale(-1, 1); }
-        ctx.drawImage(vid, 0, 0, vw, vh);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+    /* Capture still 4K dari canvas */
+    const vw=vid.videoWidth, vh=vid.videoHeight;
+    cvs.width=vw; cvs.height=vh;
+    const ctx=cvs.getContext('2d');
+    if(facing==='user'||mirrorOn){ctx.translate(vw,0);ctx.scale(-1,1);}
+    ctx.drawImage(vid,0,0,vw,vh);
+    ctx.setTransform(1,0,0,1,0,0);
+    const stillUrl=cvs.toDataURL('image/jpeg',0.98);
 
-        const dataUrl = cvs.toDataURL('image/jpeg', 0.92);
-        photos.push(dataUrl);
-        fireFlash();
-        addGallery(dataUrl);
+    /* Flash! */
+    fireFlash();
+
+    if(liveOn&&liveOk&&mediaRecorder&&mediaRecorder.state==='recording'){
+        /* Mode LIVE: tunggu 1.5 detik lalu ambil video buffer */
+        capturing=true; shB.classList.add('cap');
+        mediaRecorder.onstop=()=>{
+            const blob=new Blob(chunks,{type:recMime});
+            const vidUrl=URL.createObjectURL(blob);
+            addGal(stillUrl,vidUrl);
+            toast('Foto Live diambil');
+            shB.classList.remove('cap'); capturing=false;
+            startRec();
+        };
+        await slp(1500);
+        try{mediaRecorder.stop();}catch(e){shB.classList.remove('cap');capturing=false;startRec();}
+    }else{
+        /* Mode foto biasa (LIVE off) */
+        addGal(stillUrl,null);
         toast('Foto diambil');
+        shB.classList.remove('cap'); capturing=false;
     }
+}
 
-    // ===== Flash =====
-    function fireFlash() {
-        flashOv.classList.remove('fire');
-        camFrame.classList.remove('flash-on');
-        void flashOv.offsetWidth;
-        flashOv.classList.add('fire');
-        camFrame.classList.add('flash-on');
-        setTimeout(() => { flashOv.classList.remove('fire'); camFrame.classList.remove('flash-on'); }, 450);
+/* ===== FLASH ===== */
+function fireFlash(){
+    fO.classList.remove('fire'); cF.classList.remove('fo');
+    void fO.offsetWidth;
+    fO.classList.add('fire'); cF.classList.add('fo');
+    setTimeout(()=>{fO.classList.remove('fire');cF.classList.remove('fo');},450);
+}
+
+/* ===== GALLERY ===== */
+function addGal(stillUrl,vidUrl){
+    gS.classList.add('on');
+    const el=document.createElement('div');
+    el.className='gi'+(vidUrl?' live':'');
+    let h=`<img src="${stillUrl}" alt="Foto">`;
+    if(vidUrl) h+=`<div class="lb"><span class="lr"><i></i><i></i><i></i></span>LIVE</div>`;
+    h+=`<div class="ov-dl"><i class="fa-solid fa-expand"></i></div>`;
+    el.innerHTML=h;
+    el.addEventListener('click',()=>openMod(stillUrl,vidUrl));
+    gR.prepend(el);
+    gR.scrollLeft=0;
+    photos.push({still:stillUrl,video:vidUrl});
+}
+
+/* ===== MODAL + LIVE PLAYBACK ===== */
+function openMod(stillUrl,vidUrl){
+    curPhoto={still:stillUrl,video:vidUrl};
+    mImg.src=stillUrl;
+    pC.classList.remove('playing');
+    if(vidUrl){
+        mVid.src=vidUrl;
+        lH.classList.remove('hide');
+        bDlVid.style.display='flex';
+    }else{
+        mVid.src='';
+        lH.classList.add('hide');
+        bDlVid.style.display='none';
     }
+    mBg.classList.add('open');
+}
 
-    // ===== Gallery =====
-    function addGallery(src) {
-        galSec.classList.add('on');
-        const el = document.createElement('div');
-        el.className = 'gal-item';
-        el.innerHTML = `<img src="${src}" alt="Foto"><div class="ov-dl"><i class="fa-solid fa-download"></i></div>`;
-        el.addEventListener('click', () => openModal(src));
-        galRow.prepend(el);
-        galRow.scrollLeft = 0;
-    }
+function cMod(e){if(e.target===mBg)cModD();}
+function cModD(){mBg.classList.remove('open');pC.classList.remove('playing');mVid.pause();mVid.currentTime=0;}
 
-    // ===== Modal =====
-    function openModal(src) { previewSrc = src; modalImg.src = src; modalBg.classList.add('open'); }
-    function closeModal(e) { if (e.target === modalBg) closeModalDirect(); }
-    function closeModalDirect() { modalBg.classList.remove('open'); }
-    function dlCurrent() {
-        if (!previewSrc) return;
-        const a = document.createElement('a');
-        a.href = previewSrc;
-        a.download = 'snapcam_' + Date.now() + '.jpg';
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        toast('Foto tersimpan');
-    }
+/* Long-press: tahan = main video live, lepas = kembali ke still */
+function setupLP(){
+    const start=e=>{
+        e.preventDefault();
+        if(!curPhoto||!curPhoto.video)return;
+        pC.classList.add('playing');
+        mVid.currentTime=0;
+        mVid.play().catch(()=>{});
+    };
+    const stop=()=>{
+        pC.classList.remove('playing');
+        mVid.pause(); mVid.currentTime=0;
+    };
+    pC.addEventListener('mousedown',start);
+    pC.addEventListener('mouseup',stop);
+    pC.addEventListener('mouseleave',stop);
+    pC.addEventListener('touchstart',start,{passive:false});
+    pC.addEventListener('touchend',stop);
+    pC.addEventListener('touchcancel',stop);
+}
 
-    // ===== Toggles =====
-    function toggleGrid() { gridOn = !gridOn; chipGrid.classList.toggle('on', gridOn); gridOv.classList.toggle('on', gridOn); }
-    function toggleTimer() { timerOn = !timerOn; chipTimer.classList.toggle('on', timerOn); toast(timerOn ? 'Timer 3 detik aktif' : 'Timer mati'); }
-    function toggleMirror() { mirrorOn = !mirrorOn; chipMirror.classList.toggle('on', mirrorOn); vid.style.transform = mirrorOn ? 'scaleX(-1)' : 'scaleX(1)'; }
+/* ===== DOWNLOAD ===== */
+function dlImg(){
+    if(!curPhoto)return;
+    const a=document.createElement('a');
+    a.href=curPhoto.still;
+    a.download='snapcam_4k_'+Date.now()+'.jpg';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    toast('Foto 4K tersimpan');
+}
+function dlVid(){
+    if(!curPhoto||!curPhoto.video)return;
+    const a=document.createElement('a');
+    a.href=curPhoto.video;
+    const ext=recMime.includes('mp4')?'mp4':'webm';
+    a.download='snapcam_live_'+Date.now()+'.'+ext;
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    toast('Video Live tersimpan');
+}
 
-    // ===== Toast =====
-    function toast(msg) {
-        toastEl.textContent = msg;
-        toastEl.classList.add('show');
-        clearTimeout(toastEl._t);
-        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 1800);
-    }
+/* ===== SWITCH / STOP ===== */
+async function swCam(){
+    if(!stream)return;
+    const wasRec=liveOn&&liveOk&&mediaRecorder&&mediaRecorder.state==='recording';
+    if(wasRec)stopRec();
+    facing=facing==='environment'?'user':'environment';
+    try{
+        stream.getTracks().forEach(t=>t.stop());
+        stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:3840},height:{ideal:2160}},audio:false});
+        vid.srcObject=stream;
+        vid.onloadedmetadata=()=>{vid.play();updInfo();if(liveOn&&liveOk)startRec();};
+    }catch(e){toast('Gagal ganti kamera');}
+}
 
-    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function stopC(){
+    if(liveOn&&liveOk)stopRec();
+    if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+    app.classList.remove('on'); perm.classList.remove('gone');
+    pBtn.classList.remove('loading');pBtn.disabled=false;
+    pBtn.innerHTML='<i class="fa-solid fa-video"></i> Izinkan Kamera';
+    errP.classList.remove('show');
+    runCks();
+}
 
-    // ===== Keyboard =====
-    document.addEventListener('keydown', e => {
-        if (e.code === 'Space' && stream) { e.preventDefault(); takePhoto(); }
-        if (e.code === 'Escape') closeModalDirect();
-    });
+/* ===== TOGGLES ===== */
+function togLive(){
+    liveOn=!liveOn;
+    cLive.classList.toggle('on',liveOn);
+    if(liveOn&&liveOk&&stream) startRec();
+    else if(!liveOn) stopRec();
+    toast(liveOn?'Live Photo aktif':'Live Photo mati');
+}
+function togGrid(){gridOn=!gridOn;cGrid.classList.toggle('on',gridOn);gO.classList.toggle('on',gridOn);}
+function togTimer(){timerOn=!timerOn;cTimer.classList.toggle('on',timerOn);toast(timerOn?'Timer 3 detik aktif':'Timer mati');}
+function togMirror(){mirrorOn=!mirrorOn;cMirror.classList.toggle('on',mirrorOn);vid.style.transform=mirrorOn?'scaleX(-1)':'scaleX(1)';}
 
-    // ===== Init =====
-    runChecks();
+/* ===== UTILS ===== */
+function toast(m){tE.textContent=m;tE.classList.add('show');clearTimeout(tE._t);tE._t=setTimeout(()=>tE.classList.remove('show'),1800);}
+function slp(ms){return new Promise(r=>setTimeout(r,ms));}
+
+/* ===== KEYBOARD ===== */
+document.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&stream){e.preventDefault();takeShot();}
+    if(e.code==='Escape')cModD();
+});
+
+/* ===== INIT ===== */
+runCks();
+setupLP();
 </script>
-
 </body>
 </html>
